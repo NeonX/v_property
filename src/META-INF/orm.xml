@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm">
+
+<!--
+	<named-native-query name="getTopicItems" result-class="aczept.webboard.TopicItem">
+		<query><![CDATA[
+			SELECT 
+				t.id, t.name, t.description,
+				t.userId, t.owner, p.username, 
+				COUNT(r.id) replyCount
+			FROM 
+				topic t LEFT OUTER JOIN reply r ON (t.id = r.topicId) 
+				LEFT OUTER JOIN person p ON (t.userId = p.id)   
+			GROUP BY 
+				t.id, t.name, t.description, 
+				t.userId, t.owner, p.username
+		]]>
+		</query>
+	</named-native-query>
+-->
+</entity-mappings>
+

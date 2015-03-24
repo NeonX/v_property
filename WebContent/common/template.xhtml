@@ -1,0 +1,84 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:ui="http://java.sun.com/jsf/facelets"
+           xmlns:h="http://java.sun.com/jsf/html"
+           xmlns:f="http://java.sun.com/jsf/core"
+           xmlns:rich="http://richfaces.org/rich"
+           xmlns:c="http://java.sun.com/jstl/core"
+           xmlns:a4j="http://richfaces.org/a4j" markupType="xhtml"
+           contentType="text/html" >
+
+
+		<meta name="author" content="Poyd"/>
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes"/>
+	
+		<title>Verawong Family</title>
+		
+		<a4j:loadScript src="/js/jquery-1.9.1.js"/>
+		
+		<a4j:loadScript src="/js/jquery.mmenu.min.all.js" />
+	    <a4j:loadScript src="/js/jquery-ui/jquery-ui-1.10.3.custom.min.js" />
+
+			
+		<a4j:loadStyle src="/css/mo_style.css"/>
+		<a4j:loadStyle src="/css/jquery.mmenu.all.css"/>
+		<a4j:loadStyle src="/css/jquery.mmenu.iconbar.css" />
+		<a4j:loadStyle src="/css/font-awesome.min.css"/>
+		
+
+		
+	
+	
+    
+		<script type="text/javascript">
+		
+
+			jQuery(function() {
+				jQuery("#menu")
+					.mmenu({
+					}).on(
+						'click',
+						'a[href^="#/"]',
+						function()
+						{
+							alert( "Thank you for clicking, but that's a demo link." );
+							return false;
+						}
+					);
+			});
+		</script>
+
+
+	
+		<div id="page">
+			<div class="header">
+				<a href="#menu"></a>
+				.:: Menu ::.
+			</div>
+			<div class="content">
+				<ui:insert name="content"></ui:insert>
+			</div>
+		</div>
+		
+		
+		<nav id="menu">
+			<ul>
+				<li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
+				<li><a href="#/about"><i class="fa fa-user"></i> About us</a>
+					<ul>
+						<li><a href="#/about/history">History</a></li>
+						<li><a href="#/about/team">The team</a>
+							<ul>
+								<li><a href="#/about/team/management">Management</a></li>
+								<li><a href="#/about/team/sales">Sales</a></li>
+								<li><a href="#/about/team/development">Development</a></li>
+							</ul>
+						</li>
+						<li><a href="#/about/address">Our address</a></li>
+					</ul>
+				</li>
+				<li><a href="#/contact"><i class="fa fa-envelope"></i> Contact</a></li>
+			</ul>
+		</nav>
+		
+
+</rich:page>

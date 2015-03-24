@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd">
+
+	<page view-id="/*" login-required="false"/>	
+	<page view-id="/property/*" bundle="messages_thai" action="#{authenticator.authenticate}" login-required="true"></page>
+	
+
+	<page view-id="/signin/index.xhtml">
+		<navigation from-action="#{identity.isLoggedIn}">
+			<rule if-outcome="true">
+				<redirect view-id="/property/index.xhtml" />
+			</rule>
+		</navigation>
+		<navigation>
+			<rule if="#{identity.loggedIn}">
+				<redirect view-id="/property/index.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+	
+	<page view-id="/logout.xhtml">
+		<action execute="#{identity.logout}" />
+	</page>
+	
+	<page view-id="*">
+		<navigation from-action="#{identity.logout}">
+		    <redirect view-id="/signin/index.xhtml" />
+		</navigation>
+	</page>
+	
+
+	<exception class="org.jboss.seam.security.NotLoggedInException">
+       <redirect view-id="/signin/index.xhtml">
+           <message>#{messages['org.jboss.seam.NotLoggedIn']}</message>
+       </redirect>
+    </exception>
+	
+	<exception class="javax.faces.application.ViewExpiredException"
+		log="true">
+		<end-conversation before-redirect="true" />
+		<redirect view-id="/signin/index.xhtml">
+			<message>Session was expired, please login again</message>
+		</redirect>
+	</exception>
+	
+	<exception class="org.jboss.seam.security.NotLoggedInException">
+		<redirect view-id="/signin/index.xhtml">
+			<message>You must be logged in to perform this action</message>
+		</redirect>
+	</exception>
+	<exception class="org.jboss.seam.security.AuthorizationException">
+		<end-conversation />
+		<redirect view-id="/security_error.xhtml">
+			<message>You do not have the necessary security privileges to perform this action.</message>
+		</redirect>
+	</exception>
+
+</pages>

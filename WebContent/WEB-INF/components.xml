@@ -1,0 +1,68 @@
+<?xml version="1.0"?> 
+<components xmlns="http://jboss.com/products/seam/components"
+	xmlns:core="http://jboss.com/products/seam/core" 
+	xmlns:persistence="http://jboss.com/products/seam/persistence"
+	xmlns:transaction="http://jboss.com/products/seam/transaction"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://jboss.com/products/seam/security"
+	xsi:schemaLocation="http://jboss.com/products/seam/core 
+		http://jboss.com/products/seam/core-2.1.xsd
+		http://jboss.com/products/seam/framework 
+		http://jboss.com/products/seam/framework-2.1.xsd
+		http://jboss.com/products/seam/pdf 
+		http://jboss.com/products/seam/pdf-2.1.xsd
+		http://jboss.com/products/seam/persistence 
+		http://jboss.com/products/seam/persistence-2.1.xsd 
+		http://jboss.com/products/seam/transaction 
+		http://jboss.com/products/seam/transaction-2.1.xsd
+		http://jboss.com/products/seam/web  /Users/orb/proj/jboss/seam/trunk/src/main/org/jboss/seam/web-2.1.xsd
+		http://jboss.com/products/seam/components 
+		http://jboss.com/products/seam/components-2.1.xsd
+		http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.1.xsd">
+		
+	<core:init debug="false" />
+
+	<core:manager concurrent-request-timeout="200000"
+		conversation-timeout="200000" conversation-id-parameter="cid"
+		parent-conversation-id-parameter="pid" />
+
+	<persistence:entity-manager-factory
+		name="emf" persistence-unit-name="default">
+		<persistence:persistence-unit-properties>
+			<!-- 
+		    <key>hibernate.connection.datasource</key>
+			<value>java:/comp/env/jdbc/oss</value>
+		     -->
+			
+			<key>hibernate.connection.driver_class</key>
+			<value>org.postgresql.Driver</value>
+
+			<key>hibernate.connection.url</key>
+			<value>jdbc:postgresql://172.16.9.222:5432/oss_real</value>
+
+			<key>hibernate.connection.username</key>
+			<value>postgres</value>
+
+			<key>hibernate.connection.password</key>
+			<value>PGpteadmin1234</value>
+		
+			
+		</persistence:persistence-unit-properties>
+	</persistence:entity-manager-factory>
+	
+	<persistence:managed-persistence-context
+		auto-create="true" entity-manager-factory="#{emf}" name="em" />
+
+	<transaction:entity-transaction entity-manager="#{em}" />
+	
+	<security:identity authenticate-method="#{authenticator.authenticate}"></security:identity>
+	
+	<!-- #### event tag, for after the user logs in, we want to automatically send them back where they came from #### -->
+	<event type="org.jboss.seam.security.notLoggedIn">
+	    <action execute="#{redirect.captureCurrentView}"/>
+	</event>
+	
+	<event type="org.jboss.seam.security.postAuthenticate">
+	    <action execute="#{redirect.returnToCapturedView}"/>
+	</event>
+</components>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	
+	<bean id="messageSourceUpload" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"><value>messages</value></property>
+        <property name="basenames">
+            <list>
+                <value>upload</value>
+                <value>webservice</value>
+            </list>
+        </property>
+    </bean>
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties"/>
+    </bean>
+	
+	<bean id="emf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="default"/>
+		<property name="jpaProperties">
+			<props>
+			    <!-- 
+			    <prop key="hibernate.connection.datasource" >java:/comp/env/jdbc/oss</prop>
+			     -->
+			 
+				<prop key="hibernate.dialect" >${hibernate.dialect}</prop>
+				<prop key="hibernate.connection.driver_class" >${jdbc.driverClassName}</prop>
+				<prop key="hibernate.connection.url">${jdbc.url}</prop>
+				<prop key="hibernate.connection.username" >${jdbc.username}</prop>
+				<prop key="hibernate.connection.password" >${jdbc.password}</prop>
+				
+				 
+				<prop key="hibernate.show_sql" >false</prop>
+				<prop key="hibernate.format_sql" >true</prop>
+				<!-- prop key="hibernate.hbm2ddl.auto">update</prop -->
+								
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf"/>
+	</bean>
+	
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref bean="txManager"/>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED</prop>
+				<prop key="merge">PROPAGATION_REQUIRED</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED</prop>
+				<prop key="do*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="autoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<value>*DAO</value>
+				<value>*Home</value>
+				<value>*Dao</value>
+				<value>*Service</value>
+			</list>
+		</property>
+	</bean>
+
+	<import resource="classpath:applicationBean.xml"/>
+	
+</beans>

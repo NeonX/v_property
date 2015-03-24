@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context crossContext="true" debug="5" path="/oss" reloadable="true" docBase="oss">
+		<Resource 
+			name="jdbc/oss" 
+			auth="Container" 
+			type="javax.sql.DataSource" 
+			driverClassName="org.postgresql.Driver" 
+			url="jdbc:postgresql://localhost:5432/oss_db"
+			username="postgres" 
+			password="PGpteadmin1234" 
+			maxActive="100" 
+			maxIdle="80"/>
+</Context>
