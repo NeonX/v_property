@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/common/template.xhtml">
+
+                
+	<ui:define name="content">
+		<a4j:loadScript src="http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false&amp;language=th"/>
+		
+		<a4j:loadScript src="/gis/libs/ext/adapter/ext/ext-base.js"/>
+		<a4j:loadScript src="/gis/libs/ext/ext-all.js"/>
+		<a4j:loadScript src="/gis/libs/ext/examples/ux/statusbar/StatusBar.js"/>
+		<a4j:loadStyle src="/gis/libs/ext/resources/css/ext-all.css" />
+		<a4j:loadStyle src="/gis/styles/style.css" />
+		
+		<a4j:loadScript src="/gis/libs/OpenLayers/OpenLayers.js"/>
+		   
+		<a4j:loadScript src="/gis/libs/GeoExt/lib/GeoExt.js"/>
+		
+		<a4j:loadScript src="/gis/js/custom.js"/>
+		<a4j:loadScript src="/gis/js/ogis_mapme.js"/>
+
+		
+	
+		<div id="view"></div>
+	</ui:define>
+
+</ui:composition>
