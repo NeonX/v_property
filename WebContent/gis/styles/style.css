@@ -1,0 +1,31 @@
+.icon-zoom-extent {
+    background-image: url("../images/png-icons/globe-16x16.png");
+}
+
+.icon-history-previous {
+    background-image: url("../images/png-icons/arrow-left-16x16.png");
+}
+
+.icon-history-next {
+    background-image: url("../images/png-icons/arrow-right-16x16.png");
+}
+
+.icon-pan {
+    background-image: url("../images/png-icons/arrow-move-16x16.png");
+}
+
+.icon-zoom-rect {
+    background-image: url("../images/png-icons/map-zoom-16x16.png");
+}
+
+.icon-identify {
+    background-image: url("../images/png-icons/information-16x16.png");
+}
+
+.icon-draw-line {
+    background-image: url("../images/png-icons/shape-line-16x16.png");
+}
+
+.icon-save {
+    background-image: url("../images/png-icons/save-16x16.png");
+}
