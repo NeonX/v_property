@@ -1,0 +1,13 @@
+.gx-layertreebuilder-legend {
+    padding-left: 26px;
+}
+.gx-layertreebuilder-legend label {
+    display: none;
+}
+.x-tree-node-el {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+}
+.gx-tree-layer-icon {
+    display: none;
+}
