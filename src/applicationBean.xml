@@ -12,7 +12,6 @@
 
 
 	<bean id="sysUserDao" class="com.vp.dao.SysUserDao"/>
-	<bean id="unitDao" class="com.vp.dao.UnitDao"/>
 
 	<!-- ############## History  DAO ############## -->
 	<bean id="historyUserDao" class="com.vp.dao.HistoryUserDao"/>
