@@ -18,7 +18,8 @@
 		http://jboss.com/products/seam/web  /Users/orb/proj/jboss/seam/trunk/src/main/org/jboss/seam/web-2.1.xsd
 		http://jboss.com/products/seam/components 
 		http://jboss.com/products/seam/components-2.1.xsd
-		http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.1.xsd">
+		http://jboss.com/products/seam/security 
+		http://jboss.com/products/seam/security-2.1.xsd">
 		
 	<core:init debug="false" />
 
