@@ -39,13 +39,13 @@
 			<value>org.postgresql.Driver</value>
 
 			<key>hibernate.connection.url</key>
-			<value>jdbc:postgresql://103.27.201.148:5432/vprop_db</value>
+			<value>jdbc:postgresql://localhost:5432/vprop_db</value>
 
 			<key>hibernate.connection.username</key>
 			<value>postgres</value>
 
 			<key>hibernate.connection.password</key>
-			<value>pgveraadmin1234</value>
+			<value>password</value>
 		
 			
 		</persistence:persistence-unit-properties>
