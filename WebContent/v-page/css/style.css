@@ -134,7 +134,7 @@ header {
 }
 #logo {
 	display:block;
-	background:url(../images/logo.png) 0 0 no-repeat;
+	background:url(../images/vlogo.png) 0 0 no-repeat;
 	width:146px;
 	height:83px;
 	text-indent:-9999px
@@ -484,7 +484,7 @@ footer {
 	line-height:1.2em;
 	text-decoration:none;
 	letter-spacing:-3px;
-	margin-left:-4px
+	margin-left:0px
 }
 #footer_logo span {
 	color:#ffc11e

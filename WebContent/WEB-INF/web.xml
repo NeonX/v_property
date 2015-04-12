@@ -82,6 +82,15 @@
     <servlet-name>Seam Resource Servlet</servlet-name>
     <url-pattern>/seam/resource/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+		<servlet-name>StreamImageServlet</servlet-name>
+		<servlet-class>com.vp.web.StreamImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StreamImageServlet</servlet-name>
+		<url-pattern>/imagex</url-pattern>
+	</servlet-mapping>
 
   <session-config>
     <session-timeout>90</session-timeout>
