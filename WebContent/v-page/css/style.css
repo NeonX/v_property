@@ -612,3 +612,20 @@ footer nav {
 	font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	height:91px
 }
+
+.panContent{
+	background: #FFFFFF;
+	padding: 20px;
+
+    border-top-left-radius: 30px;
+    -moz-border-radius-topleft: 30px;
+
+	border-top-right-radius: 30px;
+    -moz-border-radius-topright: 30px;
+
+    border-bottom-left-radius: 30px;
+    -moz-border-radius-bottomleft: 30px;
+    
+    border-bottom-right-radius: 30px;
+    -moz-border-radius-bottomright: 30px;
+}

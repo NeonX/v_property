@@ -83,9 +83,30 @@
 			  <article id="content">
 			    <div class="wrapper">
 			      <div class="box1">
-			      	Today, family mottos are frequently adapted to promote civility, strength in the face of adversity and basic morals and values that help adults and children make good decisions when faced with difficult choices. Good family mottos should be powerful, brief and clear.
-
-The slogans are usually short and to the point so young children can remember and understand them as well as use them to encourage good behavior and choices. For instance, if your family believes in the power of determination and patience, you might consider mottos like, "Nothing Good Happens Fast," "Onward and Upward" or "Quitters Never Win." To personalize the motto, you can simply go with a phrase like, "Smiths Are Not Quitters" or "Thompsons Try and Try Again." Before sitting down with your family to come up with one that everyone deems ideal, consider some example mottos to help steer you in the right direction.
+			      	<div id="pn_content" class="panContent">
+			      		<h:form id="frmCont">
+							<h:panelGroup id="pnEdit" rendered="#{contHomeMng.editMode}">
+								<rich:editor  id="editor" width="800" height="300" theme="advanced"
+				                    viewMode="tinyMCE WYSIWYG" value="#{contHomeMng.content.content}" useSeamText="false">
+				                    <a4j:support disabled="true" event="onchange" reRender="result" ajaxSingle="true" requestDelay="1000"  />
+				                </rich:editor>
+				                <a4j:commandButton value="บันทึก" action="#{contHomeMng.doSaveContent}" reRender="frmCont"/>
+				                
+						      	<br/>
+						    </h:panelGroup> 
+						    <h:panelGroup id="pnDisplay" rendered="#{!contHomeMng.editMode}">
+							    <h:outputText value="#{contHomeMng.content.header}"  id="head" style="font-weight: bolder; font-size: medium;" />
+						
+							    <a4j:commandButton image="../imgs/edit.png" title="edit" style="float: right;"
+										action="#{contHomeMng.doChangeMode}" reRender="frmCont"/>
+							    
+							    <div style="text-align: center;">  	
+							    	<img src="images/vimg1.jpg" style="width: 500px; margin-top: 10px; margin-bottom: 20px;"/>
+							    </div>  	
+							    <h:outputText value="#{contHomeMng.content.content}" escape="false" id="result" style="font: 14px Trebuchet MS, Arial, Helvetica, sans-serif;" />   
+						    </h:panelGroup> 
+					    </h:form >		
+			        </div>    
 			      	
 			        <div class="line1">
 			          <div class="line2 wrapper">
