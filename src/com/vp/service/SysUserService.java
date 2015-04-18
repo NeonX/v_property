@@ -8,6 +8,10 @@ import com.vp.utils.CommonType;
 
 public class SysUserService {
 	private SysUserDao sysUserDao;
+	
+	public Object[] getAuthen(String user, String pwd) {
+		return sysUserDao.getAuthen(user, pwd);
+	}
 
 	public List<SysUser> getByLimitAndOffset(String sql,Integer limit,Integer offsets ,String fildCriteria,CommonType pteType){
 		return sysUserDao.getByLimitAndOffset(sql, limit, offsets, fildCriteria, pteType);

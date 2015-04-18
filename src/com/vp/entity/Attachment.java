@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="attachment")
@@ -29,6 +30,9 @@ public class Attachment {
 	@Column(name="attach_order")
 	private Integer attachOrder;
 
+	@Column(name="attach_group")
+	private String attachGroup;
+	
 	@Column(name="attach_type")
 	private String attachType;
 
@@ -52,6 +56,12 @@ public class Attachment {
 
 	@Column(name="update_date")
 	private Timestamp updateDate;
+	
+	@Transient
+	private String url;
+	
+	@Transient
+	private String urlThumb;
 
     public Attachment() {
     }
@@ -150,6 +160,30 @@ public class Attachment {
 
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getAttachGroup() {
+		return attachGroup;
+	}
+
+	public void setAttachGroup(String attachGroup) {
+		this.attachGroup = attachGroup;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUrlThumb() {
+		return urlThumb;
+	}
+
+	public void setUrlThumb(String urlThumb) {
+		this.urlThumb = urlThumb;
 	}
 	
 	

@@ -36,7 +36,8 @@
 			</div>
 			
 			<!-- form -->
-			<h:form styleClass="form">
+			<h:form id="login_frm" styleClass="form">
+			
 				<ul>
 					<li>
 						 <label><img src="images/contact.png" alt=""/></label>
@@ -46,8 +47,11 @@
 						 <label><img src="images/lock.png" alt=""/></label>
 						 <h:inputSecret id="password" value="#{credentials.password}" />	         
 					 </li>
-					 <p>
+					<p> 
+						<h:messages for="login_frm"/>
+						<!-- 
 					 	<a href="#">Forgot Username or Password?</a>
+					 	 -->
 					 </p>
 					 <li class="style">
 					 	<a4j:commandButton value="Submit" action="#{identity.login}"/>

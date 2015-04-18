@@ -13,12 +13,14 @@
 
 	<bean id="sysUserDao" class="com.vp.dao.SysUserDao"/>
 	<bean id="contentDao" class="com.vp.dao.ContentDao"/>
+	<bean id="attachmentDao" class="com.vp.dao.AttachmentDao"/>
 	
 
 	<!-- ############## History  DAO ############## -->
 	<bean id="historyUserDao" class="com.vp.dao.HistoryUserDao"/>
 	 
 	<!-- ############## Services Bean ############## -->
+	<bean id="attachmentService" class="com.vp.service.AttachmentService" autowire="byName"/>
 	<bean id="contentService" class="com.vp.service.ContentService" autowire="byName"/>
 	<bean id="sysUserService" class="com.vp.service.SysUserService" autowire="byName"/>
 	<bean id="historyUserService" class="com.vp.service.HistoryUserService" autowire="byName"/>

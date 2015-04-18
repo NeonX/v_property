@@ -117,5 +117,17 @@ public class SysUserDao extends AbstractGenericDao<SysUser, String> {
         return q.getResultList();
 
     }
+    
+    public Object[] getAuthen(String user, String pwd) {
+        String sql = "SELECT firstname, lastname, permission_level from sysuser where username = '"+user+"' and \"password\" = md5('"+pwd+"') ";
+        Query q = getEntityManager().createNativeQuery(sql);
+        List<Object[]> list =  q.getResultList();
+        if(list!=null && list.size()>0){
+        	return list.get(0);
+        }
+        
+        return null;
+
+    }
 	
 }

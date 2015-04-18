@@ -20,13 +20,32 @@ public class StreamImageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String srcPath = request.getParameter("srcPath");
-		TestImage ti = new TestImage(srcPath, 264, 104); 
-		String thumpPath = ti.processThumpnail();
+		String toThumb = request.getParameter("toThumb");
+		String wi   = request.getParameter("wi");
+		String hi   = request.getParameter("hi");
+		boolean isThumb = false;
+		int width = 100;
+		int height = 100;
+		if(toThumb!=null && !("".equals(toThumb))){
+			isThumb = Boolean.parseBoolean(toThumb);
+		}
+		if(wi!=null && !("".equals(wi))){
+			width = Integer.parseInt(wi);
+		}
+		if(hi!=null && !("".equals(hi))){
+			height = Integer.parseInt(hi);
+		}
+		
+		
+		if(isThumb){
+			TestImage ti = new TestImage(srcPath, width, height); 
+			srcPath = ti.processThumpnail();
+		}
 
 		response.setContentType("image/jpeg");
 
 		//String pathToWeb = getServletContext().getRealPath(File.separator);
-		File f = new File(thumpPath);
+		File f = new File(srcPath);
 		BufferedImage bi = ImageIO.read(f);
 		OutputStream out = response.getOutputStream();
 		ImageIO.write(bi, "jpg", out);

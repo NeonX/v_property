@@ -53,12 +53,17 @@ public class TestImage {
 			  int height = image.getHeight();
 
 		
-			  boolean isHori = width > height;
+			  boolean isHori = width >= height;
 
 
-			  image.setWidth(targetW);
-			  image.saveAs("d:/thAll.jpg");
+			  //image.setWidth(targetW);
+			  double hi = ((double)height/(double)width)*targetH;
+			  image.setHeight((int) hi);
+			  //image.saveAs("d:/thAll.jpg");
 			  if(isHori){
+				  if(targetH > image.getHeight()){
+					  targetH = image.getHeight();
+				  }
 				  image.crop(0,0,targetW,targetH);
 			  }else{
 				  image.crop(0,targetH,targetW,targetH);
@@ -101,7 +106,7 @@ public class TestImage {
 	
 	public static void main(String[] args) {
 		//TestImage ti = new TestImage("D:/IMG_3186.JPG"); 
-		TestImage ti = new TestImage("D:/IMG_0156.JPG", 264, 104); 
+		TestImage ti = new TestImage("D:\\attach_home\\CONTENT\\10\\IMAGE\\IMG_6006.JPG", 60, 60); 
 		
 		ti.processThumpnail();
 

@@ -5,6 +5,9 @@
 
 	<page view-id="/*" login-required="false"/>	
 	<page view-id="/property/*" bundle="messages_thai" action="#{authenticator.authenticate}" login-required="true"></page>
+	<page view-id="/contract/*" bundle="messages_thai" action="#{authenticator.authenticate}" login-required="true"></page>
+	<page view-id="/gis/*" bundle="messages_thai" action="#{authenticator.authenticate}" login-required="true"></page>
+	<page view-id="/common/*" bundle="messages_thai" action="#{authenticator.authenticate}" login-required="true"></page>
 	
 
 	<page view-id="/signin/index.xhtml">
@@ -46,7 +49,7 @@
 	</exception>
 	
 	<exception class="org.jboss.seam.security.NotLoggedInException">
-		<redirect view-id="/signin/index.xhtml">
+		<redirect view-id="/signin/index.xhtml?do=false">
 			<message>You must be logged in to perform this action</message>
 		</redirect>
 	</exception>
