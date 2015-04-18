@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="template.xhtml">
+	     
+	<ui:define name="content">
+		
+		<a4j:loadStyle src="inc/fancybox/jquery.fancybox.css"/>
+		<a4j:loadStyle src="inc/gallery.css"/>
+		
+	
+		<div class="wrapper">
+	      <div class="box1">
+	      	<div id="pn_content" class="panContent">
+	      		<div class="photos">
+				
+					<div class="thumbnail_wrap">
+	
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\DSC00605.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\DSC00605.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\DSC00628.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\DSC00628.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6006.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6006.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6094.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6094.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6116.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6116.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6671.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6671.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6704.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6704.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6706.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6706.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6707.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6707.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6822.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6822.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6832.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_6832.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_7052.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_7052.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_7084.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_7084.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_7114.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_7114.JPG&amp;toThumb=true" /></a>
+<a href="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_9701.JPG" class="thumbnail"><img src="#{webUtils.getContextApp()}/imagex?srcPath=D:\attach_home\IMG_9701.JPG&amp;toThumb=true" /></a>
+
+		      		</div><!-- .thumbnail_wrap end -->
+	
+				</div><!-- .photos end -->
+	      		
+	        </div>    
+	      </div>
+	    </div>
+	    
+	    <a4j:loadScript src="http://code.jquery.com/jquery-1.10.2.js"/>
+	    <script type="text/javascript">
+			var jQuery = $.noConflict(true);
+		</script>
+		<a4j:loadScript src="inc/fancybox/jquery.fancybox.js"/>
+		<a4j:loadScript src="inc/gallery.js"/>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,176 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:ui="http://java.sun.com/jsf/facelets"
+           xmlns:h="http://java.sun.com/jsf/html"
+           xmlns:f="http://java.sun.com/jsf/core"
+           xmlns:rich="http://richfaces.org/rich"
+           xmlns:c="http://java.sun.com/jstl/core"
+           xmlns:a4j="http://richfaces.org/a4j" markupType="xhtml"
+           contentType="text/html" >
+           
+	<title>V-Property</title>
+	
+	
+	
+	<a4j:loadStyle src="css/reset.css" rel="stylesheet"/>
+	<a4j:loadStyle src="css/layout.css" rel="stylesheet"/>
+	<a4j:loadStyle src="css/style.css" rel="stylesheet"/>
+		
+	<a4j:loadScript src="js/jquery-1.6.js" />
+
+
+	<a4j:loadScript src="js/jquery.easing.1.3.js" />
+	<a4j:loadScript src="js/tms-0.3.js" />
+	<a4j:loadScript src="js/tms_presets.js" />
+	<a4j:loadScript src="js/backgroundPosition.js" />
+	<a4j:loadScript src="js/atooltip.jquery.js" />
+	<a4j:loadScript src="js/script.js" />
+	
+		<script>
+			function getParameterByName(name) {
+			    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			    var regex = new RegExp("[\\?&amp;]" + name + "=([^&amp;#]*)"),
+			        results = regex.exec(location.search);
+			    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
+		
+			$( document ).ready(function() {
+				var mIdx = getParameterByName('act');
+				if(mIdx == ''){
+					mIdx = 0;
+				}
+				$('#menu li').get(mIdx).id = "menu_active";
+			});
+		</script>
+	
+		<div class="body1">
+			<div class="main">
+			  <!-- header -->
+			  <header>
+			    <div class="wrapper">
+			      <h1><a href="index.html" id="logo">VRW Family</a></h1>
+			      <nav>
+			        <ul id="top_nav">
+			          <li><a href="index.html"><img src="images/top_icon1.gif" alt=""/></a></li>
+			          <li><a href="#"><img src="images/top_icon2.gif" alt=""/></a></li>
+			          <li class="end"><a href="contact.html"><img src="images/top_icon3.gif" alt=""/></a></li>
+			        </ul>
+			      </nav>
+			      <nav>
+			        <ul id="menu">
+			          <li id=""><a href="index.html?act=0">Home</a></li>
+			          <li id=""><a href="mission.html?act=1">Our Activities</a></li>
+			          <li id=""><a href="gallery.html?act=2">Gallery</a></li>
+			          <li id=""><a href="../signin/index.html">Management</a></li>
+			        </ul>
+			      </nav>
+			    </div>
+			    <div class="slider">
+			      <ul class="items">
+			        <li> <img src="images/vimg1.jpg" alt=""/>
+			          <div class="banner">
+			            <div class="wrapper"><span>“TOGETHER we can CHANGE</span></div>
+			            <div class="wrapper"><strong>Many Young LIVES”</strong></div>
+			          </div>
+			        </li>
+			        <li> <img src="images/vimg2.jpg" alt=""/>
+			          <div class="banner">
+			            <div class="wrapper"><span>“MAKE all the CHILDREN</span></div>
+			            <div class="wrapper"><strong>of the World HAPPY”</strong></div>
+			          </div>
+			        </li>
+			        <li> <img src="images/vimg3.jpg" alt=""/>
+			          <div class="banner">
+			            <div class="wrapper"><span>“TOGETHER we can CHANGE</span></div>
+			            <div class="wrapper"><strong>Many Young LIVES”</strong></div>
+			          </div>
+			        </li>
+			      </ul>
+			      <ul class="pagination">
+			        <li id="banner1"><a href="#">Live<span>Together</span></a></li>
+			        <li id="banner2"><a href="#">Look<span>future</span></a></li>
+			        <li id="banner3"><a href="#">Love<span>Family</span></a></li>
+			      </ul>
+			    </div>
+			  </header>
+			  <!-- / header -->
+			  <!-- content -->
+			  <article id="content">
+				<ui:insert name="content"></ui:insert>
+			  </article>
+			  <!-- / content -->
+			  <!-- footer -->
+			  <footer>
+			    <div class="wrapper"> <a href="index.html" id="footer_logo"><span>VRW</span>Family</a>
+			      <ul id="icons">
+			        <li><a href="#" class="normaltip"><img src="images/icon1.gif" alt=""/></a></li>
+			        <li><a href="#" class="normaltip"><img src="images/icon2.gif" alt=""/></a></li>
+			        <li><a href="#" class="normaltip"><img src="images/icon3.gif" alt=""/></a></li>
+			      </ul>
+			    </div>
+			    <div class="wrapper">
+			      <nav>
+			        <ul id="footer_menu">
+			          <li class="active"><a href="index.html">Home</a></li>
+			          <li><a href="mission.html">Our Activities</a></li>
+			          <li><a href="news.html">Gallery</a></li>
+			          <li><a href="help.html">Management</a></li>
+			        </ul>
+			      </nav>
+			      <div class="tel"><span>+66 86</span> 670 21 77</div>
+			    </div>
+			    <div id="footer_text">Copyright &#169; <a href="#">Verawong</a> All Rights Reserved<br/>
+			      Develope by <a target="_blank" href="#">Power Puff Team</a></div>
+			  </footer>
+			  <!-- / footer -->
+			  </div>
+			</div>
+			
+			
+			<script type="text/javascript">
+				$(window).load(function () {
+				    $('.slider')._TMS({
+				        preset: 'zabor',
+				        easing: 'easeOutQuad',
+				        duration: 800,
+				        pagination: true,
+				        banners: true,
+				        waitBannerAnimation: false,
+				        slideshow: 6000,
+				        bannerShow: function (banner) {
+				            banner.css({
+				                right: '-700px'
+				            }).stop().animate({
+				                right: '0'
+				            }, 600, 'easeOutExpo')
+				        },
+				        bannerHide: function (banner) {
+				            banner.stop().animate({
+				                right: '-700'
+				            }, 600, 'easeOutExpo')
+				        }
+				    })
+				    $('.pagination li').hover(function () {
+				        if (!$(this).hasClass('current')) {
+				            $(this).find('a').stop().animate({
+				                backgroundPosition: '0 0'
+				            }, 600, 'easeOutExpo', function () {
+				                $(this).parent().css({
+				                    backgroundPosition: '-20px 0'
+				                })
+				            });
+				        }
+				    }, function () {
+				        if (!$(this).hasClass('current')) {
+				            $(this).css({
+				                backgroundPosition: '0 0'
+				            }).find('a').stop().animate({
+				                backgroundPosition: '-250px 0'
+				            }, 600, 'easeOutExpo');
+				        }
+				    })
+				})
+			</script>
+	
+	
+
+</rich:page>
