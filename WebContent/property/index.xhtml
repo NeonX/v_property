@@ -11,7 +11,72 @@
 
                 
 	<ui:define name="content">
-		INDEX PROPERTY
+		<h:form id="frm_land_list">
+			
+			<h:panelGrid id="searchPanel" columns="11">
+				<h:outputText value="ค้นหา" style="font-size:13px;"/>
+				<h:outputText value="ชื่อเจ้าของกรรมสิทธิ์" style="font-size:13px;font-weight:bold;"/>
+				<h:inputText id="search_input" value="" />
+			
+				<a4j:commandButton value="Search" />
+				<rich:spacer width="10"/>
+				
+			</h:panelGrid>
+			
+
+			<a4j:commandButton value="+ New" action="#{landMng.doAddEditData(0)}" style="margin:10px 0px 10px 0px;"/>
+			
+
+			
+			<rich:dataTable rows="10" id="dataList" value="#{contrListMng.contList}" var="cont"
+				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,24%,16%,10%,10%,10%,10%"
+				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+                   
+				<rich:column style="text-align:center;">
+					<f:facet name="header">
+						<h:outputText value="ลำดับที่" />
+					</f:facet>
+					<h:outputText value="-" />
+				</rich:column>
+				<rich:column style="text-align:center;">
+					<f:facet name="header">
+						<h:outputText value="เลขที่โฉนด" />
+					</f:facet>
+					<h:outputText value="-" />
+				</rich:column>
+				<rich:column style="text-algn:center;">
+					<f:facet name="header">
+						<h:outputText value="ที่ตั้ง" />
+					</f:facet>
+					<h:outputText value="-" />
+				</rich:column>
+				<rich:column style="text-algn:center;">
+					<f:facet name="header">
+						<h:outputText value="พื่นที่" />
+					</f:facet>
+					<h:outputText value="-" />
+				</rich:column> 
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="เจ้าของกรรมสิทธิ์"/>
+					</f:facet>
+					<h:outputText value="-" />
+				</rich:column>
+				<rich:column style="text-align:center;background-color:#DDFFFF;">
+					<f:facet name="header">
+						<h:outputText value="ดำเนินการ" />
+					</f:facet>
+					<h:outputText value="-" />
+				</rich:column>
+				
+				<f:facet name="footer">
+					<rich:datascroller></rich:datascroller>
+				</f:facet>		
+			</rich:dataTable>
+
+		</h:form>
+
 	</ui:define>
 
 </ui:composition>
