@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/common/template.xhtml">
+
+    <ui:define name="content">      
+			<rich:tabPanel id="land_pab" switchType="client">
+				 
+				<rich:tab label="ข้อมูลที่ดิน">
+			        	<ui:include src="land_information.xhtml"></ui:include>
+						
+				</rich:tab>
+				<rich:tab label="พื่นที่แบ่งเช่า">
+			        	<ui:include src="land_pensions.xhtml"></ui:include>
+				</rich:tab>
+				<rich:tab label="เอกสารแนบ">
+			        	ยังไม่มา 
+				</rich:tab>
+				<rich:tab label="แผนที่">
+						ยังไม่มา
+				</rich:tab>
+		    </rich:tabPanel>
+			
+	</ui:define>
+
+</ui:composition>
