@@ -23,10 +23,6 @@ public class Owner implements Serializable {
 
 	private String phone;
 
-	//bi-directional many-to-one association to Posession
-	@OneToMany(mappedBy="owner")
-	private Set<Posession> posessions;
-
     public Owner() {
     }
 
@@ -62,12 +58,4 @@ public class Owner implements Serializable {
 		this.phone = phone;
 	}
 
-	public Set<Posession> getPosessions() {
-		return this.posessions;
-	}
-
-	public void setPosessions(Set<Posession> posessions) {
-		this.posessions = posessions;
-	}
-	
 }

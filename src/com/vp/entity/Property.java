@@ -1,10 +1,15 @@
 package com.vp.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
 import java.sql.Timestamp;
-import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 /**
@@ -39,26 +44,6 @@ public class Property implements Serializable {
 
 	@Column(name="prop_desc")
 	private String propDesc;
-
-	//bi-directional many-to-one association to Contract
-	@OneToMany(mappedBy="property")
-	private Set<Contract> contracts;
-
-	//bi-directional many-to-one association to CostEstimate
-	@OneToMany(mappedBy="property")
-	private Set<CostEstimate> costEstimates;
-
-	//bi-directional many-to-one association to CostForSale
-	@OneToMany(mappedBy="property")
-	private Set<CostForSale> costForSales;
-
-	//bi-directional many-to-one association to PlotRent
-	@OneToMany(mappedBy="property")
-	private Set<PlotRent> plotRents;
-
-	//bi-directional many-to-one association to Posession
-	@OneToMany(mappedBy="property")
-	private Set<Posession> posessions;
 
     public Property() {
     }
@@ -119,44 +104,4 @@ public class Property implements Serializable {
 		this.propDesc = propDesc;
 	}
 
-	public Set<Contract> getContracts() {
-		return this.contracts;
-	}
-
-	public void setContracts(Set<Contract> contracts) {
-		this.contracts = contracts;
-	}
-	
-	public Set<CostEstimate> getCostEstimates() {
-		return this.costEstimates;
-	}
-
-	public void setCostEstimates(Set<CostEstimate> costEstimates) {
-		this.costEstimates = costEstimates;
-	}
-	
-	public Set<CostForSale> getCostForSales() {
-		return this.costForSales;
-	}
-
-	public void setCostForSales(Set<CostForSale> costForSales) {
-		this.costForSales = costForSales;
-	}
-	
-	public Set<PlotRent> getPlotRents() {
-		return this.plotRents;
-	}
-
-	public void setPlotRents(Set<PlotRent> plotRents) {
-		this.plotRents = plotRents;
-	}
-	
-	public Set<Posession> getPosessions() {
-		return this.posessions;
-	}
-
-	public void setPosessions(Set<Posession> posessions) {
-		this.posessions = posessions;
-	}
-	
 }

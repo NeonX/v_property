@@ -49,10 +49,6 @@ public class Contract {
 	@JoinColumn(name="ppt_id")
 	private Property property;
 
-	//bi-directional many-to-one association to ContractPlot
-	@OneToMany(mappedBy="contract")
-	private Set<ContractPlot> contractPlots;
-
     public Contract() {
     }
 
@@ -127,12 +123,5 @@ public class Contract {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
-	
-	public Set<ContractPlot> getContractPlots() {
-		return this.contractPlots;
-	}
 
-	public void setContractPlots(Set<ContractPlot> contractPlots) {
-		this.contractPlots = contractPlots;
-	}
 }
