@@ -167,7 +167,8 @@
             	</f:facet>
 		        <h:panelGroup columns="2" width="100%" style="align:center">
 		               <h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
-		               <h:inputText id="estimation_rate_date" value=""></h:inputText>
+		               <rich:calendar value="" id="estimation_date" cellWidth="24px" cellHeight="22px" style="width:200px">
+            			</rich:calendar>
 		               <h:outputText value="ราคาประเมิน : "></h:outputText>
 		               <h:inputText id="estimation_rate_price" value=""></h:inputText>
 		               <h:outputText value="บาท/ตรว. : "></h:outputText>
@@ -187,6 +188,8 @@
             	</f:facet>
 		        <h:panelGroup columns="2" width="100%" style="align:center">
 		               <h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
+		              <rich:calendar value="" id="expect_date" cellWidth="24px" cellHeight="22px" style="width:200px">
+            			</rich:calendar>
 		               <h:inputText id="expect_rate_date" value=""></h:inputText>
 		               <h:outputText value="ราคาที่คาดว่าจะซื้อขาย : "></h:outputText>
 		               <h:inputText id="expect_rate_price" value=""></h:inputText>

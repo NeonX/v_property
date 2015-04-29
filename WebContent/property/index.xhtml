@@ -24,11 +24,9 @@
 			</h:panelGrid>
 			
 
-			<a4j:commandButton value="+ New" action="#{landMng.doAddEditData(0)}" style="margin:10px 0px 10px 0px;"/>
+			<a4j:commandButton value="+ New" action="#{propertyMng.doAddEditData(0)}" style="margin:10px 0px 10px 0px;"/>
 			
-
-			
-			<rich:dataTable rows="10" id="dataList" value="#{contrListMng.contList}" var="cont"
+			<rich:dataTable rows="10" id="dataList" value="#{propertyMng.propertyList}" var="cont"
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,24%,16%,10%,10%,10%,10%"
 				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
