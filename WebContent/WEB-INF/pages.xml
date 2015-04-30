@@ -13,12 +13,12 @@
 	<page view-id="/signin/index.xhtml">
 		<navigation from-action="#{identity.isLoggedIn}">
 			<rule if-outcome="true">
-				<redirect view-id="/property/index.xhtml" />
+				<redirect view-id="/index.xhtml" />
 			</rule>
 		</navigation>
 		<navigation>
 			<rule if="#{identity.loggedIn}">
-				<redirect view-id="/property/index.xhtml" />
+				<redirect view-id="/index.xhtml" />
 			</rule>
 		</navigation>
 	</page>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import com.vp.entity.Contract;
+import com.vp.utils.AppUtils;
 
 public class ContractDao extends AbstractGenericDao<Contract, Integer>{
 	
@@ -16,6 +17,24 @@ public class ContractDao extends AbstractGenericDao<Contract, Integer>{
 	public List<Contract> getContractByProperty(Integer ppt_id){
 		try{
 			String hql = " FROM Contract WHERE 1=1 and property.pptId="+ppt_id;
+			
+			Query q = getEntityManager().createQuery(hql);
+			return q.getResultList();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Contract> getContractListByCond(String cond){
+		try{
+			String hql = " FROM Contract WHERE 1=1 ";
+			if(!AppUtils.isNullOrEmpty(cond)){
+				hql += cond;
+			}
 			
 			Query q = getEntityManager().createQuery(hql);
 			return q.getResultList();

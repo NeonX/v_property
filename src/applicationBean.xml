@@ -14,6 +14,11 @@
 	<bean id="sysUserDao" class="com.vp.dao.SysUserDao"/>
 	<bean id="contentDao" class="com.vp.dao.ContentDao"/>
 	<bean id="attachmentDao" class="com.vp.dao.AttachmentDao"/>
+	<bean id="ContractDao" class="com.vp.dao.ContractDao"/>
+	<bean id="propertyDao" class="com.vp.dao.PropertyDao"/>
+	<bean id="posessionDao" class="com.vp.dao.PosessionDao"/>
+	<bean id="costEstimateDao" class="com.vp.dao.CostEstimateDao"/>
+	<bean id="costForSaleDao" class="com.vp.dao.CostForSaleDao"/>
 	
 
 	<!-- ############## History  DAO ############## -->
