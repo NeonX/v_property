@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vprop.TestImage;
-
 public class StreamImageServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -38,8 +36,8 @@ public class StreamImageServlet extends HttpServlet {
 		
 		
 		if(isThumb){
-			TestImage ti = new TestImage(srcPath, width, height); 
-			srcPath = ti.processThumpnail();
+//			TestImage ti = new TestImage(srcPath, width, height); 
+//			srcPath = ti.processThumpnail();
 		}
 
 		response.setContentType("image/jpeg");
