@@ -5,7 +5,6 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.security.Credentials;
-import org.springframework.context.support.ResourceBundleMessageSource;
 
 import com.vp.service.SysUserService;
 import com.vp.web.AbstractBackingBean;
@@ -13,7 +12,7 @@ import com.vp.web.AbstractBackingBean;
 @Name("authenticator")
 public class Authenticator extends AbstractBackingBean<Authenticator> {
 
-    private ResourceBundleMessageSource msgSrc = (ResourceBundleMessageSource) getContextBackingBean().getBean("messageSourceUpload");
+//    private ResourceBundleMessageSource msgSrc = (ResourceBundleMessageSource) getContextBackingBean().getBean("messageSourceUpload");
 	private SysUserService sysUserService = (SysUserService)getContextBackingBean().getBean("sysUserService");
 	
     @In
@@ -38,17 +37,13 @@ public class Authenticator extends AbstractBackingBean<Authenticator> {
 			String username = credentials.getUsername();
 			String password = credentials.getPassword();
 			Boolean authenSuccess = false;
-			System.out.println("username : "+username+", pass : "+password);
+			
 			Object[] authenResult = sysUserService.getAuthen(username, password);
-			System.out.println("authenResult : "+authenResult);
 			if(authenResult != null){
 				
 				authenSuccess = true;
 				urName = authenResult[0]+" "+authenResult[1];
 				Integer level = Integer.parseInt(authenResult[2].toString());
-				
-				System.out.println("urName : "+urName);
-				System.out.println("level : "+level);
 				
 				if(level==0){
 					identity.addRole("ADMIN");
