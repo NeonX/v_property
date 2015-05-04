@@ -30,37 +30,50 @@ Ext.onReady(function(){
 				numZoomLevels	: 19,
 				maxResolution   : 4891.969809375,
 				isBaseLayer		: true
-			})
+			}),
+			new OpenLayers.Layer.WMS("พื้นที่แบ่งเช่า",
+                    "http://wms.jpl.nasa.gov/wms.cgi",
+                    {
+						layers: "modis,global_mosaic",
+						transparent: true,
+	                    format: "image/png"
+                    },{
+                    	isBaseLayer : false,
+                    	visibility : false
+                    }
+			),
+			new OpenLayers.Layer.WMS("แปลงที่ดิน",
+                    "http://wms.jpl.nasa.gov/wms.cgi",
+                    {
+						layers: "modis,global_mosaic",
+						transparent: true,
+	                    format: "image/png"
+                    },{
+                    	isBaseLayer: false,
+                    	visibility : false
+                    }
+			)
+			
 	];
-
-	//===== Openlayermap =====
-	var openlayersMap = new OpenLayers.Map({
-        projection          : epsg900913,
-        units               : "m",
-        numZoomLevels       : 18,
-        maxResolution       : 156543.0339,
-        maxExtent           : new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
-		layers				: layers
-    });
-
-	//===== Toolbar and Action =====
-	var zmExtentAction = new GeoExt.Action({
-		iconCls     : "icon-zoom-extent",
-        tooltip     : "Extent",
-		control		: new OpenLayers.Control.ZoomToMaxExtent()
-	});
-
-	var toolbar = new Ext.Toolbar([zmExtentAction]);
-
 
 	//===== Tree Panel Layers =====
 	//create our own layer node UI class, using the TreeNodeUIEventMixin
     var layerNodeUI = Ext.extend(GeoExt.tree.LayerNodeUI, new GeoExt.tree.TreeNodeUIEventMixin());
 	var treeConfig = [{
-		nodeType	: "gx_baselayercontainer",
-		expanded: true, 
-		singleClickExpand: true
-	}];
+			nodeType	: "gx_baselayercontainer",
+			expanded: true, 
+			singleClickExpand: true
+		},{
+			text : "แปลงที่ดิน / พื้นที่แบ่งเช่า",
+			nodeType : "gx_overlaylayercontainer",
+			layerStore: new GeoExt.data.LayerStore({
+                layers: [
+                    layers[4],
+                    layers[5]
+                ]
+            }),
+            singleClickExpand: true
+		}];
 
 	var treePanel = new Ext.tree.TreePanel({
 		border	: true,
@@ -90,6 +103,26 @@ Ext.onReady(function(){
         return false;
     });
 	
+	//===== Openlayermap =====
+	var openlayersMap = new OpenLayers.Map({
+        projection          : epsg900913,
+        units               : "m",
+        numZoomLevels       : 18,
+        maxResolution       : 156543.0339,
+        maxExtent           : new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
+		layers				: layers
+    });
+
+	//===== Toolbar and Action =====
+	var zmExtentAction = new GeoExt.Action({
+		iconCls     : "icon-zoom-extent",
+        tooltip     : "Extent",
+		control		: new OpenLayers.Control.ZoomToMaxExtent()
+	});
+
+	var toolbar = new Ext.Toolbar([zmExtentAction]);
+
+
 	var mapPanel = new GeoExt.MapPanel({
 		id		: "ogis-map",
 		region  : "center",
@@ -118,8 +151,6 @@ Ext.onReady(function(){
 
 
     });
-	
-
 	
 	jQuery( window ).resize(function() {
 		console.debug('win resize');
