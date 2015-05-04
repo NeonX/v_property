@@ -31,29 +31,31 @@ Ext.onReady(function(){
 				maxResolution   : 4891.969809375,
 				isBaseLayer		: true
 			}),
-			new OpenLayers.Layer.WMS("พื้นที่แบ่งเช่า",
-                    "http://wms.jpl.nasa.gov/wms.cgi",
+			new OpenLayers.Layer.WMS("แปลงที่ดิน",
+                    "http://mapdb.pte.co.th/geoserver/ProtoPj/wms",
                     {
-						layers: "modis,global_mosaic",
+						layers: "ProtoPj:gis_province",
+	                    format: "image/png",
+	                    transparent: true
+                    },{
+                    	isBaseLayer: false,
+                    	visibility : false,
+                    	transitionEffect: "resize"
+                    }
+			),
+			new OpenLayers.Layer.WMS("พื้นที่แบ่งเช่า",
+                    "http://mapdb.pte.co.th/geoserver/ProtoPj/wms",
+                    {
+						layers: "ProtoPj:ProtoPj_amphoe_all",
 						transparent: true,
 	                    format: "image/png"
                     },{
                     	isBaseLayer : false,
-                    	visibility : false
-                    }
-			),
-			new OpenLayers.Layer.WMS("แปลงที่ดิน",
-                    "http://wms.jpl.nasa.gov/wms.cgi",
-                    {
-						layers: "modis,global_mosaic",
-						transparent: true,
-	                    format: "image/png"
-                    },{
-                    	isBaseLayer: false,
-                    	visibility : false
+                    	visibility : false,
+                    	minScale : 866688,
+                    	transitionEffect: "resize"
                     }
 			)
-			
 	];
 
 	//===== Tree Panel Layers =====
@@ -66,13 +68,14 @@ Ext.onReady(function(){
 		},{
 			text : "แปลงที่ดิน / พื้นที่แบ่งเช่า",
 			nodeType : "gx_overlaylayercontainer",
+			expanded: true,
+			singleClickExpand: true,
 			layerStore: new GeoExt.data.LayerStore({
                 layers: [
                     layers[4],
                     layers[5]
                 ]
-            }),
-            singleClickExpand: true
+            })
 		}];
 
 	var treePanel = new Ext.tree.TreePanel({
