@@ -13,9 +13,9 @@ public class CostEstimateDao extends AbstractGenericDao<CostEstimate, Integer>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<CostEstimate> getCostEstimateList(Integer ppt_id){
+	public List<CostEstimate> getCostEstimateListById(String pptId){
 		try{
-			String hql = " FROM CostEstimate WHERE 1=1 and property.pptId="+ppt_id;
+			String hql = " FROM CostEstimate WHERE 1=1 and property.pptId="+pptId;
 			
 			Query q = getEntityManager().createQuery(hql);
 			return q.getResultList();
@@ -25,5 +25,33 @@ public class CostEstimateDao extends AbstractGenericDao<CostEstimate, Integer>{
 		}
 		
 		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<CostEstimate> getCostEstimateListByCond(String cond){
+		try{
+			String hql = " FROM CostEstimate WHERE 1=1 ";
+			if(cond != null){
+				hql += cond;
+			}
+			Query q = getEntityManager().createQuery(hql);
+			return q.getResultList();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	@SuppressWarnings("unchecked")
+	public CostEstimate getCostEstimateById(String estmId) {
+		String hql =" FROM CostEstimate WHERE 1=1 AND estmId = "+estmId;
+
+		Query q = getEntityManager().createQuery(hql);
+        List<CostEstimate> list = q.getResultList();
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
 	}
 }
