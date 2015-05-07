@@ -2,20 +2,19 @@ package com.vp.web.property;
 
 import java.util.List;
 
-import javaxt.utils.Array;
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
 import com.vp.entity.CostEstimate;
 import com.vp.entity.CostForSale;
 import com.vp.entity.Owner;
-import com.vp.entity.Posession;
 import com.vp.entity.Property;
 import com.vp.service.CostEstimateService;
 import com.vp.service.CostForSaleService;
+import com.vp.service.OwnerService;
 import com.vp.service.PropertyService;
 import com.vp.web.AbstractBackingBean;
 
@@ -26,9 +25,12 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	private PropertyService propertyService = (PropertyService) getContextBackingBean().getBean("propertyService");
 	private CostEstimateService costEstimateService = (CostEstimateService) getContextBackingBean().getBean("costEstimateService");
 	private CostForSaleService costForSaleService = (CostForSaleService) getContextBackingBean().getBean("costForSaleService");
-	//private OwnerService ownerService = (OwnerService) getContextBackingBean().getBean("ownerService");
+	private OwnerService ownerService = (OwnerService) getContextBackingBean().getBean("ownerService");
 	/////private OwnerService ownerService = (OwnerService) getContextBackingBean().getBean("ownerService");
-	private String pptId = "101";
+	@In(scope = ScopeType.SESSION, required=false)
+    String pptId;
+	@In(scope = ScopeType.SESSION, required=false)
+    String ownerId;
 	
 	private List<CostEstimate> estimatList;
 	private List<CostForSale> costForSaleList;
@@ -37,7 +39,6 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	private CostForSale costForSale = new CostForSale();
 	
 	private Property property = new Property();
-	private Posession posession = new Posession();
 	private Owner owner = new Owner();
 	
 	private Float r = null;
@@ -50,12 +51,12 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	
 	@Create
 	public void init() {
-		if(pptId != null){
+		if(pptId != null && ownerId != null && !pptId.equals("0") && !ownerId.equals("0")){
 			property = propertyService.getPropertyBypptId(pptId);
-			//owner = ownerService.getOwnerVypptId(pptId);
-			//posession = posessionService.getPosessionBypptId(pptId);
+			owner = ownerService.getOwnerById(ownerId);
+			
 			float area = property.getAreaSize();
-			System.out.println(area);
+			//System.out.println(area);
 			r = (area-(area%1600))/1600;
 			area = area-(r*1600);
 			ng = (area-(area%400))/400;
@@ -66,7 +67,6 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 			costForSaleList = costForSaleService.getCostForSaleListById(pptId);
 		}
 		
-		//System.out.println(dataList);
 	}
 	
 	public void editeEstimation(String estmId){
@@ -85,14 +85,6 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	
 	public void deleteCostForSale(CostForSale costForSale){
 		costForSaleService.removeContent(costForSale);
-	}
-
-	public String getPptId() {
-		return pptId;
-	}
-
-	public void setPptId(String pptId) {
-		this.pptId = pptId;
 	}
 
 	public Property getProperty() {
@@ -157,6 +149,14 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 
 	public void setCostForSale(CostForSale costForSale) {
 		this.costForSale = costForSale;
+	}
+
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 	
 }

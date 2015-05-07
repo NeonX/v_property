@@ -33,7 +33,7 @@ public class PropertyDao extends AbstractGenericDao<Property, Integer>{
 	
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getPropertyAll() {
-    	String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name FROM property AS pr " +
+    	String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name,ow.owner_id FROM property AS pr " +
     			"inner join posession AS ps on pr.ppt_id = ps.ppt_id " +
     			"inner join owner AS ow on ow.owner_id = ps.owner_id " +
     			"where 1=1 ";
@@ -48,7 +48,7 @@ public class PropertyDao extends AbstractGenericDao<Property, Integer>{
 	
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getPropertyByCond(String cond) {
-		String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name FROM property AS pr " +
+		String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name,ow.owner_id FROM property AS pr " +
     			"inner join posession AS ps on pr.ppt_id = ps.ppt_id " +
     			"inner join owner AS ow on ow.owner_id = ps.owner_id " +
     			"where 1=1 ";

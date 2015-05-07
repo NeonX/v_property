@@ -24,8 +24,9 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
     private List<Object[]> dataList;
     private String owner = null;
     @Out(scope = ScopeType.SESSION, required = false)
-    @In(required = false, scope = ScopeType.SESSION)
-    private String pptId = null;
+    String pptId;
+    @Out(scope = ScopeType.SESSION, required = false)
+    String ownerId;
     
     public PropertyManage() {
 		super(PropertyManage.class);
@@ -43,10 +44,15 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 		System.out.println(dataList);
 	}
 	
-	public void doAddEditData(String idx){
-		pptId = idx;
-		
+	public void doAddEditData(String pid,String oid){
+		pptId = pid;
+		ownerId = oid;
+		System.out.println("ownerId "+ownerId );
 		forceRedirectPage("/property/land_from.xhtml");
+	}
+	
+	public void doDeleteData(String pid,String oid){
+		//
 	}
 
 	public List<Object[]> getDataList() {
@@ -63,14 +69,6 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 
 	public void setOwner(String owner) {
 		this.owner = owner;
-	}
-
-	public String getPptId() {
-		return pptId;
-	}
-
-	public void setPptId(String pptId) {
-		this.pptId = pptId;
 	}
 
 }

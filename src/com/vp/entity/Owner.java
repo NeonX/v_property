@@ -1,9 +1,14 @@
 package com.vp.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="owner")
@@ -15,12 +20,14 @@ public class Owner implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="owner_generator")
 	@Column(name="owner_id")
 	private Integer ownerId;
-
+	
+	@Column(name="address")
 	private String address;
 
 	@Column(name="owner_name")
 	private String ownerName;
-
+	
+	@Column(name="phone")
 	private String phone;
 
     public Owner() {
