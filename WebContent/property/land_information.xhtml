@@ -37,9 +37,9 @@
 	  		</legend>
 		  	<h:panelGrid columns="2" cellspacing="2">
 				<h:outputText value="ชื่อผู้ครอบครอง / เจ้าของกรรมสิทธิ์  : " />
-				<h:inputText id="holder_name" value="#{prorertyFromMng.property.propCode}"></h:inputText>
+				<h:inputText id="holder_name" value="#{prorertyFromMng.owner.ownerName}"></h:inputText>
 				<h:outputText value="ที่อยุ่ผู้ครอบครอง / เจ้าของกรรมสิทธิ์  : " />
-				<h:inputTextarea id="holder_add" value="#{prorertyFromMng.property.propCode}"></h:inputTextarea>
+				<h:inputTextarea id="holder_add" value="#{prorertyFromMng.owner.address}"></h:inputTextarea>
 			</h:panelGrid>
 			<rich:spacer height="10"/>
 		</fieldset>
@@ -181,7 +181,7 @@
             	</f:facet>
 		        <h:panelGroup columns="3" width="100%" style="align:center">
 		               <h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
-		               <rich:calendar value="#{prorertyFromMng.costEstimate.updateDate}" id="estimation_date" cellWidth="24px" cellHeight="22px" style="width:200px">
+		               <rich:calendar value="#{prorertyFromMng.costEstimate.updateDate}" id="estimation_date" >
             			</rich:calendar>
 		               <h:outputText value="ราคาประเมิน : "></h:outputText>
 		               <h:inputText id="estimation_rate_price" value="#{prorertyFromMng.costEstimate.getCostEstimate()}"></h:inputText>
@@ -202,7 +202,7 @@
             	</f:facet>
 		        <h:panelGroup columns="3" width="100%" style="align:center">
 		               <h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
-		              <rich:calendar value="#{prorertyFromMng.costForSale.updateDate}" id="expect_date" cellWidth="24px" cellHeight="22px" style="width:200px">
+		              <rich:calendar value="#{prorertyFromMng.costForSale.updateDate}" id="expect_date">
             			</rich:calendar>
 		               <h:outputText value="ราคาที่คาดว่าจะซื้อขาย : "></h:outputText>
 		               <h:inputText id="expect_rate_price" value="#{prorertyFromMng.costForSale.cost4sale}"></h:inputText>

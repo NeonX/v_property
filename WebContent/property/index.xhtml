@@ -26,7 +26,7 @@
 			</h:panelGrid>
 			
 
-			<a4j:commandButton value="+ New" action="#{propertyMng.doAddEditData(0)}" style="margin:10px 0px 10px 0px;"/>
+			<a4j:commandButton value="+ New" action="#{propertyMng.doAddEditData(0,0)}" style="margin:10px 0px 10px 0px;"/>
 			
 			<rich:dataTable rows="10" id="dataList" value="#{propertyMng.dataList}" var="cont"
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,24%,16%,10%,10%,10%,10%"
@@ -68,10 +68,10 @@
 						<h:outputText value="ดำเนินการ" />
 					</f:facet>
 					<h:panelGrid columns="3" style="algn:center;">
-						<a4j:commandLink action="#{propertyMng.doAddEditData(cont[0])}">
+						<a4j:commandLink action="#{propertyMng.doAddEditData(cont[0],cont[5])}">
 			                <h:graphicImage url="/imgs/edit.png"/> 
 			            </a4j:commandLink>
-			            <a4j:commandLink reRender="out" action="#{propertyMng.doAddEditData(0)}">
+			            <a4j:commandLink reRender="frm_land_list:dataList" action="#{propertyMng.doDeleteData(cont[0],cont[5])}">
 			                <h:graphicImage url="/imgs/delete.png"/>
 			            </a4j:commandLink>
 					</h:panelGrid>
