@@ -16,9 +16,11 @@
 			<h:panelGrid id="searchPanel" columns="11">
 				<h:outputText value="ค้นหา" style="font-size:13px;"/>
 				<h:outputText value="ชื่อเจ้าของกรรมสิทธิ์" style="font-size:13px;font-weight:bold;"/>
-				<h:inputText id="search_input" value="" />
-			
-				<a4j:commandButton value="Search" />
+				<h:inputText id="search_input" value="#{propertyMng.owner}"/>
+				<!-- <h:inputText id="myinput" value="#{propertyMng.owner}">
+                	<a4j:support event="onkeyup" reRender="dataList" />
+            	</h:inputText> -->
+				<a4j:commandButton value="Search" action="#{propertyMng.searchByOwnerName()}" reRender="frm_land_list:dataList"/>
 				<rich:spacer width="10"/>
 				
 			</h:panelGrid>
@@ -26,7 +28,7 @@
 
 			<a4j:commandButton value="+ New" action="#{propertyMng.doAddEditData(0)}" style="margin:10px 0px 10px 0px;"/>
 			
-			<rich:dataTable rows="10" id="dataList" value="#{propertyMng.propertyList}" var="cont"
+			<rich:dataTable rows="10" id="dataList" value="#{propertyMng.dataList}" var="cont"
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,24%,16%,10%,10%,10%,10%"
 				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
@@ -35,37 +37,44 @@
 					<f:facet name="header">
 						<h:outputText value="ลำดับที่" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText style="text-algn:center;" value="#{rowId+1}" />
 				</rich:column>
 				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="เลขที่โฉนด" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[1]}" />
 				</rich:column>
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="ที่ตั้ง" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[2]}" />
 				</rich:column>
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="พื่นที่" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[3]}" />
 				</rich:column> 
-				<rich:column>
+				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="เจ้าของกรรมสิทธิ์"/>
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[4]}" />
 				</rich:column>
-				<rich:column style="text-align:center;background-color:#DDFFFF;">
+				<rich:column style="text-align:center; background-color:#DDFFFF;">
 					<f:facet name="header">
 						<h:outputText value="ดำเนินการ" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:panelGrid columns="3" style="algn:center;">
+						<a4j:commandLink action="#{propertyMng.doAddEditData(cont[0])}">
+			                <h:graphicImage url="/imgs/edit.png"/> 
+			            </a4j:commandLink>
+			            <a4j:commandLink reRender="out" action="#{propertyMng.doAddEditData(0)}">
+			                <h:graphicImage url="/imgs/delete.png"/>
+			            </a4j:commandLink>
+					</h:panelGrid>
 				</rich:column>
 				
 				<f:facet name="footer">
