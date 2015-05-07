@@ -29,6 +29,9 @@
 	<bean id="contentService" class="com.vp.service.ContentService" autowire="byName"/>
 	<bean id="sysUserService" class="com.vp.service.SysUserService" autowire="byName"/>
 	<bean id="historyUserService" class="com.vp.service.HistoryUserService" autowire="byName"/>
+	<bean id="propertyService" class="com.vp.service.PropertyService" autowire="byName"/>
+	<bean id="costForSaleService" class="com.vp.service.CostForSaleService" autowire="byName"/>
+	<bean id="costEstimateService" class="com.vp.service.CostEstimateService" autowire="byName"/>
 	
 	<bean id="configUpload" class="com.pte.util.PropertyFileConfig">
 		<property name="configPath" value="upload.properties" />
