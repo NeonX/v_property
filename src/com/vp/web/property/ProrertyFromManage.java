@@ -40,7 +40,8 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	
 	private Property property = new Property();
 	private Owner owner = new Owner();
-	
+	private List<Owner> listOwner;
+
 	private Float r = null;
 	private Float ng = null;
 	private Float trv = null;
@@ -54,6 +55,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		if(pptId != null && ownerId != null && !pptId.equals("0") && !ownerId.equals("0")){
 			property = propertyService.getPropertyBypptId(pptId);
 			owner = ownerService.getOwnerById(ownerId);
+			listOwner = ownerService.getOwnerList();
 			
 			float area = property.getAreaSize();
 			//System.out.println(area);
@@ -157,6 +159,14 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 
 	public void setOwner(Owner owner) {
 		this.owner = owner;
+	}
+
+	public List<Owner> getListOwner() {
+		return listOwner;
+	}
+
+	public void setListOwner(List<Owner> listOwner) {
+		this.listOwner = listOwner;
 	}
 	
 }

@@ -65,9 +65,9 @@ input[type="text"]
 	font-weight: bold;
 	vertical-align: middle;
 	line-height: 20px;
-	display: block;
+	/*display: block;*/
 	height: 40px;
-	width: 100%;
+	/*width: 100%;*/
 	padding: 10px;
 }
 a.button,
