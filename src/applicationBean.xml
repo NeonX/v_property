@@ -33,7 +33,6 @@
 	<bean id="propertyService" class="com.vp.service.PropertyService" autowire="byName"/>
 	<bean id="costForSaleService" class="com.vp.service.CostForSaleService" autowire="byName"/>
 	<bean id="costEstimateService" class="com.vp.service.CostEstimateService" autowire="byName"/>
-	<bean id="ownerService" class="com.vp.service.OwnerService" autowire="byName"/>
 	
 	<bean id="configUpload" class="com.pte.util.PropertyFileConfig">
 		<property name="configPath" value="upload.properties" />
