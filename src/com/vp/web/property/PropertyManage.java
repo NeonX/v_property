@@ -4,20 +4,18 @@ import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
-import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
+import com.vp.entity.Posession;
+import com.vp.entity.Property;
 import com.vp.service.PropertyService;
 import com.vp.web.AbstractBackingBean;
 
 @Name("propertyMng")
 @Scope(ScopeType.PAGE)
 public class PropertyManage extends AbstractBackingBean<PropertyManage>{
-	
-	/*private ContentService contentService = (ContentService) getContextBackingBean().getBean("contentService");
-	private AttachmentService atmService = (AttachmentService) getContextBackingBean().getBean("attachmentService");*/
 	
     private PropertyService propertyService = (PropertyService) getContextBackingBean().getBean("propertyService");
 	
@@ -27,6 +25,8 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
     String pptId;
     @Out(scope = ScopeType.SESSION, required = false)
     String ownerId;
+    @Out(scope = ScopeType.SESSION, required = false)
+    String posId;
     
     public PropertyManage() {
 		super(PropertyManage.class);
@@ -35,7 +35,6 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 	@Create
 	public void init() {
 		dataList = propertyService.getPropertyAll();
-		//System.out.println(dataList);
 	}
 	
 	public void searchByOwnerName(){
@@ -44,15 +43,35 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 		System.out.println(dataList);
 	}
 	
-	public void doAddEditData(String pid,String oid){
+	public void doAddEditData(String pid,String oid,String posid){
 		pptId = pid;
 		ownerId = oid;
-		System.out.println("ownerId "+ownerId );
+		posId = posid;
 		forceRedirectPage("/property/land_from.xhtml");
 	}
 	
-	public void doDeleteData(String pid,String oid){
-		//
+	public void doDeleteData(String posId,String pptid){
+		this.posId = posId;
+		pptId = pptid;
+	}
+	
+	public void remove() {
+		
+		Property property = propertyService.getPropertyBypptId(pptId);
+		
+		Posession posession = propertyService.getPosessionById(posId);
+//		System.out.println(posession.g);
+		propertyService.removePosession(posId);
+		//propertyService.remove(posession);
+		propertyService.remove(property);
+		prepraeData();
+	}
+	
+	public void prepraeData(){
+		posId = null;
+		pptId = null;
+		ownerId = null;
+		dataList = propertyService.getPropertyAll();
 	}
 
 	public List<Object[]> getDataList() {
@@ -70,5 +89,4 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-
 }

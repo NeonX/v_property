@@ -1,9 +1,20 @@
 package com.vp.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
 
-import java.sql.Timestamp;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 
 /**
@@ -12,7 +23,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="posession")
-@SequenceGenerator(name="posession_generator", sequenceName="posession_seq", allocationSize=1)
+@SequenceGenerator(name="posession_generator", sequenceName="posession_pos_id_seq", allocationSize=1)
 public class Posession implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,15 +33,16 @@ public class Posession implements Serializable {
 	private Integer posId;
 
 	@Column(name="posession_date")
-	private Timestamp posessionDate;
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date posessionDate;
 
 	//bi-directional many-to-one association to Owner
-    @ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade={CascadeType.ALL})
 	@JoinColumn(name="owner_id")
 	private Owner owner;
 
 	//bi-directional many-to-one association to Property
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade={CascadeType.ALL})
 	@JoinColumn(name="ppt_id")
 	private Property property;
 
@@ -45,11 +57,11 @@ public class Posession implements Serializable {
 		this.posId = posId;
 	}
 
-	public Timestamp getPosessionDate() {
+	public Date getPosessionDate() {
 		return this.posessionDate;
 	}
 
-	public void setPosessionDate(Timestamp posessionDate) {
+	public void setPosessionDate(Date posessionDate) {
 		this.posessionDate = posessionDate;
 	}
 

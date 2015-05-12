@@ -1,7 +1,7 @@
 package com.vp.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 
 /**
@@ -18,8 +19,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="property")
-@SequenceGenerator(name="property_generator", sequenceName="property_seq", allocationSize=1)
+@SequenceGenerator(name="property_generator", sequenceName="property_ppt_id_seq", allocationSize=1)
 public class Property implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,7 +33,8 @@ public class Property implements Serializable {
 	private float areaSize;
 
 	@Column(name="input_date")
-	private Timestamp inputDate;
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date inputDate;
 
 	@Column(name="p_address")
 	private String pAddress;
@@ -44,9 +47,6 @@ public class Property implements Serializable {
 
 	@Column(name="prop_desc")
 	private String propDesc;
-
-    public Property() {
-    }
 
 	public Integer getPptId() {
 		return this.pptId;
@@ -62,22 +62,6 @@ public class Property implements Serializable {
 
 	public void setAreaSize(float areaSize) {
 		this.areaSize = areaSize;
-	}
-
-	public Timestamp getInputDate() {
-		return this.inputDate;
-	}
-
-	public void setInputDate(Timestamp inputDate) {
-		this.inputDate = inputDate;
-	}
-
-	public String getPAddress() {
-		return this.pAddress;
-	}
-
-	public void setPAddress(String pAddress) {
-		this.pAddress = pAddress;
 	}
 
 	public String getPlotCode() {
@@ -102,6 +86,22 @@ public class Property implements Serializable {
 
 	public void setPropDesc(String propDesc) {
 		this.propDesc = propDesc;
+	}
+
+	public String getpAddress() {
+		return pAddress;
+	}
+
+	public void setpAddress(String pAddress) {
+		this.pAddress = pAddress;
+	}
+
+	public Date getInputDate() {
+		return inputDate;
+	}
+
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
 	}
 
 }

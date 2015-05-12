@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="owner")
-@SequenceGenerator(name="owner_generator", sequenceName="owner_seq", allocationSize=1)
+@SequenceGenerator(name="owner_generator", sequenceName="owner_owner_id_seq", allocationSize=1)
 public class Owner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,39 +30,37 @@ public class Owner implements Serializable {
 	@Column(name="phone")
 	private String phone;
 
-    public Owner() {
-    }
-
 	public Integer getOwnerId() {
-		return this.ownerId;
+		return ownerId;
 	}
 
 	public void setOwnerId(Integer ownerId) {
 		this.ownerId = ownerId;
 	}
 
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getOwnerName() {
-		return this.ownerName;
+		return ownerName;
 	}
 
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getPhone() {
-		return this.phone;
+		return phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 
 }

@@ -9,11 +9,11 @@ public class CostForSaleService {
 	
 	private CostForSaleDao costForSaleDao;
 	
-	public CostForSale saveContent(CostForSale costForSale){
+	public CostForSale saveCostForSale(CostForSale costForSale){
 		return costForSaleDao.merge(costForSale);
 	}
 	
-	public void removeContent(CostForSale costForSale){
+	public void removeForSale(CostForSale costForSale){
 		costForSaleDao.remove(costForSale);
 	}
 	
