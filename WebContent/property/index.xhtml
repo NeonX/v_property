@@ -29,6 +29,7 @@
 			<a4j:commandButton value="+ New" action="#{propertyMng.doAddEditData(0,0)}" style="margin:10px 0px 10px 0px;"/>
 			
 			<rich:dataTable rows="10" id="dataList" value="#{propertyMng.dataList}" var="cont"
+				
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,24%,16%,10%,10%,10%,10%"
 				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
@@ -68,22 +69,53 @@
 						<h:outputText value="ดำเนินการ" />
 					</f:facet>
 					<h:panelGrid columns="3" style="algn:center;">
-						<a4j:commandLink action="#{propertyMng.doAddEditData(cont[0],cont[5])}">
+						<a4j:commandLink action="#{propertyMng.doAddEditData(cont[0],cont[5],cont[6])}">
 			                <h:graphicImage url="/imgs/edit.png"/> 
 			            </a4j:commandLink>
-			            <a4j:commandLink reRender="frm_land_list:dataList" action="#{propertyMng.doDeleteData(cont[0],cont[5])}">
+			            <a4j:commandLink reRender="frm_land_list:dataList" action="#{propertyMng.doDeleteData(cont[6],cont[0])}"
+			            oncomplete="javascript:Richfaces.showModalPanel('delete_m_p');">
 			                <h:graphicImage url="/imgs/delete.png"/>
 			            </a4j:commandLink>
 					</h:panelGrid>
 				</rich:column>
 				
 				<f:facet name="footer">
-					<rich:datascroller></rich:datascroller>
+					<rich:datascroller for="dataList" maxPages="10"/>
 				</f:facet>		
 			</rich:dataTable>
-
+			
 		</h:form>
-
+		
+		<rich:modalPanel id="delete_m_p" width="300" height="150">
+			
+		        <f:facet name="header">
+		            <h:outputText value="ยืนยันการลบ"></h:outputText>
+		        </f:facet>
+		        <f:facet name="controls">
+		        	<span style="cursor:pointer" onclick="javascript:Richfaces.hideModalPanel('delete_m_p')">X</span>
+		        </f:facet>
+		        <h:form>
+				    <h:panelGrid columns="3" width="100%" style="align:center">
+				           <h:outputText value="ยืนยันที่จะลบข้อมูลหรือไม่ "></h:outputText>
+				    </h:panelGrid>
+		        <table width="100%">
+		        	<tr>
+		         		<td align="center" width="50%">
+		         			<a4j:commandButton value="Yes"
+                            ajaxSingle="true" action="#{propertyMng.remove()}"
+                            oncomplete="javascript:Richfaces.hideModalPanel('delete_m_p')"
+                            reRender="dataList" /></td>
+                        <td align="center" width="50%"><a4j:commandButton
+                            value="No"
+                            onclick="javascript:Richfaces.hideModalPanel('delete_m_p')" />
+                        </td>
+                    </tr>
+				</table>
+			</h:form>
+		</rich:modalPanel>
+		
 	</ui:define>
+	
+	
 
 </ui:composition>
