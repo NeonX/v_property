@@ -70,130 +70,129 @@
 	            <rich:message for="mycalendar" />
 			</h:panelGrid>
 		</fieldset>
-	  	<fieldset id="add_price" class="fieldset_layout" style="width: 98%; text-align: left;">
-	  		<rich:tabPanel id="estimation_tap" switchType="client" style="width:98%">
-				<rich:tab label="ราคาประเมิน">
-					<h:form id="estimation_from">	
-						<a4j:commandButton value="+ New" action="#{prorertyFromMng.newCost()}" 
-						oncomplete="javascript:Richfaces.showModalPanel('estimation_m_p');"/>
-						<h:panelGrid id="estimation_panel" columns="1" width="98%" >	
-							
-							<rich:dataTable rows="10" id="dataList" value="#{prorertyFromMng.estimatList}" var="item"
-								rowKeyVar="rowId" width="100%" columnsWidth="15%,25%,25%,20%,15%"
-								onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
-				                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-				                   
-								<rich:column style="text-align:center;">
-									<f:facet name="header">
-										<h:outputText value="ลำดับที่" />
-									</f:facet>
-									<h:outputText value="#{rowId+1}" />
-								</rich:column>
-								<rich:column style="text-align:center;">
-									<f:facet name="header">
-										<h:outputText value="ประเมิน ณ วันที่" />
-									</f:facet>
-									<h:outputText value="#{item.updateDate}" />
-								</rich:column>
-								<rich:column style="text-algn:center;">
-									<f:facet name="header">
-										<h:outputText value="ราคาประเมิน บาท/ตรว." />
-									</f:facet>
-									<h:outputText value="#{item.costEstimate}" />
-								</rich:column>
-								<rich:column style="text-algn:center;">
-									<f:facet name="header">
-										<h:outputText value="อัพเดทโดย" />
-									</f:facet>
-									<h:outputText value="#{item.updateBy}" />
-								</rich:column> 
-								<rich:column style="text-align:center;background-color:#DDFFFF;">
-									<f:facet name="header">
-										<h:outputText value="ดำเนินการ" />
-									</f:facet>
-									<h:panelGrid columns="3" style="algn:center;">
-										<a4j:commandLink action="#{prorertyFromMng.editeEstimation(item.estmId)}" 
-										oncomplete="javascript:Richfaces.showModalPanel('estimation_m_p');" render="estimation_m_p">
-							                <h:graphicImage url="/imgs/edit.png"/> 
-							            </a4j:commandLink>
-							            <a4j:commandLink reRender="estimation_from:dataList" action="#{prorertyFromMng.setCostEstimate(item)}"
-							            oncomplete="javascript:Richfaces.showModalPanel('delete_est_mp');">
-							                <h:graphicImage url="/imgs/delete.png"/>
-							            </a4j:commandLink>
-									</h:panelGrid>
-								</rich:column>
+		<h:panelGrid id="add_price" columns="1" width="98%" rendered="#{prorertyFromMng.property.pptId !=null}">
+		  		<rich:tabPanel id="estimation_tap" switchType="client" style="width:98%">
+					<rich:tab label="ราคาประเมิน">
+						<h:form id="estimation_from">	
+							<a4j:commandButton value="+ New" action="#{prorertyFromMng.newCost()}" 
+							oncomplete="#{rich:component('estimation_m_p')}.show();"/>
+							<h:panelGrid id="estimation_panel" columns="1" width="98%">	
 								
-								<f:facet name="footer">
-									<rich:datascroller for="dataList" maxPages="5"/>
-								</f:facet>		
-							</rich:dataTable>
-							
-						</h:panelGrid>
-					</h:form>
-        		</rich:tab>
-        		<rich:tab label="ราคาที่คาดว่าจะซื้อขาย">
-					<h:form id="forSale_from">						
-						<a4j:commandButton value="+ New" action="#{prorertyFromMng.newCost()}" 
-						oncomplete="javascript:Richfaces.showModalPanel('expect_m_p');"/>
-						<h:panelGrid id="expect_panel" columns="1" width="100%" >	
-							<rich:dataTable rows="10" id="dataList" value="#{prorertyFromMng.costForSaleList}" var="item"
-								rowKeyVar="rowId" width="100%" columnsWidth="15%,25%,25%,20%,15%"
-								onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
-				                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-				                   
-								<rich:column style="text-align:center;">
-									<f:facet name="header">
-										<h:outputText value="ลำดับที่" />
-									</f:facet>
-									<h:outputText value="#{rowId+1}" />
-								</rich:column>
-								<rich:column style="text-align:center;">
-									<f:facet name="header">
-										<h:outputText value="ประเมิน ณ วันที่" />
-									</f:facet>
-									<h:outputText value="#{item.updateDate}" />
-								</rich:column>
-								<rich:column style="text-algn:center;">
-									<f:facet name="header">
-										<h:outputText value="ราคาที่คาดว่าจะซื้อขาย บาท/ตรว." />
-									</f:facet>
-									<h:outputText value="#{item.cost4sale}" />
-								</rich:column>
-								<rich:column style="text-algn:center;">
-									<f:facet name="header">
-										<h:outputText value="อัพเดทโดย" />
-									</f:facet>
-									<h:outputText value="#{item.updateBy}" />
-								</rich:column> 
-								<rich:column style="text-align:center;background-color:#DDFFFF;">
-									<f:facet name="header">
-										<h:outputText value="ดำเนินการ" />
-									</f:facet>
-									<h:panelGrid columns="3" style="algn:center;">
-										<a4j:commandLink action="#{prorertyFromMng.editCostForSale(item.saleId)}" 
-										oncomplete="javascript:Richfaces.showModalPanel('expect_m_p');">
-							                <h:graphicImage url="/imgs/edit.png"/> 
-							            </a4j:commandLink>
-							            <a4j:commandLink reRender="forSale_from:dataList" action="#{prorertyFromMng.setCostForSale(item)}"
-							            oncomplete="javascript:Richfaces.showModalPanel('delete_for_mp');">
-							                <h:graphicImage url="/imgs/delete.png"/>
-							            </a4j:commandLink>
-									</h:panelGrid>
-								</rich:column>
-								
-								<f:facet name="footer">
-									<rich:datascroller for="dataList" maxPages="5"/>
-								</f:facet>		
-							</rich:dataTable>
-						</h:panelGrid>
-					</h:form>
-        		</rich:tab>
-        	</rich:tabPanel>
-        	</fieldset>
+								<rich:dataTable rows="10" id="dataList" value="#{prorertyFromMng.estimatList}" var="item"
+									rowKeyVar="rowId" width="100%" columnsWidth="15%,25%,25%,20%,15%"
+									onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
+					                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					                   
+									<rich:column style="text-align:center;">
+										<f:facet name="header">
+											<h:outputText value="ลำดับที่" />
+										</f:facet>
+										<h:outputText value="#{rowId+1}" />
+									</rich:column>
+									<rich:column style="text-align:center;">
+										<f:facet name="header">
+											<h:outputText value="ประเมิน ณ วันที่" />
+										</f:facet>
+										<h:outputText value="#{item.updateDate}" />
+									</rich:column>
+									<rich:column style="text-algn:center;">
+										<f:facet name="header">
+											<h:outputText value="ราคาประเมิน บาท/ตรว." />
+										</f:facet>
+										<h:outputText value="#{item.costEstimate}" />
+									</rich:column>
+									<rich:column style="text-algn:center;">
+										<f:facet name="header">
+											<h:outputText value="อัพเดทโดย" />
+										</f:facet>
+										<h:outputText value="#{item.updateBy}" />
+									</rich:column> 
+									<rich:column style="text-align:center;background-color:#DDFFFF;">
+										<f:facet name="header">
+											<h:outputText value="ดำเนินการ" />
+										</f:facet>
+										<h:panelGrid columns="3" style="algn:center;">
+											<a4j:commandLink action="#{prorertyFromMng.editeEstimation(item.estmId)}" 
+											oncomplete="#{rich:component('estimation_m_p')}.show();" render="estimation_m_p">
+								                <h:graphicImage url="/imgs/edit.png"/> 
+								            </a4j:commandLink>
+								            <a4j:commandLink reRender="estimation_from:dataList" action="#{prorertyFromMng.setCostEstimate(item)}"
+								            oncomplete="#{rich:component('delete_est_mp')}.show();">
+								                <h:graphicImage url="/imgs/delete.png"/>
+								            </a4j:commandLink>
+										</h:panelGrid>
+									</rich:column>
+									
+									<f:facet name="footer">
+										<rich:datascroller for="dataList" maxPages="5"/>
+									</f:facet>		
+								</rich:dataTable>
+							</h:panelGrid>
+						</h:form>
+	        		</rich:tab>
+	        		<rich:tab label="ราคาที่คาดว่าจะซื้อขาย">
+						<h:form id="forSale_from">						
+							<a4j:commandButton value="+ New" action="#{prorertyFromMng.newCost()}" 
+							oncomplete="#{rich:component('expect_m_p')}.show();"/>
+							<h:panelGrid id="expect_panel" columns="1" width="100%" >	
+								<rich:dataTable rows="10" id="dataList" value="#{prorertyFromMng.costForSaleList}" var="item"
+									rowKeyVar="rowId" width="100%" columnsWidth="15%,25%,25%,20%,15%"
+									onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
+					                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					                   
+									<rich:column style="text-align:center;">
+										<f:facet name="header">
+											<h:outputText value="ลำดับที่" />
+										</f:facet>
+										<h:outputText value="#{rowId+1}" />
+									</rich:column>
+									<rich:column style="text-align:center;">
+										<f:facet name="header">
+											<h:outputText value="ประเมิน ณ วันที่" />
+										</f:facet>
+										<h:outputText value="#{item.updateDate}" />
+									</rich:column>
+									<rich:column style="text-algn:center;">
+										<f:facet name="header">
+											<h:outputText value="ราคาที่คาดว่าจะซื้อขาย บาท/ตรว." />
+										</f:facet>
+										<h:outputText value="#{item.cost4sale}" />
+									</rich:column>
+									<rich:column style="text-algn:center;">
+										<f:facet name="header">
+											<h:outputText value="อัพเดทโดย" />
+										</f:facet>
+										<h:outputText value="#{item.updateBy}" />
+									</rich:column> 
+									<rich:column style="text-align:center;background-color:#DDFFFF;">
+										<f:facet name="header">
+											<h:outputText value="ดำเนินการ" />
+										</f:facet>
+										<h:panelGrid columns="3" style="algn:center;">
+											<a4j:commandLink action="#{prorertyFromMng.editCostForSale(item.saleId)}" 
+											oncomplete="#{rich:component('expect_m_p')}.show();">
+								                <h:graphicImage url="/imgs/edit.png"/> 
+								            </a4j:commandLink>
+								            <a4j:commandLink reRender="forSale_from:dataList" action="#{prorertyFromMng.setCostForSale(item)}"
+								            oncomplete="#{rich:component('delete_for_mp')}.show();">
+								                <h:graphicImage url="/imgs/delete.png"/>
+								            </a4j:commandLink>
+										</h:panelGrid>
+									</rich:column>
+									
+									<f:facet name="footer">
+										<rich:datascroller for="dataList" maxPages="5"/>
+									</f:facet>		
+								</rich:dataTable>
+							</h:panelGrid>
+						</h:form>
+	        		</rich:tab>
+	        	</rich:tabPanel>
+	        </h:panelGrid>
         	<table width="100%">
 	        	<tr>
-	        		<td align="center" width="50%"><a4j:commandButton value="SAVE" action="#{prorertyFromMng.saveProrerty}" style="margin:10px 0px 10px 0px;"/></td>
-					<td align="center" width="50%"><a4j:commandButton value="CANCEL" action="#{prorertyFromMng.cancel}" style="margin:10px 0px 10px 0px;"/></td>
+	        		<td align="right" width="50%"><a4j:commandButton value="SAVE" action="#{prorertyFromMng.saveProrerty}" reRender="land_form" style="margin:10px 0px 10px 0px;"/></td>
+					<td align="left" width="50%"><a4j:commandButton value="CANCEL" action="#{prorertyFromMng.cancel}" style="margin:10px 0px 10px 0px;"/></td>
 	        	</tr>	
 			</table>
         	</div>
@@ -203,7 +202,7 @@
 		            <h:outputText value="ราคาประเมิน"></h:outputText>
 		        </f:facet>
 		        <f:facet name="controls">
-                    <span style="cursor:pointer" onclick="javascript:Richfaces.hideModalPanel('estimation_m_p')">X </span>
+                    <span style="cursor:pointer" onclick="#{rich:component('estimation_m_p')}.hide();">X </span>
             	</f:facet>
             	<h:form>
             	<a4j:outputPanel ajaxRendered="true">
@@ -221,12 +220,12 @@
 		        	<tr>
 		        		<td align="right"><a4j:commandButton value="SAVE" 
 		        		action="#{prorertyFromMng.saveCostEstimate}" 
-		        		oncomplete="javascript:Richfaces.hideModalPanel('estimation_m_p')"
-		        		reRender="estimation_from:dataList"
+		        		oncomplete="#{rich:component('estimation_m_p')}.hide();"
+		        		reRender="dataList"
 		        		style="margin:10px 0px 10px 0px;"/></td>
 						<td align="left"><a4j:commandButton value="CANCEL" 
 						action="#{prorertyFromMng.cancel}" 
-						oncomplete="javascript:Richfaces.hideModalPanel('estimation_m_p')"
+						oncomplete="#{rich:component('estimation_m_p')}.hide();"
 						style="margin:10px 0px 10px 0px;"/></td>
 		        	</tr>	
 				</table>
@@ -237,7 +236,7 @@
 		            <h:outputText value="ราคาที่คาดว่าจะซื้อขาย"></h:outputText>
 		        </f:facet>
 		        <f:facet name="controls">
-                    <span style="cursor:pointer" onclick="javascript:Richfaces.hideModalPanel('expect_m_p')">X </span>
+                    <span style="cursor:pointer" onclick="#{rich:component('expect_m_p')}.hide();">X </span>
             	</f:facet>
             	<h:form>
             	<a4j:outputPanel ajaxRendered="true">
@@ -255,12 +254,12 @@
 		        	<tr>
 		        		<td align="right"><a4j:commandButton value="SAVE" 
 		        		action="#{prorertyFromMng.saveCostForSale}" 
-		        		oncomplete="javascript:Richfaces.hideModalPanel('expect_m_p')"
+		        		oncomplete="#{rich:component('expect_m_p')}.hide();"
 		        		reRender="forSale_from:dataList"
 		        		style="margin:10px 0px 10px 0px;"/></td>
 						<td align="left"><a4j:commandButton value="CANCEL" 
 						action="#{prorertyFromMng.cancel}" 
-						oncomplete="javascript:Richfaces.hideModalPanel('expect_m_p')"
+						oncomplete="#{rich:component('expect_m_p')}.hide();"
 						style="margin:10px 0px 10px 0px;"/></td>
 		        	</tr>	
 				</table>
@@ -284,11 +283,11 @@
 			         		<td align="center" width="50%">
 			         			<a4j:commandButton value="Yes"
 	                            ajaxSingle="true" action="#{prorertyFromMng.removeCostEstimate()}"
-	                            oncomplete="javascript:Richfaces.hideModalPanel('delete_est_mp')"
+	                            oncomplete="#{rich:component('delete_est_mp')}.hide();"
 	                            reRender="estimation_from:dataList" /></td>
 	                        <td align="center" width="50%"><a4j:commandButton
 	                            value="No"
-	                            onclick="javascript:Richfaces.hideModalPanel('delete_est_mp')" />
+	                            onclick="#{rich:component('delete_est_mp')}.hide();"/>
 	                        </td>
 	                    </tr>
 					</table>
@@ -311,11 +310,11 @@
 			         		<td align="center" width="50%">
 			         			<a4j:commandButton value="Yes"
 	                            ajaxSingle="true" action="#{prorertyFromMng.removeForSale()}"
-	                            oncomplete="javascript:Richfaces.hideModalPanel('delete_cost_mp')"
+	                            oncomplete="#{rich:component('delete_cost_mp')}.hide();"
 	                            reRender="forSale_from:dataList" /></td>
 	                        <td align="center" width="50%"><a4j:commandButton
 	                            value="No"
-	                            onclick="javascript:Richfaces.hideModalPanel('delete_for_mp')" />
+	                            onclick="#{rich:component('delete_cost_mp')}.hide();" />
 	                        </td>
 	                    </tr>
 					</table>

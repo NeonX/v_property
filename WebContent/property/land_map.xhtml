@@ -7,28 +7,28 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:c="http://java.sun.com/jstl/core">
-
-		<fieldset class="fieldset_layout" style="width: 100%;">
+	
+	<div align="center">
+		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
 	  		<legend> 
 	  			<h:outputText value="ตำแหน่งบนแผนที่" styleClass="fieldset_label" />
 	  		</legend>
 		  	
 			<h:form>	
-				<a4j:commandButton value="กรอกพิกัด" onclick="javascript:Richfaces.showModalPanel('manage_data_panel');"/>
-				
+				<a4j:commandButton value="กรอกพิกัด" onclick="#{rich:component('manage_data_panel')}.show();"/>
 				<h:panelGrid id="land_map" columns="1" width="100%" >	
 					<ui:include src="/gis/land_map.xhtml"></ui:include>
-					
 				</h:panelGrid>
 			</h:form>
 		</fieldset>
+	</div>
 		
-		<rich:modalPanel id="manage_data_panel" width="500" height="400">
+	<rich:modalPanel id="manage_data_panel" width="500" height="400">
 	        <f:facet name="header">
 	           <h:outputText value="กรอกพิกัดบนโฉนด"></h:outputText>
 	        </f:facet>
 	        <f:facet name="controls">
-                    <span style="cursor:pointer" onclick="javascript:Richfaces.hideModalPanel('manage_data_panel')">X</span>
+                    <span style="cursor:pointer" onclick="#{rich:component('manage_data_panel')}.hide();">X</span>
             </f:facet>
 	        <h:form>	
 				<h:panelGrid id="estimation_panel" columns="1" width="100%" >	
@@ -62,16 +62,18 @@
 							</f:facet>
 							<h:outputText value="-" />
 						</rich:column>
-							
+						<f:facet name="footer">
+							<rich:datascroller for="dataList" maxPages="5"/>
+						</f:facet>
 					</rich:dataTable>
 				
-					<h:panelGrid columns="1" width="100%" style="align:center">
-						<a4j:commandButton value="บันทึก" action="#" style="margin:10px 0px 10px 0px;"/>
-					</h:panelGrid>
-					<h:panelGrid columns="1" width="100%" style="align:center">
-						<a4j:commandButton value="ยกเลิก" action="#" style="margin:10px 0px 10px 0px;"/>
-					</h:panelGrid>
 				</h:panelGrid>
+				<table width="100%">
+		        	<tr>
+		        		<td align="right" width="50%"><a4j:commandButton value="SAVE" action="#" reRender="land_form" style="margin:10px 0px 10px 0px;"/></td>
+						<td align="left" width="50%"><a4j:commandButton value="CANCEL" onclick="#{rich:component('manage_data_panel')}.hide();" style="margin:10px 0px 10px 0px;"/></td>
+		        	</tr>	
+				</table>
 			</h:form>
 		
 		
