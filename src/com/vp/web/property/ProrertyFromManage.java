@@ -10,11 +10,13 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 import com.vp.entity.CostEstimate;
 import com.vp.entity.CostForSale;
 import com.vp.entity.Owner;
+import com.vp.entity.PlotRent;
 import com.vp.entity.Posession;
 import com.vp.entity.Property;
 import com.vp.service.CostEstimateService;
@@ -31,16 +33,23 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	private CostForSaleService costForSaleService = (CostForSaleService) getContextBackingBean().getBean("costForSaleService");
 
 	@In(scope = ScopeType.SESSION, required=false)
+	@Out(scope = ScopeType.SESSION, required = false)
     String pptId;
 	@In(scope = ScopeType.SESSION, required=false)
+	@Out(scope = ScopeType.SESSION, required = false)
     String ownerId;
 	@In(scope = ScopeType.SESSION, required=false)
+	@Out(scope = ScopeType.SESSION, required = false)
     String posId;
 	
 	private List<CostEstimate> estimatList;
 	private List<CostForSale> costForSaleList;
 	private List<String> ownerNameList = new ArrayList<String>();
 	private List<Object[]> namelist =  new ArrayList<Object[]>();
+	private List<PlotRent> plotRentList = new ArrayList<PlotRent>();
+	
+	private List<Double> plotRentArea = new ArrayList<Double>();
+	
 	private Owner ownerList;
 	
 	private CostEstimate costEstimate = new CostEstimate();
@@ -71,7 +80,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	public void init() {
 		namelist =  propertyService.getOwnerNameAll();
 		
-		//System.out.println(namelist.get(0).getOwnerName());
+		System.out.println(pptId);
 		System.out.println(namelist.size());
 		if(pptId != null && ownerId != null && !pptId.equals("0") && !ownerId.equals("0")){
 			isEdit = true;
@@ -87,6 +96,9 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 			
 			estimatList = costEstimateService.getCostEstimateListById(pptId);
 			costForSaleList = costForSaleService.getCostForSaleListById(pptId);
+			
+			prepreaPlotRent();
+			
 		}else{
 			isEdit = false;
 		}
@@ -119,7 +131,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	}
 	
 	public void saveCostEstimate(){
-		property = propertyService.getPropertyBypptId(pptId);
+		//property = propertyService.getPropertyBypptId(pptId);
 		if(property != null){
 			costEstimate.setProperty(property);
 			costEstimate = costEstimateService.saveCostEstimate(costEstimate);
@@ -129,7 +141,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	}
 	
 	public void saveCostForSale(){
-		property = propertyService.getPropertyBypptId(pptId);
+		//property = propertyService.getPropertyBypptId(pptId);
 		if(property != null){
 			costForSale.setProperty(property);
 			costForSale = costForSaleService.saveCostForSale(costForSale);
@@ -139,7 +151,9 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	}
 	
 	public void cancel(){
-		property = new Property();
+		prepareData();
+		forceRedirectPage("/property/index.xhtml");
+		
 	}
 	
 	public void newCost(){
@@ -154,19 +168,9 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		
 	}
 	
-/*	public void deleteEstimation(CostEstimate costEstimate){
-		this.costEstimate = costEstimate;
-//		costEstimateService.removeCostEstimate(costEstimate);
-	}*/
-	
 	public void editCostForSale(String saleId){
 		costForSale = costForSaleService.getCostForSaleById(saleId);
 	}
-	
-/*	public void deleteCostForSale(CostForSale costForSale){
-		this.costForSale = costForSale;
-		//costForSaleService.removeContent(costForSale);
-	}*/
 	
 	public void removeCostEstimate(){
 		if(costEstimate != null){
@@ -183,7 +187,49 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		costForSale = null;
 		
 	}
-
+	public void prepareData(){
+		property = new Property();
+		pptId = null;
+		ownerId = null;
+		posId = null;
+		costForSale = null;
+		costEstimate = null;
+		
+	}
+	
+	public void prepreaPlotRent() {
+		plotRentList = propertyService.getPlotRentBypptId(pptId);
+		
+		
+		Double sumPlotSize = 0.0;
+		if(plotRentList != null){
+			for(PlotRent plot:plotRentList){
+				sumPlotSize += plot.getPlotSize();
+			}
+		}
+		
+		plotRentArea=sqmToRNgTrv(sumPlotSize);
+		
+	}
+	
+	public List<Double> sqmToRNgTrv(Double size) {
+		
+		List<Double> data = new ArrayList<Double>();
+		
+		Double r = ((size-(size%1600))/1600);
+		size = size-(((size-(size%1600))/1600)*1600);
+		Double ng = ((size-(size%400))/400);
+		size = size-(((size-(size%400))/400)*400);
+		Double trv = (size/4);
+		
+		data.add(r);
+		data.add(ng);
+		data.add(trv);
+		
+		return data;
+		
+	}
+	
 	
 	public Property getProperty() {
 		return property;
@@ -336,6 +382,22 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public List<PlotRent> getPlotRentList() {
+		return plotRentList;
+	}
+
+	public void setPlotRentList(List<PlotRent> plotRentList) {
+		this.plotRentList = plotRentList;
+	}
+
+	public List<Double> getPlotRentArea() {
+		return plotRentArea;
+	}
+
+	public void setPlotRentArea(List<Double> plotRentArea) {
+		this.plotRentArea = plotRentArea;
 	}
 
 

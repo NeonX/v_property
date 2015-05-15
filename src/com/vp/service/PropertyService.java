@@ -3,9 +3,11 @@ package com.vp.service;
 import java.util.List;
 
 import com.vp.dao.OwnerDao;
+import com.vp.dao.PlotRentDao;
 import com.vp.dao.PosessionDao;
 import com.vp.dao.PropertyDao;
 import com.vp.entity.Owner;
+import com.vp.entity.PlotRent;
 import com.vp.entity.Posession;
 import com.vp.entity.Property;
 
@@ -14,6 +16,7 @@ public class PropertyService {
 	private PropertyDao propertyDao;
 	private OwnerDao ownerDao ;
 	private PosessionDao posessionDao;
+	private PlotRentDao plotRentDao;
 
 	public Owner getOwnerById(String ownerId) {
 		return ownerDao.getOwnerById(ownerId);
@@ -55,10 +58,10 @@ public class PropertyService {
 		return propertyDao.getPropertyBypptId(id);
 	}
 	
-	/*public List<String> getPropertyAll(String id) {
-		return propertyDao.getPropertyAll(id);
+	public List<PlotRent> getPlotRentBypptId(String id) {
+		return plotRentDao.getPlotRentBypptId(id);
 	}
-	*/
+	
 	public PropertyDao getPropertyDao() {
 		return propertyDao;
 	}
@@ -90,6 +93,14 @@ public class PropertyService {
 	public void removePosession(String posid) {
 		posessionDao.removePosession(posid);
 		
+	}
+
+	public PlotRentDao getPlotRentDao() {
+		return plotRentDao;
+	}
+
+	public void setPlotRentDao(PlotRentDao plotRentDao) {
+		this.plotRentDao = plotRentDao;
 	}
 	
 

@@ -1,11 +1,19 @@
 package com.vp.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 /**
@@ -27,7 +35,7 @@ public class PlotRent implements Serializable {
 	private String createBy;
 
 	@Column(name="create_date")
-	private Timestamp createDate;
+	private Date createDate;
 
 	@Column(name="plot_size")
 	private float plotSize;
@@ -36,7 +44,7 @@ public class PlotRent implements Serializable {
 	private String updateBy;
 
 	@Column(name="update_date")
-	private Timestamp updateDate;
+	private Date updateDate;
 
 	//bi-directional many-to-one association to ContractPlot
 	@OneToMany(mappedBy="plotRent")
@@ -66,11 +74,11 @@ public class PlotRent implements Serializable {
 		this.createBy = createBy;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -90,11 +98,11 @@ public class PlotRent implements Serializable {
 		this.updateBy = updateBy;
 	}
 
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return this.updateDate;
 	}
 
-	public void setUpdateDate(Timestamp updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 

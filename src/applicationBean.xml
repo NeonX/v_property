@@ -20,6 +20,7 @@
 	<bean id="costEstimateDao" class="com.vp.dao.CostEstimateDao"/>
 	<bean id="costForSaleDao" class="com.vp.dao.CostForSaleDao"/>
 	<bean id="ownerDao" class="com.vp.dao.OwnerDao"/>
+	<bean id="plotRentDao" class="com.vp.dao.PlotRentDao"/>
 	
 
 	<!-- ############## History  DAO ############## -->
