@@ -10,14 +10,17 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 import com.vp.entity.Contract;
+import com.vp.service.ContractService;
 import com.vp.web.AbstractBackingBean;
 
 
 @Name("contrListMng")
 @Scope(ScopeType.PAGE)
 public class ContractListManage extends AbstractBackingBean<ContractListManage> {
+	
+	private ContractService contractService = (ContractService) getContextBackingBean().getBean("contractService");
 
-	private List<Contract> contList;
+	private List<Object[]> contList;
 
     @Out(scope = ScopeType.SESSION, required=false)
     Integer contractId;
@@ -28,7 +31,9 @@ public class ContractListManage extends AbstractBackingBean<ContractListManage> 
 
 	@Create
 	public void init() {
-		contList = new ArrayList<Contract>();
+		contList = new ArrayList<Object[]>();
+		
+		contList = contractService.getConNativeList(null);
 		
 	}
 	
@@ -37,11 +42,11 @@ public class ContractListManage extends AbstractBackingBean<ContractListManage> 
 		forceRedirectPage("/contract/contract_form.xhtml");
 	}
 
-	public List<Contract> getContList() {
+	public List<Object[]> getContList() {
 		return contList;
 	}
 
-	public void setContList(List<Contract> contList) {
+	public void setContList(List<Object[]> contList) {
 		this.contList = contList;
 	}
 	

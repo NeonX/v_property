@@ -11,19 +11,15 @@
 
                 
 	<ui:define name="content">
-		ADD - EDIT
 		<rich:tabPanel switchType="client">
-        <rich:tab label="First">
-            Here is tab #1
-        </rich:tab>
-        <rich:tab label="Second">
-            Here is tab #2
-        </rich:tab>
-        <rich:tab label="Third">
-            Here is tab #3
-        </rich:tab>
-    </rich:tabPanel>
-		
+	        <rich:tab label="ข้อมูลสัญญาเช่า">
+	            <ui:include src="contract_info.xhtml"/>
+	        </rich:tab>
+	        <rich:tab label="เอกสารแนบ">
+	            Here is tab #2
+	        </rich:tab>
+	    </rich:tabPanel>
+    		
 		
 	</ui:define>
 

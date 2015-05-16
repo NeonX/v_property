@@ -24,7 +24,7 @@
 			</h:panelGrid>
 			
 
-			<a4j:commandButton value="+ New" action="#{contrListMng.doAddEditData(0)}" style="margin:10px 0px 10px 0px;"/>
+			<a4j:commandButton value="+ New" action="#{contrListMng.doAddEditData(null)}" style="margin:10px 0px 10px 0px;"/>
 			
 
 			
@@ -37,49 +37,51 @@
 					<f:facet name="header">
 						<h:outputText value="ลำดับที่" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{rowId+1}" />
 				</rich:column>
 				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="สัญญาเลขที่" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[0]}" />
 				</rich:column>
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="ชื่อผู้เช่า" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[1]}" />
 				</rich:column> 
 				<rich:column>
 					<f:facet name="header">
 						<h:outputText value="ขนาดพื้นที่เช่า &lt;br/&gt;(ไร่-งาน-ตร.วา)" escape="false"/>
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[2]}" />
 				</rich:column>
-				<rich:column style="text-align:center;background-color:#DDFFFF;">
+				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="ระยะเวลาเช่า (ปี)" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[3]}" />
 				</rich:column>
-				<rich:column style="text-align:center;background-color:#DDFFFF;">
+				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="สัญญาเริ่มต้น" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[4]}" />
 				</rich:column>
-				<rich:column style="text-align:center;background-color:#DDFFFF;">
+				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="สัญญาสิ้นสุด" />
 					</f:facet>
-					<h:outputText value="-" />
+					<h:outputText value="#{cont[5]}" />
 				</rich:column>
-				<rich:column style="text-align:center;background-color:#DDFFFF;">
+				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="ดำเนินการ" />
 					</f:facet>
-					<h:outputText value="-" />
+					<a4j:commandLink action="#{contrListMng.doAddEditData(cont[6])}">
+		                <h:graphicImage url="/imgs/edit.png"/> 
+		            </a4j:commandLink>
 				</rich:column>
 				
 				<f:facet name="footer">

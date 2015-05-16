@@ -21,6 +21,8 @@
 	<bean id="costForSaleDao" class="com.vp.dao.CostForSaleDao"/>
 	<bean id="ownerDao" class="com.vp.dao.OwnerDao"/>
 	<bean id="plotRentDao" class="com.vp.dao.PlotRentDao"/>
+	<bean id="contractDao" class="com.vp.dao.ContractDao"/>
+	<bean id="contractPlotDao" class="com.vp.dao.ContractPlotDao"/>
 	
 
 	<!-- ############## History  DAO ############## -->
@@ -29,6 +31,7 @@
 	<!-- ############## Services Bean ############## -->
 	<bean id="attachmentService" class="com.vp.service.AttachmentService" autowire="byName"/>
 	<bean id="contentService" class="com.vp.service.ContentService" autowire="byName"/>
+	<bean id="contractService" class="com.vp.service.ContractService" autowire="byName"/>
 	<bean id="sysUserService" class="com.vp.service.SysUserService" autowire="byName"/>
 	<bean id="historyUserService" class="com.vp.service.HistoryUserService" autowire="byName"/>
 	<bean id="propertyService" class="com.vp.service.PropertyService" autowire="byName"/>

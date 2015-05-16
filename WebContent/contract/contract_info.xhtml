@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core">
+	
+	<h:form>
+		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
+	  		<legend> 
+	  			<h:outputText value="ผู้ทำสัญญาเช่า" styleClass="fieldset_label" />
+	  		</legend>
+		  	<rich:spacer height="10"/>
+		  	<h:panelGrid columns="2">
+    			<h:outputText value="สัญญาเลขที่ :"/>
+    			<h:inputText value="#{contrFormMng.contr.contCode}" readonly="true" style="width:180px;background-color:#D8D8D4;"/>
+    			
+    			<h:outputText value="ชื่อผู้เช่า :"/>
+    			<h:inputText value="#{contrFormMng.contr.renterName}" style="width:250px;"/>
+    			
+    			<h:outputText value="ที่อยู่ผู้เช่า :"/>
+    			<h:inputTextarea value="#{contrFormMng.contr.renterAddress}" cols="30" rows="3"/>
+
+    		</h:panelGrid>
+    	
+		</fieldset>
+		
+		<rich:spacer height="10"/>
+		
+		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
+	  		<legend> 
+	  			<h:outputText value="สัญญาเช่า" styleClass="fieldset_label" />
+	  		</legend>
+		  	<rich:spacer height="10"/>
+		  	<h:panelGrid columns="2">
+    			<h:outputText value="โฉนดเลขที่ :"/>
+    			<h:inputText value="#{contrFormMng.contr.property.propCode}" style="width:180px;"/>
+    			
+    			<h:outputText value="สัญญาเริ่มต้น วันที่ :"/>
+    			<h:panelGrid columns="4">
+    				<h:inputText value="#{contrFormMng.contr.contBegin}" style="width:180px;"/>
+    				<h:outputText value=" ถึง วันที่ :"/>
+    				<h:inputText value="#{contrFormMng.contr.contEnd}" style="width:180px;"/>
+    			</h:panelGrid>
+    			
+    			<h:outputText value="ระยะเวลาเช่า :"/>
+    			<h:inputText value="" readonly="true" style="width:150px; background-color:#D8D8D4;"/>
+
+    		</h:panelGrid>
+		</fieldset>
+		
+		<rich:spacer height="15"/>
+		
+		<a4j:commandButton value="+ New" style="margin:10px 0px 10px 0px;"/>
+		
+		<rich:dataTable rows="10" id="dataList" value="#{contrFormMng.ctPlotList}" var="contp"
+				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,16%,24%,10%,10%,10%,10%"
+				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+                   
+				<rich:column style="text-align:center;">
+					<f:facet name="header">
+						<h:outputText value="ลำดับที่" />
+					</f:facet>
+					<h:outputText value="#{rowId+1}" />
+				</rich:column>
+				<rich:column style="text-align:center;">
+					<f:facet name="header">
+						<h:outputText value="เจ้าของกรรมสิทธิ์" />
+					</f:facet>
+					<h:outputText value="#{contp[0]}" />
+				</rich:column>
+				<rich:column >
+					<f:facet name="header">
+						<h:outputText value="แปลงเลขที่" />
+					</f:facet>
+					<h:outputText value="#{contp[1]}" />
+				</rich:column>
+				<rich:column >
+					<f:facet name="header">
+						<h:outputText value="อัตราเช่าต่อปี" />
+					</f:facet>
+					<h:outputText value="#{contp[2]}" />
+				</rich:column>
+				<rich:column >
+					<f:facet name="header">
+						<h:outputText value="อัตราภาษีต่อปี" />
+					</f:facet>
+					<h:outputText value="#{contp[3]}" />
+				</rich:column>
+				<rich:column >
+					<f:facet name="header">
+						<h:outputText value="ดำเนินการ" />
+					</f:facet>
+					<h:outputText value="-" />
+				</rich:column>
+				<f:facet name="footer">
+					<rich:datascroller></rich:datascroller>
+				</f:facet>		
+			</rich:dataTable>
+        </h:form>	
+</ui:composition>

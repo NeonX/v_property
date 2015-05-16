@@ -46,11 +46,26 @@ public class ContractDao extends AbstractGenericDao<Contract, Integer>{
 		return null;
 	}
 	
-	/*@SuppressWarnings("unchecked")
-	public List<Object[]> getContractByProperty(Integer ppt_id) {
-    	String sql ="SELECT * FROM contract AS ctr " +
-    			"inner join property AS ppt on ctr.ppt_id = ppt.ppt_id " +
-    			"where 1=1 AND ppt_id="+ppt_id;
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getConNativeList(String cond){
+    	String sql ="SELECT " +
+			    	"ct.cont_code, " +
+			    	"ct.renter_name, " +
+			    	"area_str(cast(COALESCE(Sum(pr.plot_size),0) as numeric)), " +
+			    	"date_part('year',cont_end)-date_part('year',cont_begin) as yrs, " +
+			    	"to_char(ct.cont_begin,'DD-MM-YYYY') as bg_d, " +
+			    	"to_char(ct.cont_end,'DD-MM-YYYY') as en_d, "+
+			    	"cp.ct_id "+
+			    	"FROM contract AS ct " +
+			    	"INNER JOIN contract_plot AS cp ON cp.ct_id = ct.ct_id " +
+			    	"INNER JOIN plot_rent AS pr ON cp.pr_id = pr.pr_id " +
+			    	"WHERE 1 = 1 ";
+    	if(!AppUtils.isNullOrEmpty(cond)){
+    		sql += cond;
+    	}
+    	
+    	sql += " GROUP BY cp.ct_id,ct.cont_code,ct.renter_name,ct.cont_begin,ct.cont_end " +
+    		   " ORDER BY ct.cont_code DESC ";
 
         Query q = getEntityManager().createNativeQuery(sql);
         List<Object[]> list = q.getResultList();
@@ -58,6 +73,6 @@ public class ContractDao extends AbstractGenericDao<Contract, Integer>{
             return list;
         }
         return null;
-	 }*/
+	 }
 
 }
