@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import com.vp.entity.ContractPlot;
+import com.vp.entity.Property;
 
 public class ContractPlotDao extends AbstractGenericDao<ContractPlot, Integer>{
 	
@@ -32,5 +33,18 @@ public class ContractPlotDao extends AbstractGenericDao<ContractPlot, Integer>{
         }
         return null;
 	 }
+	
+	@SuppressWarnings("unchecked")
+	public List<ContractPlot> getListContPlotByCtID(String ct_id){
+		try{	
+			String hql = "FROM ContractPlot WHERE contract.ctId ="+ct_id;
+			Query q = getEntityManager().createQuery(hql);
+
+			return q.getResultList();
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

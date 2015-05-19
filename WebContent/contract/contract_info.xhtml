@@ -8,7 +8,7 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:c="http://java.sun.com/jstl/core">
 	
-	<h:form>
+	<h:form id="ct_frm">
 		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
 	  		<legend> 
 	  			<h:outputText value="ผู้ทำสัญญาเช่า" styleClass="fieldset_label" />
@@ -54,52 +54,101 @@
 		
 		<rich:spacer height="15"/>
 		
-		<a4j:commandButton value="+ New" style="margin:10px 0px 10px 0px;"/>
+		<a4j:commandButton value="+ New" style="margin:10px 0px 10px 0px;" rendered="#{contrFormMng.contr.ctId ne null}"/>
 		
 		<rich:dataTable rows="10" id="dataList" value="#{contrFormMng.ctPlotList}" var="contp"
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,16%,24%,10%,10%,10%,10%"
 				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
-                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                rendered="#{contrFormMng.contr.ctId ne null}" >
                    
-				<rich:column style="text-align:center;">
-					<f:facet name="header">
-						<h:outputText value="ลำดับที่" />
-					</f:facet>
-					<h:outputText value="#{rowId+1}" />
-				</rich:column>
-				<rich:column style="text-align:center;">
-					<f:facet name="header">
-						<h:outputText value="เจ้าของกรรมสิทธิ์" />
-					</f:facet>
-					<h:outputText value="#{contp[0]}" />
-				</rich:column>
-				<rich:column >
-					<f:facet name="header">
-						<h:outputText value="แปลงเลขที่" />
-					</f:facet>
-					<h:outputText value="#{contp[1]}" />
-				</rich:column>
-				<rich:column >
-					<f:facet name="header">
-						<h:outputText value="อัตราเช่าต่อปี" />
-					</f:facet>
-					<h:outputText value="#{contp[2]}" />
-				</rich:column>
-				<rich:column >
-					<f:facet name="header">
-						<h:outputText value="อัตราภาษีต่อปี" />
-					</f:facet>
-					<h:outputText value="#{contp[3]}" />
-				</rich:column>
-				<rich:column >
-					<f:facet name="header">
-						<h:outputText value="ดำเนินการ" />
-					</f:facet>
-					<h:outputText value="-" />
-				</rich:column>
-				<f:facet name="footer">
-					<rich:datascroller></rich:datascroller>
-				</f:facet>		
-			</rich:dataTable>
-        </h:form>	
+			<rich:column style="text-align:center;">
+				<f:facet name="header">
+					<h:outputText value="ลำดับที่" />
+				</f:facet>
+				<h:outputText value="#{rowId+1}" />
+			</rich:column>
+			<rich:column style="text-align:center;">
+				<f:facet name="header">
+					<h:outputText value="เจ้าของกรรมสิทธิ์" />
+				</f:facet>
+				<h:outputText value="#{contp[0]}" />
+			</rich:column>
+			<rich:column >
+				<f:facet name="header">
+					<h:outputText value="แปลงเลขที่" />
+				</f:facet>
+				<h:outputText value="#{contp[1]}" />
+			</rich:column>
+			<rich:column >
+				<f:facet name="header">
+					<h:outputText value="อัตราเช่าต่อปี" />
+				</f:facet>
+				<h:outputText value="#{contp[2]}" />
+			</rich:column>
+			<rich:column >
+			<f:facet name="header">
+					<h:outputText value="อัตราภาษีต่อปี" />
+				</f:facet>
+				<h:outputText value="#{contp[3]}" />
+			</rich:column>
+			<rich:column >
+				<f:facet name="header">
+					<h:outputText value="ดำเนินการ" />
+				</f:facet>
+				<h:outputText value="-" />
+			</rich:column>
+			<f:facet name="footer">
+				<rich:datascroller></rich:datascroller>
+			</f:facet>		
+		</rich:dataTable>
+			
+		<div align="center" style="width:100%">
+			<h:panelGrid columns="3">
+				<a4j:commandButton value="SAVE" action="#{contrFormMng.doSaveContract}" reRender="ct_frm"/>
+			</h:panelGrid>
+		</div>
+	</h:form>
+        
+        <rich:modalPanel id="modal_save_alert" width="300" height="130">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{messages['label.general.savedata']}"></h:outputText>
+                </h:panelGroup>
+            </f:facet>
+            <f:facet name="controls">
+                <h:panelGroup>
+                    <h:graphicImage title="ปิด" value="/imgs/delete_12px.png" id="close_save"
+                                    style="border:0" styleClass="icon_cursor"
+                                    onclick="#{rich:component('modal_save_alert')}.hide();"/>
+                </h:panelGroup>
+            </f:facet>
+            <h:form id="frm_modal_save_alert">	
+				<table width="100%" >
+					<tr>
+					    <td align="center" width="290px">
+					        <h:outputLabel value="55555" styleClass="#{(true)?'msg_success':'msg_fail'}"/>
+					    </td>
+					</tr>
+					<tr>
+					    <td align="center">
+					        <h:outputLabel  value="&#160;"/>
+					    </td>
+					</tr>
+					<tr>
+						<td align="center">
+							<h:panelGrid columns="4">
+								<a4j:commandButton id="cls_btn_home"  styleClass="btn_cancel"
+							                   onclick="#{rich:component('modal_save_alert')}.hide();" 
+							                   value="กลับหน้าหลัก" />
+								<rich:spacer width="10"/>
+								<a4j:commandButton id="cls_btn_save"  styleClass="btn_cancel" 
+											onclick="#{rich:component('modal_save_alert')}.hide();" 
+											value="ปิดหน้าต่าง" />
+							</h:panelGrid>
+						</td>
+					</tr>	           			
+				</table>
+            </h:form>
+		</rich:modalPanel>
 </ui:composition>
