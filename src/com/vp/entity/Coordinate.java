@@ -1,14 +1,23 @@
 package com.vp.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
 
-import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="coordinate")
-@SequenceGenerator(name="coordinate_generator", sequenceName="coordinate_seq", allocationSize=1)
+@SequenceGenerator(name="coordinate_generator", sequenceName="coordinate_co_id_seq", allocationSize=1)
 public class Coordinate implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -18,9 +27,11 @@ public class Coordinate implements Serializable {
 
 	@Column(name="co_type")
 	private String coType;
-
+	
+	@Column(name="e")
 	private String e;
-
+	
+	@Column(name="n")
 	private String n;
 
 	@Column(name="target_id")
@@ -30,8 +41,12 @@ public class Coordinate implements Serializable {
 	private String updateBy;
 
 	@Column(name="update_date")
-	private Timestamp updateDate;
-
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date updateDate;
+	
+	@Transient
+	private Integer isEdit;
+	
     public Coordinate() {
     }
 
@@ -83,12 +98,20 @@ public class Coordinate implements Serializable {
 		this.updateBy = updateBy;
 	}
 
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return this.updateDate;
 	}
 
-	public void setUpdateDate(Timestamp updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public Integer getIsEdit() {
+		return isEdit;
+	}
+
+	public void setIsEdit(Integer isEdit) {
+		this.isEdit = isEdit;
 	}
 
 }

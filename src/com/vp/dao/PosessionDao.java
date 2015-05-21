@@ -29,20 +29,5 @@ public class PosessionDao extends AbstractGenericDao<Posession, Integer> {
 		return null;
 	}
 	
-	public Posession removePosession(String id) {
-		try{
-			String sql = "delete from posession where 1=1 And pos_id="+id;
-			Query q = getEntityManager().createNativeQuery(sql);
-			// getEntityManager().createQuery(hql);
-	
-			/*List<Posession> list = q.getResultList();
-			if(list != null && list.size() > 0){
-				return list.get(0);
-					}*/
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 }

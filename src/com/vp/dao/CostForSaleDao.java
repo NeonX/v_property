@@ -15,7 +15,7 @@ public class CostForSaleDao extends AbstractGenericDao<CostForSale, Integer> {
 	@SuppressWarnings("unchecked")
 	public List<CostForSale> getCostForSaleListById(String ppt_id){
 		try{
-			String hql = " FROM CostForSale WHERE 1=1 and property.pptId="+ppt_id;
+			String hql = " FROM CostForSale WHERE 1=1 and property.pptId="+ppt_id+" order by updateDate DESC";
 			
 			Query q = getEntityManager().createQuery(hql);
 			return q.getResultList();

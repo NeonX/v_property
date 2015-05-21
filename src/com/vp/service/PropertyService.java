@@ -2,10 +2,12 @@ package com.vp.service;
 
 import java.util.List;
 
+import com.vp.dao.CoordinateDao;
 import com.vp.dao.OwnerDao;
 import com.vp.dao.PlotRentDao;
 import com.vp.dao.PosessionDao;
 import com.vp.dao.PropertyDao;
+import com.vp.entity.Coordinate;
 import com.vp.entity.Owner;
 import com.vp.entity.PlotRent;
 import com.vp.entity.Posession;
@@ -17,6 +19,7 @@ public class PropertyService {
 	private OwnerDao ownerDao ;
 	private PosessionDao posessionDao;
 	private PlotRentDao plotRentDao;
+	private CoordinateDao coordinateDao;
 
 	public Owner getOwnerById(String ownerId) {
 		return ownerDao.getOwnerById(ownerId);
@@ -32,6 +35,10 @@ public class PropertyService {
 	
 	public Property save(Property property){
 		return propertyDao.merge(property);
+	}
+	
+	public Coordinate save(Coordinate coordinate){
+		return coordinateDao.merge(coordinate);
 	}
 	
 	public Posession getPosessionById(String id){
@@ -90,8 +97,8 @@ public class PropertyService {
 		this.posessionDao = posessionDao;
 	}
 
-	public void removePosession(String posid) {
-		posessionDao.removePosession(posid);
+	public void removePosession(Posession posession) {
+		posessionDao.remove(posession);
 		
 	}
 
@@ -101,6 +108,14 @@ public class PropertyService {
 
 	public void setPlotRentDao(PlotRentDao plotRentDao) {
 		this.plotRentDao = plotRentDao;
+	}
+
+	public CoordinateDao getCoordinateDao() {
+		return coordinateDao;
+	}
+
+	public void setCoordinateDao(CoordinateDao coordinateDao) {
+		this.coordinateDao = coordinateDao;
 	}
 	
 

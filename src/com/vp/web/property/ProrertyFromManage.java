@@ -13,6 +13,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
+import com.vp.entity.Coordinate;
 import com.vp.entity.CostEstimate;
 import com.vp.entity.CostForSale;
 import com.vp.entity.Owner;
@@ -47,8 +48,8 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	private List<String> ownerNameList = new ArrayList<String>();
 	private List<Object[]> namelist =  new ArrayList<Object[]>();
 	private List<PlotRent> plotRentList = new ArrayList<PlotRent>();
-	
-	private List<Double> plotRentArea = new ArrayList<Double>();
+	private List<Coordinate> plotRentCoordinateList = new ArrayList<Coordinate>();
+	private List<Coordinate> propertyCoordinateList = new ArrayList<Coordinate>();
 	
 	private Owner ownerList;
 	
@@ -59,12 +60,18 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	
 	private Property property = new Property();
 	private Owner owner = new Owner();
+	private Owner addOwner = new Owner();
+	private PlotRent plotRent = new PlotRent();
 	
 	private String ownerName;
 	private String ownerAdd;
+	
 	private String r = null;
 	private String ng = null;
 	private String trv = null;
+	private Double plotR = null;
+	private Double plotNg = null;
+	private Double plotTrv = null;
 	
 	private Date date;
 	private Timestamp selectDate;
@@ -80,12 +87,11 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	public void init() {
 		namelist =  propertyService.getOwnerNameAll();
 		
-		System.out.println(pptId);
-		System.out.println(namelist.size());
 		if(pptId != null && ownerId != null && !pptId.equals("0") && !ownerId.equals("0")){
 			isEdit = true;
 			property = propertyService.getPropertyBypptId(pptId);
 			owner = propertyService.getOwnerById(ownerId);
+			ownerName = owner.getOwnerName();
 			float area = property.getAreaSize();
 			
 			r = ((area-(area%1600))/1600)+"";
@@ -98,6 +104,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 			costForSaleList = costForSaleService.getCostForSaleListById(pptId);
 			
 			prepreaPlotRent();
+			//prepreaPlotRentCoordinateList();
 			
 		}else{
 			isEdit = false;
@@ -119,13 +126,24 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		if(property != null && owner != null){
 			Posession posession = new Posession();
 			if(posId!=null){
-				posession.setPosId(Integer.parseInt(posId));
+				Posession pose = propertyService.getPosessionById(posId);
+				Integer oldId = pose.getOwner().getOwnerId();
+				Integer newId = owner.getOwnerId();
+				if(oldId.equals(newId)){
+					posession.setPosId(Integer.parseInt(posId));
+				}
+				
 			}
 			posession.setOwner(owner);
 			posession.setProperty(property);
 			posession.setPosessionDate(new Date());
 			posession = propertyService.savePosession(posession);
+			posId = posession.getPosId().toString();
+			ownerId = owner.getOwnerId().toString();
+			
 		}
+		
+		
 		
 		System.out.println("saved.");
 	}
@@ -135,6 +153,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		if(property != null){
 			costEstimate.setProperty(property);
 			costEstimate = costEstimateService.saveCostEstimate(costEstimate);
+			estimatList = costEstimateService.getCostEstimateListById(pptId);
 		}
 		
 		System.out.println("saved.");
@@ -145,6 +164,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		if(property != null){
 			costForSale.setProperty(property);
 			costForSale = costForSaleService.saveCostForSale(costForSale);
+			costForSaleList = costForSaleService.getCostForSaleListById(pptId);
 		}
 		
 		System.out.println("saved.");
@@ -198,17 +218,16 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	}
 	
 	public void prepreaPlotRent() {
-		plotRentList = propertyService.getPlotRentBypptId(pptId);
-		
-		
-		Double sumPlotSize = 0.0;
-		if(plotRentList != null){
-			for(PlotRent plot:plotRentList){
-				sumPlotSize += plot.getPlotSize();
-			}
+		if(pptId != null && !pptId.equals("0")){
+			prepreaRentList();
+			
+		}else{
+			plotRentList.clear();
+			plotR = 0.0;
+			plotNg = 0.0;
+			plotTrv = 0.0;
 		}
 		
-		plotRentArea=sqmToRNgTrv(sumPlotSize);
 		
 	}
 	
@@ -230,6 +249,149 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		
 	}
 	
+	public void prepreaRNgTrv() {
+			plotR = 0.0;
+			plotNg = 0.0;
+			plotTrv = 0.0;
+		
+	}
+	
+	public void newPlotRent(){
+		prepreaRNgTrv();
+		plotRentCoordinateList.clear();
+		plotRent = new PlotRent();
+		
+	}
+	
+	public void addPlotRentArea(){
+		Coordinate coordinate = new Coordinate();
+		if(plotRentCoordinateList.size()>0){
+			coordinate = plotRentCoordinateList.get(plotRentCoordinateList.size()-1);
+			if(!coordinate.getE().equals("") || !coordinate.getN().equals("")){
+				
+				plotRentCoordinateList.get(plotRentCoordinateList.size()-1).setIsEdit(1);
+				plotRentCoordinateList.add(new Coordinate());
+			}
+		}else{
+			
+			plotRentCoordinateList.add(new Coordinate());
+		}
+		
+	}
+	
+	public void prepreaPlotRentCoordinateList(){
+		if(plotRent.getPrId() != null){
+			String conn =" and coType = 'PLOTRENT' and targetId = "+plotRent.getPrId();
+			plotRentCoordinateList = propertyService.getCoordinateDao().getCoordinateByCondition(conn);
+		}
+		
+	}
+	
+	public void prepreaPropertyCoordinateList(){
+		if(property.getPptId() != null){
+			String conn =" and coType = 'PROPERTY' and targetId = "+property.getPptId();
+			propertyCoordinateList = propertyService.getCoordinateDao().getCoordinateByCondition(conn);
+		}
+		
+	}
+	
+	public void resetPlotRent(){
+		plotRentCoordinateList.clear();
+		prepreaPlotRent() ;
+	}
+	
+	public void savePlotRent(){
+		float area = Float.parseFloat((plotR*1600+plotNg*400+plotTrv*4)+"");
+		if(plotRent.getPrId() == null){
+			plotRent.setCreateDate(new Date());
+			plotRent.setCreateBy(credentials.getUsername());
+		}
+		plotRent.setPlotSize(area);
+		plotRent.setProperty(property);
+		plotRent.setUpdateDate(new Date());
+		plotRent.setUpdateBy(credentials.getUsername());
+		plotRent = propertyService.getPlotRentDao().merge(plotRent);
+		
+		if(plotRent.getPrId() != null){
+			savePlotRentCoordinate();
+		}
+		
+		prepreaRentList();
+		
+	}
+	
+	public void savePlotRentCoordinate(){
+		
+			for(Coordinate coor:plotRentCoordinateList){
+				coor.setTargetId(property.getPptId());
+				coor.setCoType("PLOTRENT");
+				coor.setUpdateBy(credentials.getUsername());
+				coor.setUpdateDate(new Date());
+				propertyService.save(coor);
+			}
+		
+	}
+	
+	public void savePropertyCoordinate(){
+		
+		for(Coordinate coor:propertyCoordinateList){
+			coor.setTargetId(plotRent.getPrId());
+			coor.setCoType("PROPERTY");
+			coor.setUpdateBy(credentials.getUsername());
+			coor.setUpdateDate(new Date());
+			propertyService.save(coor);
+		}
+	
+	}
+	
+	public void prepreaRentList(){
+		
+		plotRentList = propertyService.getPlotRentBypptId(pptId);
+		
+		Double sumPlotSize = 0.0;
+		if(plotRentList != null){
+			for(PlotRent plot:plotRentList){
+				sumPlotSize += plot.getPlotSize();
+			}
+		}
+		List<Double> plotRentArea = sqmToRNgTrv(sumPlotSize);
+		if(plotRentArea != null){
+			plotR = plotRentArea.get(0);
+			plotNg = plotRentArea.get(1);
+			plotTrv = plotRentArea.get(2);
+		}
+	}
+	
+	public void addOwner(){
+		owner = propertyService.getOwnerDao().merge(addOwner);
+		if(owner!=null){
+			ownerName = owner.getOwnerName();
+			namelist =  propertyService.getOwnerNameAll();
+		}
+	}
+	
+	public void prepreaAddOwner(){
+		addOwner = new Owner();
+	}
+	
+	public void allowEditPlotRentCondinate(String index){
+		plotRentCoordinateList.get(Integer.parseInt(index)).setIsEdit(2);
+	}
+	public void desibleEditPlotRentCondinate(String index){
+		plotRentCoordinateList.get(Integer.parseInt(index)).setIsEdit(1);
+	}
+	public void deletePlotRentCondinate(String index) {
+		plotRentCoordinateList.remove(Integer.parseInt(index));
+	}
+	
+	public String getRNgTrv(Double size){
+		List<Double> area = sqmToRNgTrv(size);
+		
+		return ((int)area.get(0).doubleValue())+" - "+((int)area.get(1).doubleValue())+" - "+((int)area.get(2).doubleValue());
+	}
+	
+	////////////////////////////////////////////
+	// SETER AND GETER
 	
 	public Property getProperty() {
 		return property;
@@ -319,7 +481,6 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		this.ownerSelectName = ownerSelectName;
 	}
 
-
 	public List<Object[]> getNamelist() {
 		return namelist;
 	}
@@ -392,13 +553,68 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		this.plotRentList = plotRentList;
 	}
 
-	public List<Double> getPlotRentArea() {
-		return plotRentArea;
+	public Double getPlotR() {
+		return plotR;
 	}
 
-	public void setPlotRentArea(List<Double> plotRentArea) {
-		this.plotRentArea = plotRentArea;
+	public void setPlotR(Double plotR) {
+		this.plotR = plotR;
 	}
 
+	public Double getPlotNg() {
+		return plotNg;
+	}
+
+	public void setPlotNg(Double plotNg) {
+		this.plotNg = plotNg;
+	}
+
+	public Double getPlotTrv() {
+		return plotTrv;
+	}
+
+	public void setPlotTrv(Double plotTrv) {
+		this.plotTrv = plotTrv;
+	}
+
+	public List<Coordinate> getPlotRentCoordinateList() {
+		return plotRentCoordinateList;
+	}
+
+	public void setPlotRentCoordinateList(List<Coordinate> plotRentCoordinateList) {
+		this.plotRentCoordinateList = plotRentCoordinateList;
+	}
+
+	public List<Coordinate> getPreportyCoordinateList() {
+		return propertyCoordinateList;
+	}
+
+	public void setPreportyCoordinateList(List<Coordinate> propertyCoordinateList) {
+		this.propertyCoordinateList = propertyCoordinateList;
+	}
+
+	public String getPptId() {
+		return pptId;
+	}
+
+	public void setPptId(String pptId) {
+		this.pptId = pptId;
+	}
+
+	public Owner getAddOwner() {
+		return addOwner;
+	}
+
+	public void setAddOwner(Owner addOwner) {
+		this.addOwner = addOwner;
+	}
+
+	public PlotRent getPlotRent() {
+		return plotRent;
+	}
+
+	public void setPlotRent(PlotRent plotRent) {
+		this.plotRent = plotRent;
+	}
 
 }

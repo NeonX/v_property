@@ -15,7 +15,7 @@ public class CostEstimateDao extends AbstractGenericDao<CostEstimate, Integer>{
 	@SuppressWarnings("unchecked")
 	public List<CostEstimate> getCostEstimateListById(String pptId){
 		try{
-			String hql = " FROM CostEstimate WHERE 1=1 and property.pptId="+pptId;
+			String hql = " FROM CostEstimate WHERE 1=1 and property.pptId="+pptId+" order by updateDate DESC";
 			
 			Query q = getEntityManager().createQuery(hql);
 			return q.getResultList();

@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="plot_rent")
-@SequenceGenerator(name="plot_rent_generator", sequenceName="plot_rent_seq", allocationSize=1)
+@SequenceGenerator(name="plot_rent_generator", sequenceName="plot_rent_pr_id_seq", allocationSize=1)
 public class PlotRent implements Serializable {
 	private static final long serialVersionUID = 1L;
 

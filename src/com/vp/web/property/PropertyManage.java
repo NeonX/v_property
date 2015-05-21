@@ -60,10 +60,10 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 		Property property = propertyService.getPropertyBypptId(pptId);
 		
 		Posession posession = propertyService.getPosessionById(posId);
-//		System.out.println(posession.g);
-		propertyService.removePosession(posId);
-		//propertyService.remove(posession);
+		
+		propertyService.removePosession(posession);
 		propertyService.remove(property);
+		
 		prepraeData();
 	}
 	
