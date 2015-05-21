@@ -21,6 +21,7 @@
 	<bean id="costForSaleDao" class="com.vp.dao.CostForSaleDao"/>
 	<bean id="ownerDao" class="com.vp.dao.OwnerDao"/>
 	<bean id="plotRentDao" class="com.vp.dao.PlotRentDao"/>
+	<bean id="coordinateDao" class="com.vp.dao.CoordinateDao"/>
 	<bean id="contractDao" class="com.vp.dao.ContractDao"/>
 	<bean id="contractPlotDao" class="com.vp.dao.ContractPlotDao"/>
 	
