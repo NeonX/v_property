@@ -18,13 +18,13 @@
 			        	<ui:include src="land_information.xhtml"></ui:include>
 					
 				</rich:tab>
-				<rich:tab label="พื่นที่แบ่งเช่า">
+				<rich:tab label="พื่นที่แบ่งเช่า" disabled="#{prorertyFromMng.pptId == 0}">
 			        	<ui:include src="land_pensions.xhtml"></ui:include>
 				</rich:tab>
-				<rich:tab label="เอกสารแนบ">
+				<rich:tab label="เอกสารแนบ" disabled="#{prorertyFromMng.pptId == 0}">
 			        	ยังไม่มา 
 				</rich:tab>
-				<rich:tab label="แผนที่">
+				<rich:tab label="แผนที่" disabled="#{prorertyFromMng.pptId == 0}">
 						<ui:include src="land_map.xhtml"></ui:include>
 				</rich:tab>
 		    </rich:tabPanel>

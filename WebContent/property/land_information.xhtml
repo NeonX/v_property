@@ -7,82 +7,107 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:c="http://java.sun.com/jstl/core">
-	
-	
+
+
 	<h:form id="land_form">
-	<div align="center">
-		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
-	  		<legend> 
-	  			<h:outputText value="บริการทดสอบวัสดุ" styleClass="fieldset_label" />
-	  		</legend>
-		  	<rich:spacer height="10"/>
-			<h:panelGrid columns="2">
-				<h:outputText value="เลขที่โฉนด: " />
-				<h:inputText id="deed_no" value="#{prorertyFromMng.property.propCode}" ></h:inputText>
-				<h:outputText value="เลขที่แปลงที่ดิน: " />
-				<h:inputText id="plot_no" value="#{prorertyFromMng.property.plotCode}"></h:inputText>
-				
-			</h:panelGrid>
-			<h:panelGrid columns="7" cellspacing="2">
-				<h:outputText value="พื้นที่ตามโฉนด: " />
-				<h:inputText id="area_r" value="#{prorertyFromMng.r}" style="width: 100px"></h:inputText>
-				<h:outputText value=" ไร่" />
-				<h:inputText id="area_ng" value="#{prorertyFromMng.ng}" style="width: 100px"></h:inputText>
-				<h:outputText value=" งาน" />
-				<h:inputText id="area_trv" value="#{prorertyFromMng.trv}" style="width: 100px"></h:inputText>
-				<h:outputText value="ตรว." />
-			</h:panelGrid>
-			<h:panelGrid columns="2">
-			<h:outputText value="ที่ตั้งที่ดิน: " />
-				<h:inputTextarea id="land_add" value="#{prorertyFromMng.property.pAddress}" rows="5" cols="40"
-                        immediate="true"></h:inputTextarea>
-			</h:panelGrid>
-			<rich:spacer height="10"/>
-		</fieldset>
-		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
-	  		<legend> 
-	  			<h:outputText value="ผู้ครอบครอง"/>
-	  		</legend>
-		  	<h:panelGrid columns="3" cellspacing="3">
-				<h:outputText value="ชื่อผู้ครอบครอง / เจ้าของกรรมสิทธิ์  : " />
-				 <a4j:region>
-                    <rich:comboBox id="residenceCombo" value="#{prorertyFromMng.ownerName}" width="250" 
-                                   defaultLabel="-- เลือก --" >
-                        <s:selectItems value="#{prorertyFromMng.namelist}" var="resid" itemValue="#{resid[1]}"/>
-                        <a4j:support event="onselect"
-                                     action="#{prorertyFromMng.getOwnerAddess}"
-                                     reRender="holder_add" />
-                    </rich:comboBox>
-                </a4j:region>
-                <rich:message for="residenceCombo" />
-				<h:outputText value="ที่อยุ่ผู้ครอบครอง / เจ้าของกรรมสิทธิ์  : " />
-				<h:inputTextarea id="holder_add" value="#{prorertyFromMng.owner.address}" disabled="true" rows="5" cols="40"
-                        immediate="true"></h:inputTextarea>
-			</h:panelGrid>
-			<rich:spacer height="10"/>
-		</fieldset>
-		<fieldset class="fieldset_layout" style="width: 98%; text-align: left; border: 0">
-			<h:panelGrid columns="2" style="text-align: left;">
-				<h:outputText value="วันที่กรอกข้อมูล : " />
-				 <rich:calendar value="#{prorertyFromMng.property.inputDate}"
-                        datePattern="dd/MM/yyyy"                      
-                        cellWidth="24px" cellHeight="22px" style="width:200px"/>
-	            <rich:message for="mycalendar" />
-			</h:panelGrid>
-		</fieldset>
-		<h:panelGrid id="add_price" columns="1" width="98%" rendered="#{prorertyFromMng.property.pptId !=null}">
-		  		<rich:tabPanel id="estimation_tap" switchType="client" style="width:98%">
+		<div align="center">
+			<fieldset class="fieldset_layout"
+				style="width: 98%; text-align: left;">
+				<legend>
+					<h:outputText value="บริการทดสอบวัสดุ" styleClass="fieldset_label" />
+				</legend>
+				<rich:spacer height="10" />
+				<h:panelGrid columns="2">
+					<h:outputText value="เลขที่โฉนด: " />
+					<h:inputText id="deed_no"
+						value="#{prorertyFromMng.property.propCode}"></h:inputText>
+					<h:outputText value="เลขที่แปลงที่ดิน: " />
+					<h:inputText id="plot_no"
+						value="#{prorertyFromMng.property.plotCode}"></h:inputText>
+
+				</h:panelGrid>
+				<h:panelGrid columns="7" cellspacing="2">
+					<h:outputText value="พื้นที่ตามโฉนด: " />
+					<h:inputText id="area_r" value="#{prorertyFromMng.r}"
+						style="width: 100px"></h:inputText>
+					<h:outputText value=" ไร่" />
+					<h:inputText id="area_ng" value="#{prorertyFromMng.ng}"
+						style="width: 100px"></h:inputText>
+					<h:outputText value=" งาน" />
+					<h:inputText id="area_trv" value="#{prorertyFromMng.trv}"
+						style="width: 100px"></h:inputText>
+					<h:outputText value="ตรว." />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputText value="ที่ตั้งที่ดิน: " />
+					<h:inputTextarea id="land_add"
+						value="#{prorertyFromMng.property.pAddress}" rows="5" cols="40"
+						immediate="true"></h:inputTextarea>
+				</h:panelGrid>
+				<rich:spacer height="10" />
+			</fieldset>
+			<fieldset class="fieldset_layout"
+				style="width: 98%; text-align: left;">
+				<legend>
+					<h:outputText value="ผู้ครอบครอง" />
+				</legend>
+				<h:panelGrid id="owner_frm" columns="4" cellspacing="3">
+					<h:outputText value="ชื่อผู้ครอบครอง / เจ้าของกรรมสิทธิ์  : " />
+					<a4j:region>
+						<rich:comboBox id="residenceCombo"
+							value="#{prorertyFromMng.ownerName}" width="250"
+							defaultLabel="-- เลือก --">
+							<s:selectItems value="#{prorertyFromMng.namelist}" var="resid"
+								itemValue="#{resid[1]}" />
+							<a4j:support event="onselect"
+								action="#{prorertyFromMng.getOwnerAddess}" reRender="holder_add" />
+						</rich:comboBox>
+					</a4j:region>
+					<rich:message for="residenceCombo" />
+					<a4j:commandButton reRender="residenceCombo"
+						value="เพิ่มเจ้าของกรรมสิทธิ์ "
+						onclick="#{rich:component('add_owner_mp')}.show();">
+					</a4j:commandButton>
+					<rich:spacer />
+					<rich:spacer />
+					<rich:spacer />
+					<rich:spacer />
+
+					<h:outputText value="ที่อยุ่ผู้ครอบครอง / เจ้าของกรรมสิทธิ์  : " />
+					<h:inputTextarea id="holder_add"
+						value="#{prorertyFromMng.owner.address}" disabled="true" rows="5"
+						cols="40" immediate="true"></h:inputTextarea>
+				</h:panelGrid>
+				<rich:spacer height="10" />
+			</fieldset>
+			<fieldset class="fieldset_layout"
+				style="width: 98%; text-align: left; border: 0">
+				<h:panelGrid columns="2" style="text-align: left;">
+					<h:outputText value="วันที่กรอกข้อมูล : " />
+					<rich:calendar value="#{prorertyFromMng.property.inputDate}"
+						datePattern="dd/MM/yyyy" cellWidth="24px" cellHeight="22px"
+						style="width:200px" />
+					<rich:message for="mycalendar" />
+				</h:panelGrid>
+			</fieldset>
+			<h:panelGrid id="add_price" columns="1" width="98%"
+				rendered="#{prorertyFromMng.property.pptId !=null}">
+				<rich:tabPanel id="estimation_tap" switchType="client"
+					style="width:98%">
 					<rich:tab label="ราคาประเมิน">
-						<h:form id="estimation_from">	
-							<a4j:commandButton value="+ New" action="#{prorertyFromMng.newCost()}" 
-							oncomplete="#{rich:component('estimation_m_p')}.show();"/>
-							<h:panelGrid id="estimation_panel" columns="1" width="98%">	
-								
-								<rich:dataTable rows="10" id="dataList" value="#{prorertyFromMng.estimatList}" var="item"
-									rowKeyVar="rowId" width="100%" columnsWidth="15%,25%,25%,20%,15%"
+						<h:form id="estimation_from">
+							<a4j:commandButton value="+ New"
+								action="#{prorertyFromMng.newCost()}"
+								oncomplete="#{rich:component('estimation_m_p')}.show();" />
+							<h:panelGrid id="estimation_panel" columns="1" width="98%">
+
+								<rich:dataTable rows="10" id="estimat_dataList"
+									value="#{prorertyFromMng.estimatList}" var="item"
+									rowKeyVar="rowId" width="100%"
+									columnsWidth="15%,25%,25%,20%,15%"
 									onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
-					                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-					                   
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
 									<rich:column style="text-align:center;">
 										<f:facet name="header">
 											<h:outputText value="ลำดับที่" />
@@ -106,40 +131,47 @@
 											<h:outputText value="อัพเดทโดย" />
 										</f:facet>
 										<h:outputText value="#{item.updateBy}" />
-									</rich:column> 
-									<rich:column style="text-align:center;background-color:#DDFFFF;">
+									</rich:column>
+									<rich:column
+										style="text-align:center;background-color:#DDFFFF;">
 										<f:facet name="header">
 											<h:outputText value="ดำเนินการ" />
 										</f:facet>
 										<h:panelGrid columns="3" style="algn:center;">
-											<a4j:commandLink action="#{prorertyFromMng.editeEstimation(item.estmId)}" 
-											oncomplete="#{rich:component('estimation_m_p')}.show();" render="estimation_m_p">
-								                <h:graphicImage url="/imgs/edit.png"/> 
-								            </a4j:commandLink>
-								            <a4j:commandLink reRender="estimation_from:dataList" action="#{prorertyFromMng.setCostEstimate(item)}"
-								            oncomplete="#{rich:component('delete_est_mp')}.show();">
-								                <h:graphicImage url="/imgs/delete.png"/>
-								            </a4j:commandLink>
+											<a4j:commandLink
+												action="#{prorertyFromMng.editeEstimation(item.estmId)}"
+												oncomplete="#{rich:component('estimation_m_p')}.show();"
+												>
+												<h:graphicImage url="/imgs/edit.png" />
+											</a4j:commandLink>
+											<a4j:commandLink reRender="estimat_dataList"
+												action="#{prorertyFromMng.setCostEstimate(item)}"
+												oncomplete="#{rich:component('delete_est_mp')}.show();">
+												<h:graphicImage url="/imgs/delete.png" />
+											</a4j:commandLink>
 										</h:panelGrid>
 									</rich:column>
-									
+
 									<f:facet name="footer">
-										<rich:datascroller for="dataList" maxPages="5"/>
-									</f:facet>		
+										<rich:datascroller for="estimat_dataList" maxPages="5" />
+									</f:facet>
 								</rich:dataTable>
 							</h:panelGrid>
 						</h:form>
-	        		</rich:tab>
-	        		<rich:tab label="ราคาที่คาดว่าจะซื้อขาย">
-						<h:form id="forSale_from">						
-							<a4j:commandButton value="+ New" action="#{prorertyFromMng.newCost()}" 
-							oncomplete="#{rich:component('expect_m_p')}.show();"/>
-							<h:panelGrid id="expect_panel" columns="1" width="100%" >	
-								<rich:dataTable rows="10" id="dataList" value="#{prorertyFromMng.costForSaleList}" var="item"
-									rowKeyVar="rowId" width="100%" columnsWidth="15%,25%,25%,20%,15%"
+					</rich:tab>
+					<rich:tab label="ราคาที่คาดว่าจะซื้อขาย">
+						<h:form id="forSale_from">
+							<a4j:commandButton value="+ New"
+								action="#{prorertyFromMng.newCost()}"
+								oncomplete="#{rich:component('expect_m_p')}.show();" />
+							<h:panelGrid id="expect_panel" columns="1" width="100%">
+								<rich:dataTable rows="10" id="expect_dataList"
+									value="#{prorertyFromMng.costForSaleList}" var="item"
+									rowKeyVar="rowId" width="100%"
+									columnsWidth="15%,25%,25%,20%,15%"
 									onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
-					                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-					                   
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
 									<rich:column style="text-align:center;">
 										<f:facet name="header">
 											<h:outputText value="ลำดับที่" />
@@ -163,162 +195,212 @@
 											<h:outputText value="อัพเดทโดย" />
 										</f:facet>
 										<h:outputText value="#{item.updateBy}" />
-									</rich:column> 
-									<rich:column style="text-align:center;background-color:#DDFFFF;">
+									</rich:column>
+									<rich:column
+										style="text-align:center;background-color:#DDFFFF;">
 										<f:facet name="header">
 											<h:outputText value="ดำเนินการ" />
 										</f:facet>
 										<h:panelGrid columns="3" style="algn:center;">
-											<a4j:commandLink action="#{prorertyFromMng.editCostForSale(item.saleId)}" 
-											oncomplete="#{rich:component('expect_m_p')}.show();">
-								                <h:graphicImage url="/imgs/edit.png"/> 
-								            </a4j:commandLink>
-								            <a4j:commandLink reRender="forSale_from:dataList" action="#{prorertyFromMng.setCostForSale(item)}"
-								            oncomplete="#{rich:component('delete_for_mp')}.show();">
-								                <h:graphicImage url="/imgs/delete.png"/>
-								            </a4j:commandLink>
+											<a4j:commandLink
+												action="#{prorertyFromMng.editCostForSale(item.saleId)}"
+												oncomplete="#{rich:component('expect_m_p')}.show();">
+												<h:graphicImage url="/imgs/edit.png" />
+											</a4j:commandLink>
+											<a4j:commandLink reRender="expect_dataList"
+												action="#{prorertyFromMng.setCostForSale(item)}"
+												oncomplete="#{rich:component('delete_for_mp')}.show();">
+												<h:graphicImage url="/imgs/delete.png" />
+											</a4j:commandLink>
 										</h:panelGrid>
 									</rich:column>
-									
+
 									<f:facet name="footer">
-										<rich:datascroller for="dataList" maxPages="5"/>
-									</f:facet>		
+										<rich:datascroller for="expect_dataList" maxPages="5" />
+									</f:facet>
 								</rich:dataTable>
 							</h:panelGrid>
 						</h:form>
-	        		</rich:tab>
-	        	</rich:tabPanel>
-	        </h:panelGrid>
-        	<table width="100%">
-	        	<tr>
-	        		<td align="right" width="50%"><a4j:commandButton value="SAVE" action="#{prorertyFromMng.saveProrerty}" reRender="land_form" style="margin:10px 0px 10px 0px;"/></td>
-					<td align="left" width="50%"><a4j:commandButton value="CANCEL" action="#{prorertyFromMng.cancel}" style="margin:10px 0px 10px 0px;"/></td>
-	        	</tr>	
+					</rich:tab>
+				</rich:tabPanel>
+			</h:panelGrid>
+			<table width="100%">
+				<tr>
+					<td align="right" width="50%"><a4j:commandButton value="SAVE"
+							action="#{prorertyFromMng.saveProrerty}" reRender="land_form"
+							style="margin:10px 0px 10px 0px;" /></td>
+					<td align="left" width="50%"><a4j:commandButton value="CANCEL"
+							action="#{prorertyFromMng.cancel}"
+							style="margin:10px 0px 10px 0px;" /></td>
+				</tr>
 			</table>
-        	</div>
-        	</h:form>
-        	<rich:modalPanel id="estimation_m_p" width="450" height="250">
-		        <f:facet name="header">
-		            <h:outputText value="ราคาประเมิน"></h:outputText>
-		        </f:facet>
-		        <f:facet name="controls">
-                    <span style="cursor:pointer" onclick="#{rich:component('estimation_m_p')}.hide();">X </span>
-            	</f:facet>
-            	<h:form>
-            	<a4j:outputPanel ajaxRendered="true">
-			        <h:panelGrid columns="3" width="100%" style="align:center">
-			               <h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
-			               <rich:calendar value="#{prorertyFromMng.costEstimate.updateDate}" id="estimation_date" datePattern="dd/MM/yyyy" cellWidth="24px" cellHeight="22px" style="width:200px;">
-		           			</rich:calendar>
-		           			<h:outputText/>
-			               <h:outputText value="ราคาประเมิน : "></h:outputText>
-			               <h:inputText id="estimation_rate_price" value="#{prorertyFromMng.costEstimate.costEstimate}"></h:inputText>
-			               <h:outputText value="บาท/ตรว. : "></h:outputText>
-			        </h:panelGrid>
-		        </a4j:outputPanel>
-		        <table width="100%">
-		        	<tr>
-		        		<td align="right"><a4j:commandButton value="SAVE" 
-		        		action="#{prorertyFromMng.saveCostEstimate}" 
-		        		oncomplete="#{rich:component('estimation_m_p')}.hide();"
-		        		reRender="dataList"
-		        		style="margin:10px 0px 10px 0px;"/></td>
-						<td align="left"><a4j:commandButton value="CANCEL" 
-						action="#{prorertyFromMng.cancel}" 
-						oncomplete="#{rich:component('estimation_m_p')}.hide();"
-						style="margin:10px 0px 10px 0px;"/></td>
-		        	</tr>	
-				</table>
-				</h:form>
-		    </rich:modalPanel>
-		    <rich:modalPanel id="expect_m_p" width="450" height="250">
-		        <f:facet name="header">
-		            <h:outputText value="ราคาที่คาดว่าจะซื้อขาย"></h:outputText>
-		        </f:facet>
-		        <f:facet name="controls">
-                    <span style="cursor:pointer" onclick="#{rich:component('expect_m_p')}.hide();">X </span>
-            	</f:facet>
-            	<h:form>
-            	<a4j:outputPanel ajaxRendered="true">
-			        <h:panelGrid columns="3" width="100%" style="align:center">
-			               <h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
-			               <rich:calendar value="#{prorertyFromMng.costForSale.updateDate}" id="expect_date" datePattern="dd/MM/yyyy" cellWidth="24px" cellHeight="22px" style="width:200px;">
-	            		   </rich:calendar>
-	            		   <h:outputText/>
-			               <h:outputText value="ราคาที่คาดว่าจะซื้อขาย : "></h:outputText>
-			               <h:inputText id="expect_rate_price" value="#{prorertyFromMng.costForSale.cost4sale}"></h:inputText>
-			               <h:outputText value="บาท/ตรว. : "></h:outputText>
-			        </h:panelGrid>
-		        </a4j:outputPanel>
-		        <table width="100%">
-		        	<tr>
-		        		<td align="right"><a4j:commandButton value="SAVE" 
-		        		action="#{prorertyFromMng.saveCostForSale}" 
-		        		oncomplete="#{rich:component('expect_m_p')}.hide();"
-		        		reRender="forSale_from:dataList"
-		        		style="margin:10px 0px 10px 0px;"/></td>
-						<td align="left"><a4j:commandButton value="CANCEL" 
-						action="#{prorertyFromMng.cancel}" 
-						oncomplete="#{rich:component('expect_m_p')}.hide();"
-						style="margin:10px 0px 10px 0px;"/></td>
-		        	</tr>	
-				</table>
-				</h:form>
-		    </rich:modalPanel>
-		    
-		    <rich:modalPanel id="delete_est_mp" width="300" height="150">
-			
-		        <f:facet name="header">
-		            <h:outputText value="ยืนยันการลบ"></h:outputText>
-		        </f:facet>
-		        <f:facet name="controls">
-		        	<span style="cursor:pointer" onclick="javascript:Richfaces.hideModalPanel('delete_est_mp')">X</span>
-		        </f:facet>
-		        <h:form>
-				    <h:panelGrid columns="3" width="100%" style="align:center">
-				           <h:outputText value="ยืนยันที่จะลบข้อมูลหรือไม่ "></h:outputText>
-				    </h:panelGrid>
-			        <table width="100%">
-			        	<tr>
-			         		<td align="center" width="50%">
-			         			<a4j:commandButton value="Yes"
-	                            ajaxSingle="true" action="#{prorertyFromMng.removeCostEstimate()}"
-	                            oncomplete="#{rich:component('delete_est_mp')}.hide();"
-	                            reRender="estimation_from:dataList" /></td>
-	                        <td align="center" width="50%"><a4j:commandButton
-	                            value="No"
-	                            onclick="#{rich:component('delete_est_mp')}.hide();"/>
-	                        </td>
-	                    </tr>
-					</table>
-				</h:form>
-			</rich:modalPanel>
-			 <rich:modalPanel id="delete_for_mp" width="300" height="150">
-			
-		        <f:facet name="header">
-		            <h:outputText value="ยืนยันการลบ"></h:outputText>
-		        </f:facet>
-		        <f:facet name="controls">
-		        	<span style="cursor:pointer" onclick="javascript:Richfaces.hideModalPanel('delete_for_mp')">X </span>
-		        </f:facet>
-		        <h:form>
-				    <h:panelGrid columns="3" width="100%" style="align:center">
-				           <h:outputText value="ยืนยันที่จะลบข้อมูลหรือไม่ "></h:outputText>
-				    </h:panelGrid>
-			        <table width="100%">
-			        	<tr>
-			         		<td align="center" width="50%">
-			         			<a4j:commandButton value="Yes"
-	                            ajaxSingle="true" action="#{prorertyFromMng.removeForSale()}"
-	                            oncomplete="#{rich:component('delete_cost_mp')}.hide();"
-	                            reRender="forSale_from:dataList" /></td>
-	                        <td align="center" width="50%"><a4j:commandButton
-	                            value="No"
-	                            onclick="#{rich:component('delete_cost_mp')}.hide();" />
-	                        </td>
-	                    </tr>
-					</table>
-				</h:form>
-			</rich:modalPanel>
+		</div>
+	</h:form>
+	<rich:modalPanel id="estimation_m_p" width="450" height="250">
+		<f:facet name="header">
+			<h:outputText value="ราคาประเมิน"></h:outputText>
+		</f:facet>
+		<f:facet name="controls">
+			<span style="cursor: pointer"
+				onclick="#{rich:component('estimation_m_p')}.hide();">X </span>
+		</f:facet>
+		<h:form>
+			<a4j:outputPanel ajaxRendered="true">
+				<h:panelGrid columns="3" width="100%" style="align:center">
+					<h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
+					<rich:calendar value="#{prorertyFromMng.costEstimate.updateDate}"
+						id="estimation_date" datePattern="dd/MM/yyyy" cellWidth="24px"
+						cellHeight="22px" style="width:200px;">
+					</rich:calendar>
+					<h:outputText />
+					<h:outputText value="ราคาประเมิน : "></h:outputText>
+					<h:inputText id="estimation_rate_price"
+						value="#{prorertyFromMng.costEstimate.costEstimate}"></h:inputText>
+					<h:outputText value="บาท/ตรว. : "></h:outputText>
+				</h:panelGrid>
+			</a4j:outputPanel>
+			<table width="100%">
+				<tr>
+					<td align="right"><a4j:commandButton value="SAVE"
+							action="#{prorertyFromMng.saveCostEstimate}"
+							oncomplete="#{rich:component('estimation_m_p')}.hide();"
+							reRender="estimat_dataList" style="margin:10px 0px 10px 0px;" /></td>
+					<td align="left"><a4j:commandButton value="CANCEL"
+							action="#{prorertyFromMng.cancel}"
+							oncomplete="#{rich:component('estimation_m_p')}.hide();"
+							style="margin:10px 0px 10px 0px;" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</rich:modalPanel>
+	<rich:modalPanel id="expect_m_p" width="450" height="250">
+		<f:facet name="header">
+			<h:outputText value="ราคาที่คาดว่าจะซื้อขาย"></h:outputText>
+		</f:facet>
+		<f:facet name="controls">
+			<span style="cursor: pointer"
+				onclick="#{rich:component('expect_m_p')}.hide();">X </span>
+		</f:facet>
+		<h:form>
+			<a4j:outputPanel ajaxRendered="true">
+				<h:panelGrid columns="3" width="100%" style="align:center">
+					<h:outputText value="ประเมิน ณ วันที่ : "></h:outputText>
+					<rich:calendar value="#{prorertyFromMng.costForSale.updateDate}"
+						id="expect_date" datePattern="dd/MM/yyyy" cellWidth="24px"
+						cellHeight="22px" style="width:200px;">
+					</rich:calendar>
+					<h:outputText />
+					<h:outputText value="ราคาที่คาดว่าจะซื้อขาย : "></h:outputText>
+					<h:inputText id="expect_rate_price"
+						value="#{prorertyFromMng.costForSale.cost4sale}"></h:inputText>
+					<h:outputText value="บาท/ตรว. : "></h:outputText>
+				</h:panelGrid>
+			</a4j:outputPanel>
+			<table width="100%">
+				<tr>
+					<td align="right"><a4j:commandButton value="SAVE"
+							action="#{prorertyFromMng.saveCostForSale}"
+							oncomplete="#{rich:component('expect_m_p')}.hide();"
+							reRender="expect_dataList"
+							style="margin:10px 0px 10px 0px;" /></td>
+					<td align="left"><a4j:commandButton value="CANCEL"
+							action="#{prorertyFromMng.cancel}"
+							oncomplete="#{rich:component('expect_m_p')}.hide();"
+							style="margin:10px 0px 10px 0px;" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</rich:modalPanel>
+
+	<rich:modalPanel id="delete_est_mp" width="300" height="150">
+
+		<f:facet name="header">
+			<h:outputText value="ยืนยันการลบ"></h:outputText>
+		</f:facet>
+		<f:facet name="controls">
+			<span style="cursor: pointer"
+				onclick="javascript:Richfaces.hideModalPanel('delete_est_mp')">X</span>
+		</f:facet>
+		<h:form>
+			<h:panelGrid columns="3" width="100%" style="align:center">
+				<h:outputText value="ยืนยันที่จะลบข้อมูลหรือไม่ "></h:outputText>
+			</h:panelGrid>
+			<table width="100%">
+				<tr>
+					<td align="center" width="50%"><a4j:commandButton value="Yes"
+							ajaxSingle="true"
+							action="#{prorertyFromMng.removeCostEstimate()}"
+							oncomplete="#{rich:component('delete_est_mp')}.hide();"
+							reRender="estimat_dataList" /></td>
+					<td align="center" width="50%"><a4j:commandButton value="No"
+							onclick="#{rich:component('delete_est_mp')}.hide();" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</rich:modalPanel>
+	<rich:modalPanel id="delete_for_mp" width="300" height="150">
+
+		<f:facet name="header">
+			<h:outputText value="ยืนยันการลบ"></h:outputText>
+		</f:facet>
+		<f:facet name="controls">
+			<span style="cursor: pointer"
+				onclick="javascript:Richfaces.hideModalPanel('delete_for_mp')">X
+			</span>
+		</f:facet>
+		<h:form>
+			<h:panelGrid columns="3" width="100%" style="align:center">
+				<h:outputText value="ยืนยันที่จะลบข้อมูลหรือไม่ "></h:outputText>
+			</h:panelGrid>
+			<table width="100%">
+				<tr>
+					<td align="center" width="50%"><a4j:commandButton value="Yes"
+							ajaxSingle="true" action="#{prorertyFromMng.removeForSale()}"
+							oncomplete="#{rich:component('delete_cost_mp')}.hide();"
+							reRender="expect_dataList" /></td>
+					<td align="center" width="50%"><a4j:commandButton value="No"
+							onclick="#{rich:component('delete_cost_mp')}.hide();" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</rich:modalPanel>
+
+	<rich:modalPanel id="add_owner_mp" width="400" height="250">
+
+		<f:facet name="header">
+			<h:outputText value="เพิ่มข้อมูลเจ้าของกรรมสิทธิ์ที่ดิน"></h:outputText>
+		</f:facet>
+		<f:facet name="controls">
+			<span style="cursor: pointer"
+				onclick="javascript:Richfaces.hideModalPanel('add_owner_mp')">X
+			</span>
+		</f:facet>
+		<h:form>
+			<h:panelGrid columns="2" width="100%" style="align:center">
+				<h:outputText value="ชื่อ-สกุล "></h:outputText>
+				<h:inputText value="#{prorertyFromMng.addOwner.ownerName}"></h:inputText>
+				<h:outputText value="เบอร์โทร "></h:outputText>
+				<h:inputText value="#{prorertyFromMng.addOwner.phone}"></h:inputText>
+				<h:outputText value="ที่อยู่ "></h:outputText>
+				<h:inputTextarea id="add_holder_add"
+					value="#{prorertyFromMng.addOwner.address}"
+					rows="5"
+					cols="40" immediate="true"></h:inputTextarea>
+				
+			</h:panelGrid>
+			<table width="100%">
+				<tr>
+					<td align="center" width="50%"><a4j:commandButton value="Save"
+							action="#{prorertyFromMng.addOwner()}"
+							oncomplete="#{rich:component('add_owner_mp')}.hide();"
+							reRender="owner_frm" /></td>
+					<td align="center" width="50%"><a4j:commandButton
+							ajaxSingle="true" action="#{prorertyFromMng.prepreaAddOwner()}"
+							value="Cancel"
+							onclick="#{rich:component('add_owner_mp')}.hide();" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</rich:modalPanel>
 
 </ui:composition>

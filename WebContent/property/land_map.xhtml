@@ -30,47 +30,58 @@
 	        <f:facet name="controls">
                     <span style="cursor:pointer" onclick="#{rich:component('manage_data_panel')}.hide();">X</span>
             </f:facet>
-	        <h:form>	
-				<h:panelGrid id="estimation_panel" columns="1" width="100%" >	
-					
-					<rich:dataTable rows="10" id="dataList" value="#{contrListMng.contList}" var="cont"
-						rowKeyVar="rowId" width="100%" columnsWidth="10%,35%,35%,20%"
-						onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
-		                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-		                   
-						<rich:column style="text-align:center;">
-							<f:facet name="header">
-								<h:outputText value="POINT" />
-							</f:facet>
-							<h:outputText value="-" />
-						</rich:column>
-						<rich:column style="text-align:center;">
-							<f:facet name="header">
-								<h:outputText value="N" />
-							</f:facet>
-							<h:outputText value="-" />
-						</rich:column>
-						<rich:column style="text-align:center;">
-							<f:facet name="header">
-								<h:outputText value="E" />
-							</f:facet>
-							<h:outputText value="-" />
-						</rich:column>
-						<rich:column style="text-algn:center;">
-							<f:facet name="header">
-								<h:outputText value="-" />
-							</f:facet>
-							<h:outputText value="-" />
-						</rich:column>
-						<f:facet name="footer">
-							<rich:datascroller for="dataList" maxPages="5"/>
+	        <h:form>
+	        <a4j:commandButton value="Add" action="#{prorertyFromMng.addPlotRentArea}" reRender="dataList" style="margin:10px 0px 10px 0px;"/>
+	        	<rich:dataTable rows="10" id="dataList" value="#{prorertyFromMng.plotRentCoordinateList}" var="item"
+					rowKeyVar="rowId" width="100%" columnsWidth="10%,35%,35%,20%"
+					onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
+	                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+	                   
+					<rich:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="POINT" />
 						</f:facet>
-					</rich:dataTable>
-				
-				</h:panelGrid>
+						<h:outputText value="#{rowId+1}" />
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="N" />
+						</f:facet>
+						<h:inputText value="#{item.n}" 
+						readonly="#{item.coId == 1}"/>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="E" />
+						</f:facet>
+						<h:inputText value="#{item.e}" 
+						readonly="#{item.coId == 1}" />
+					</rich:column>
+					<rich:column style="text-algn:center;">
+						<f:facet name="header">
+						<h:outputText value="-" />
+							
+						</f:facet>
+						<h:panelGrid columns="3" style="algn:center;">
+				            <a4j:commandLink action="#{prorertyFromMng.allowEditPlotRentCondinate(rowId)}" reRender="dataList">
+				                <h:graphicImage url="/imgs/edit.png" rendered="#{item.coId == 1}"/> 
+				            </a4j:commandLink>
+				            <a4j:commandLink action="#{prorertyFromMng.desibleEditPlotRentCondinate(rowId)}" reRender="dataList">
+				                <h:graphicImage url="/imgs/check_24.png" rendered="#{item.coId == 2 }" reRender="dataList"/>
+				            </a4j:commandLink>
+				            <a4j:commandLink action="#{prorertyFromMng.deletePlotRentCondinate(rowId)}" reRender="dataList" >
+				                <h:graphicImage url="/imgs/delete.png" rendered="#{item.coId != null}" reRender="dataList"/>
+					        </a4j:commandLink>
+					    </h:panelGrid>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:datascroller for="dataList" maxPages="5"/>
+					</f:facet>
+				</rich:dataTable>
+	        
 				<table width="100%">
 		        	<tr>
-		        		<td align="right" width="50%"><a4j:commandButton value="SAVE" action="#" reRender="land_form" style="margin:10px 0px 10px 0px;"/></td>
+		        		<td align="right" width="50%"><a4j:commandButton value="Draw Map" action="#" reRender="land_form" style="margin:10px 0px 10px 0px;"/></td>
 						<td align="left" width="50%"><a4j:commandButton value="CANCEL" onclick="#{rich:component('manage_data_panel')}.hide();" style="margin:10px 0px 10px 0px;"/></td>
 		        	</tr>	
 				</table>
