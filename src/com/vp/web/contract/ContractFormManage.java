@@ -2,7 +2,6 @@ package com.vp.web.contract;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
@@ -11,14 +10,13 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
 import com.vp.entity.Contract;
-import com.vp.entity.ContractPlot;
 import com.vp.service.ContractService;
-import com.vp.web.AbstractBackingBean;
+import com.vp.web.AbstractAttachmentBackingBean;
 
 
 @Name("contrFormMng")
 @Scope(ScopeType.PAGE)
-public class ContractFormManage extends AbstractBackingBean<ContractFormManage> {
+public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFormManage> {
 	
 	private ContractService contractService = (ContractService) getContextBackingBean().getBean("contractService");
 	private Contract contr;
@@ -37,9 +35,11 @@ public class ContractFormManage extends AbstractBackingBean<ContractFormManage> 
 		if(contractId !=null){
 			contr = contractService.getContractByID(contractId);
 			ctPlotList = contractService.getContPlotListByCtID(contractId.toString());
+			super.initAttachment("CONTRACT", contractId, true, true);
 		}else{
 			contr = new Contract();
 			ctPlotList = new ArrayList<Object[]>();
+			super.initAttachment("CONTRACT", null, true, true);
 		}
 	}
 	

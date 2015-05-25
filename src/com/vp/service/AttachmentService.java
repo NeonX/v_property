@@ -12,6 +12,10 @@ public class AttachmentService {
 	public List<Attachment> getAttachList(String group, String type, Integer item_id){
 		return attachmentDao.getAttachList(group, type, item_id);
 	}
+	
+	public List<Object[]> getAttachNativeList(String group, String type, Integer item_id){
+		return attachmentDao.getAttachNativeList(group, type, item_id);
+	}
 
 	public AttachmentDao getAttachmentDao() {
 		return attachmentDao;

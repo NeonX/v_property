@@ -16,7 +16,8 @@
 	            <ui:include src="contract_info.xhtml"/>
 	        </rich:tab>
 	        <rich:tab label="เอกสารแนบ">
-	            Here is tab #2
+	        	<c:set var="attachMng" value="#{contrFormMng}"/>
+	            <ui:include src="attachment.xhtml"/>
 	        </rich:tab>
 	    </rich:tabPanel>
     		

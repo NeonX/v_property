@@ -28,4 +28,22 @@ public class AttachmentDao extends AbstractGenericDao<Attachment, Integer> {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getAttachNativeList(String group, String type, Integer item_id){
+		String sql =" SELECT atm.atm_id,atm.attach_group, atm.attach_type, atm.attach_name, " +
+					"			 atm.attach_desc, atm.file_size, atm.update_date, atm.update_by " +
+					" FROM attachment AS atm " +
+					" WHERE atm.attach_group = '" +group+"' "+
+					" AND	atm.attach_type = '" +type+"' "+
+					" AND atm.item_id =  " +item_id+
+					" ORDER BY atm.attach_order ASC,atm.atm_id DESC";
+
+		Query q = getEntityManager().createNativeQuery(sql);
+		List<Object[]> list = q.getResultList();
+		if (list.size() > 0) {
+			return list;
+		}
+		return null;
+	}
+	
 }

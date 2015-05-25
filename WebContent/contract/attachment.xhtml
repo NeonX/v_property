@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+		<h:form>
+			<rich:tabPanel switchType="client">
+		        <rich:tab label="เอกสาร">
+		        
+		        	<a4j:commandButton id="add_att_btn" value="+New" style="margin:10px 0px 10px 0px;"/>
+		        
+		            <rich:dataTable rows="10" id="dataList" value="#{attachMng.listDoc}" var="item"
+						rowKeyVar="rowId" width="100%" columnsWidth="10%,16%,24%,10%,15%,15%,10%"
+						onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
+		                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+	                   
+						<rich:column style="text-align:center;">
+							<f:facet name="header">
+								<h:outputText value="ลำดับที่" />
+							</f:facet>
+							<h:outputText value="#{rowId+1}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText value="ชื่อเอกสาร" />
+							</f:facet>
+							<h:outputText value="#{item[3]}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText value="คำบรรยาย" />
+							</f:facet>
+							<h:outputText value="#{item[4]}" />
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header">
+								<h:outputText value="ขนาดไฟล์" />
+							</f:facet>
+							<h:outputText value="#{item[5]}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText value="วันที่อัพเดท" />
+							</f:facet>
+							<h:outputText value="#{item[6]}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText value="ผู้อัพเดท" />
+							</f:facet>
+							<h:outputText value="#{item[7]}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header">
+								<h:outputText value="ดำเนินการ" />
+							</f:facet>
+							<h:outputText value="-" />
+						</rich:column>
+						
+						<f:facet name="footer">
+							<rich:datascroller></rich:datascroller>
+						</f:facet>	
+					</rich:dataTable>
+	
+		        </rich:tab>
+		        <rich:tab label="รูปภาพ">
+		            	
+		        </rich:tab>
+		    </rich:tabPanel>
+    		
+		</h:form>
+
+</ui:composition>
