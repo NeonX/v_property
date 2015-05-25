@@ -69,6 +69,10 @@ public class PropertyService {
 		return plotRentDao.getPlotRentBypptId(id);
 	}
 	
+	public PlotRent getPlotRentById(String id) {
+		return plotRentDao.getPlotRentById(id);
+	}
+	
 	public PropertyDao getPropertyDao() {
 		return propertyDao;
 	}

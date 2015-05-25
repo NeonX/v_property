@@ -32,10 +32,15 @@ public class PropertyDao extends AbstractGenericDao<Property, Integer>{
 	
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getPropertyAll() {
-    	String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name,ow.owner_id,ps.pos_id FROM property AS pr " +
+    	String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name,ow.owner_id,ps.pos_id " +
+    			"FROM property AS pr " +
     			"inner join posession AS ps on pr.ppt_id = ps.ppt_id " +
     			"inner join owner AS ow on ow.owner_id = ps.owner_id " +
-    			"where 1=1 ";
+    			"where ps.pos_id = " +
+    							 "(SELECT max(po.pos_id) " +
+    							 "from posession AS po " +
+    							 "INNER JOIN property AS pt " +
+    							 "ON po.ppt_id = pr.ppt_id) ";
 
         Query q = getEntityManager().createNativeQuery(sql);
         List<Object[]> list = q.getResultList();
@@ -50,7 +55,11 @@ public class PropertyDao extends AbstractGenericDao<Property, Integer>{
 		String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name,ow.owner_id,ps.pos_id FROM property AS pr " +
     			"inner join posession AS ps on pr.ppt_id = ps.ppt_id " +
     			"inner join owner AS ow on ow.owner_id = ps.owner_id " +
-    			"where 1=1 ";
+    			"where ps.pos_id = " +
+    							 "(SELECT max(po.pos_id) " +
+    							 "from posession AS po " +
+    							 "INNER JOIN property AS pt " +
+    							 "ON po.ppt_id = pr.ppt_id) ";
 		if(cond != null){
 			sql += cond;
 		}

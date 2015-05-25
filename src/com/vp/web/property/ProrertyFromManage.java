@@ -143,9 +143,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 			
 		}
 		
-		
-		
-		System.out.println("saved.");
+		//System.out.println("saved.");
 	}
 	
 	public void saveCostEstimate(){
@@ -263,6 +261,13 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		
 	}
 	
+	public void editPlotRent(String plotId){
+		plotRent = propertyService.getPlotRentById(plotId);
+		//plotRent.getPrId();
+		prepreaPlotRent();
+		prepreaPlotRentCoordinateList();
+	}
+	
 	public void addPlotRentArea(){
 		Coordinate coordinate = new Coordinate();
 		if(plotRentCoordinateList.size()>0){
@@ -273,7 +278,6 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 				plotRentCoordinateList.add(new Coordinate());
 			}
 		}else{
-			
 			plotRentCoordinateList.add(new Coordinate());
 		}
 		
@@ -283,6 +287,12 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		if(plotRent.getPrId() != null){
 			String conn =" and coType = 'PLOTRENT' and targetId = "+plotRent.getPrId();
 			plotRentCoordinateList = propertyService.getCoordinateDao().getCoordinateByCondition(conn);
+			if(plotRentCoordinateList!=null){
+				for(int index = 0;index<plotRentCoordinateList.size();index++){
+					plotRentCoordinateList.get(index).setIsEdit(1);
+				}
+			}
+			
 		}
 		
 	}
@@ -323,7 +333,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	public void savePlotRentCoordinate(){
 		
 			for(Coordinate coor:plotRentCoordinateList){
-				coor.setTargetId(property.getPptId());
+				coor.setTargetId(plotRent.getPrId());
 				coor.setCoType("PLOTRENT");
 				coor.setUpdateBy(credentials.getUsername());
 				coor.setUpdateDate(new Date());
@@ -335,7 +345,7 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	public void savePropertyCoordinate(){
 		
 		for(Coordinate coor:propertyCoordinateList){
-			coor.setTargetId(plotRent.getPrId());
+			coor.setTargetId(property.getPptId());
 			coor.setCoType("PROPERTY");
 			coor.setUpdateBy(credentials.getUsername());
 			coor.setUpdateDate(new Date());

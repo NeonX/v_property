@@ -29,4 +29,22 @@ public class PlotRentDao extends AbstractGenericDao<PlotRent, Integer> {
 		}
 		return null;
 	 }
+	
+	@SuppressWarnings("unchecked")
+	public PlotRent getPlotRentById(String id) {
+		try{
+			
+			String hql = "FROM PlotRent model WHERE model.prId ="+id;
+				Query q = getEntityManager().createQuery(hql);
+
+				List<PlotRent> list = q.getResultList();
+				if(list != null && list.size() > 0){
+					return list.get(0);
+				}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	 }
 }
