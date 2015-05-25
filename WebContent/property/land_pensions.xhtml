@@ -41,7 +41,7 @@
 			<h:form>
 				<a4j:commandButton value="+ New" ajaxSingle="true"
 					action="#{prorertyFromMng.newPlotRent}"
-					oncomplete="javascript:Richfaces.showModalPanel('manage_panel');"
+					oncomplete="#{rich:component('manage_panel')}.show();"
 					reRender="manage_panel" />
 
 				<h:panelGrid id="plot_panel" columns="1" width="100%">
@@ -90,7 +90,9 @@
 								<a4j:commandLink action="#">
 									<h:graphicImage url="/imgs/view.png" />
 								</a4j:commandLink>
-								<a4j:commandLink action="#">
+								<a4j:commandLink action="#{prorertyFromMng.editPlotRent(item.prId)}"
+									reRender = "plot_model_dataList"
+									oncomplete="#{rich:component('manage_panel')}.show();">
 									<h:graphicImage url="/imgs/edit.png" />
 								</a4j:commandLink>
 								<a4j:commandLink action="#">
