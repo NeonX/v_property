@@ -17,9 +17,8 @@
 				<h:outputText value="ค้นหา" style="font-size:13px;"/>
 				<h:outputText value="ชื่อเจ้าของกรรมสิทธิ์" style="font-size:13px;font-weight:bold;"/>
 				<h:inputText id="search_input" value="#{propertyMng.owner}"/>
-				<!-- <h:inputText id="myinput" value="#{propertyMng.owner}">
-                	<a4j:support event="onkeyup" reRender="dataList" />
-            	</h:inputText> -->
+				<h:outputText value="เลขที่โฉนด" style="font-size:13px;font-weight:bold;"/>
+				<h:inputText id="search_prop_code" value="#{propertyMng.searchPropCode}"/>
 				<a4j:commandButton value="Search" action="#{propertyMng.searchByOwnerName()}" reRender="frm_land_list:dataList"/>
 				<rich:spacer width="10"/>
 				
@@ -38,31 +37,36 @@
 					<f:facet name="header">
 						<h:outputText value="ลำดับที่" />
 					</f:facet>
-					<h:outputText style="text-algn:center;" value="#{rowId+1}" />
+					<h:outputText style='text-algn:center; color:#{propertyMng.searchPropCode != null &amp;&amp; rowId>0 ? "red" : "black"};'
+					 value="#{rowId+1}" />
 				</rich:column>
 				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="เลขที่โฉนด" />
 					</f:facet>
-					<h:outputText value="#{cont[1]}" />
+					<h:outputText style='color:#{propertyMng.searchPropCode != null &amp;&amp; rowId>0 ? "red" : "black"};'
+					value="#{cont[1]}" />
 				</rich:column>
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="ที่ตั้ง" />
 					</f:facet>
-					<h:outputText value="#{cont[2]}" />
+					<h:outputText style='color:#{propertyMng.searchPropCode != null &amp;&amp; rowId>0 ? "red" : "black"};'
+					value="#{cont[2]}" />
 				</rich:column>
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="พื่นที่" />
 					</f:facet>
-					<h:outputText value="#{cont[3]}" />
+					<h:outputText  style='color:#{propertyMng.searchPropCode != null &amp;&amp; rowId>0 ? "red" : "black"};' 
+					value="#{cont[3]}" />
 				</rich:column> 
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="เจ้าของกรรมสิทธิ์"/>
 					</f:facet>
-					<h:outputText value="#{cont[4]}" />
+					<h:outputText style='color:#{propertyMng.searchPropCode != null &amp;&amp; rowId>0 ? "red" : "black"};'
+					value="#{cont[4]}" />
 				</rich:column>
 				<rich:column style="text-align:center; background-color:#DDFFFF;">
 					<f:facet name="header">
