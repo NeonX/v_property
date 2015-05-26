@@ -20,7 +20,10 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
     private PropertyService propertyService = (PropertyService) getContextBackingBean().getBean("propertyService");
 	
     private List<Object[]> dataList;
+    
     private String owner = null;
+    private String searchPropCode = null;
+    
     @Out(scope = ScopeType.SESSION, required = false)
     String pptId;
     @Out(scope = ScopeType.SESSION, required = false)
@@ -38,9 +41,16 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 	}
 	
 	public void searchByOwnerName(){
-		String cond = "AND ow.owner_name LIKE '%%"+owner+"%%'";
-		dataList = propertyService.getPropertyByCond(cond);
-		System.out.println(dataList);
+		if(searchPropCode != null){
+			dataList = propertyService.getPropertyByPropCode(searchPropCode);
+			System.out.println(dataList);
+			
+		}else{
+			String cond = "AND ow.owner_name LIKE '%%"+owner+"%%'";
+			dataList = propertyService.getPropertyByCond(cond);
+			System.out.println(dataList);
+		}
+		
 	}
 	
 	public void doAddEditData(String pid,String oid,String posid){
@@ -88,5 +98,13 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 
 	public void setOwner(String owner) {
 		this.owner = owner;
+	}
+
+	public String getSearchPropCode() {
+		return searchPropCode;
+	}
+
+	public void setSearchPropCode(String searchPropCode) {
+		this.searchPropCode = searchPropCode;
 	}
 }

@@ -61,6 +61,9 @@ public class PropertyService {
 		return propertyDao.getPropertyByCond(cond);
 	}
 	
+	public List<Object[]> getPropertyByPropCode(String propCode) {
+		return propertyDao.getPropertyByPropCode(propCode);
+	}
 	public Property getPropertyBypptId(String id) {
 		return propertyDao.getPropertyBypptId(id);
 	}

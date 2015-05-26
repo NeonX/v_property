@@ -36,8 +36,8 @@ public class PropertyDao extends AbstractGenericDao<Property, Integer>{
     			"FROM property AS pr " +
     			"inner join posession AS ps on pr.ppt_id = ps.ppt_id " +
     			"inner join owner AS ow on ow.owner_id = ps.owner_id " +
-    			"where ps.pos_id = " +
-    							 "(SELECT max(po.pos_id) " +
+    			"where ps.posession_date = " +
+    							 "(SELECT max(po.posession_date) " +
     							 "from posession AS po " +
     							 "INNER JOIN property AS pt " +
     							 "ON po.ppt_id = pr.ppt_id) ";
@@ -51,12 +51,29 @@ public class PropertyDao extends AbstractGenericDao<Property, Integer>{
 	 }
 	
 	@SuppressWarnings("unchecked")
+	public List<Object[]> getPropertyByPropCode(String propCode) {
+		String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name,ow.owner_id,ps.pos_id " +
+				" FROM property AS pr " +
+    			" inner join posession AS ps on pr.ppt_id = ps.ppt_id " +
+    			" inner join owner AS ow on ow.owner_id = ps.owner_id " +
+    			" where 1 = 1 AND pr.prop_code = '"+propCode+"'" +
+    			" order by ps.posession_date DESC ";
+		
+        Query q = getEntityManager().createNativeQuery(sql);
+        List<Object[]> list = q.getResultList();
+        if (list.size() > 0) {
+            return list;
+        }
+        return null;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Object[]> getPropertyByCond(String cond) {
 		String sql ="SELECT pr.ppt_id, pr.prop_code, pr.p_address, pr.prop_desc,ow.owner_name,ow.owner_id,ps.pos_id FROM property AS pr " +
     			"inner join posession AS ps on pr.ppt_id = ps.ppt_id " +
     			"inner join owner AS ow on ow.owner_id = ps.owner_id " +
-    			"where ps.pos_id = " +
-    							 "(SELECT max(po.pos_id) " +
+    			"where ps.posession_date = " +
+    							 "(SELECT max(po.posession_date) " +
     							 "from posession AS po " +
     							 "INNER JOIN property AS pt " +
     							 "ON po.ppt_id = pr.ppt_id) ";

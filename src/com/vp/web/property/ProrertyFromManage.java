@@ -283,6 +283,22 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		
 	}
 	
+	public void addPropertyArea(){
+		Coordinate coordinate = new Coordinate();
+		
+		if(propertyCoordinateList.size()>0){
+			coordinate = propertyCoordinateList.get(propertyCoordinateList.size()-1);
+			if(!coordinate.getE().equals("") || !coordinate.getN().equals("")){
+				
+				propertyCoordinateList.get(propertyCoordinateList.size()-1).setIsEdit(1);
+				propertyCoordinateList.add(new Coordinate());
+			}
+		}else{
+			propertyCoordinateList.add(new Coordinate());
+		}
+		
+	}
+	
 	public void prepreaPlotRentCoordinateList(){
 		if(plotRent.getPrId() != null){
 			String conn =" and coType = 'PLOTRENT' and targetId = "+plotRent.getPrId();
@@ -301,6 +317,11 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		if(property.getPptId() != null){
 			String conn =" and coType = 'PROPERTY' and targetId = "+property.getPptId();
 			propertyCoordinateList = propertyService.getCoordinateDao().getCoordinateByCondition(conn);
+			if(propertyCoordinateList!=null){
+				for(int index = 0;index<propertyCoordinateList.size();index++){
+					propertyCoordinateList.get(index).setIsEdit(1);
+				}
+			}
 		}
 		
 	}
@@ -384,12 +405,26 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 		addOwner = new Owner();
 	}
 	
+	public void allowEditPropertyCondinate(String index){
+		propertyCoordinateList.get(Integer.parseInt(index)).setIsEdit(2);
+	}
+	
+	public void desibleEditPropertyCondinate(String index){
+		propertyCoordinateList.get(Integer.parseInt(index)).setIsEdit(1);
+	}
+	
+	public void deletePropertyCondinate(String index) {
+		propertyCoordinateList.remove(Integer.parseInt(index));
+	}
+	
 	public void allowEditPlotRentCondinate(String index){
 		plotRentCoordinateList.get(Integer.parseInt(index)).setIsEdit(2);
 	}
+	
 	public void desibleEditPlotRentCondinate(String index){
 		plotRentCoordinateList.get(Integer.parseInt(index)).setIsEdit(1);
 	}
+	
 	public void deletePlotRentCondinate(String index) {
 		plotRentCoordinateList.remove(Integer.parseInt(index));
 	}
@@ -594,12 +629,12 @@ public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> 
 	public void setPlotRentCoordinateList(List<Coordinate> plotRentCoordinateList) {
 		this.plotRentCoordinateList = plotRentCoordinateList;
 	}
-
-	public List<Coordinate> getPreportyCoordinateList() {
+	
+	public List<Coordinate> getPropertyCoordinateList() {
 		return propertyCoordinateList;
 	}
 
-	public void setPreportyCoordinateList(List<Coordinate> propertyCoordinateList) {
+	public void setPropertyCoordinateList(List<Coordinate> propertyCoordinateList) {
 		this.propertyCoordinateList = propertyCoordinateList;
 	}
 
