@@ -45,7 +45,7 @@
 			<value>postgres</value>
 
 			<key>hibernate.connection.password</key>
-			<value>password</value>
+			<value>pgpteadmin</value>
 		
 			
 		</persistence:persistence-unit-properties>
