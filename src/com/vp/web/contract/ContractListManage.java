@@ -21,6 +21,7 @@ public class ContractListManage extends AbstractBackingBean<ContractListManage> 
 	private ContractService contractService = (ContractService) getContextBackingBean().getBean("contractService");
 
 	private List<Object[]> contList;
+	private Integer pageRow = 9;
 
     @Out(scope = ScopeType.SESSION, required=false)
     Integer contractId;
@@ -35,6 +36,7 @@ public class ContractListManage extends AbstractBackingBean<ContractListManage> 
 		
 		contList = contractService.getConNativeList(null);
 		
+		contList = super.fillList(contList, pageRow);
 	}
 	
 	public void doAddEditData(Integer idx){
@@ -48,6 +50,14 @@ public class ContractListManage extends AbstractBackingBean<ContractListManage> 
 
 	public void setContList(List<Object[]> contList) {
 		this.contList = contList;
+	}
+
+	public Integer getPageRow() {
+		return pageRow;
+	}
+
+	public void setPageRow(Integer pageRow) {
+		this.pageRow = pageRow;
 	}
 	
 

@@ -8,6 +8,34 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:c="http://java.sun.com/jstl/core">
 	
+
+	<script>
+		function gotoList(){
+			window.location.assign("#{webUtils.getContextApp()}/contract/index.html");
+		} 
+		
+		jQuery(document).ready(
+				  
+		  /* This is the function that will get executed after the DOM is fully loaded */
+		  function () {
+			  jQuery( "#ct_frm\\:ct_bg" ).datepicker({
+				  dateFormat: "dd/mm/yyyy",
+			      changeMonth: true,//this option for allowing user to select month
+			      changeYear: true //this option for allowing user to select from year range
+	
+			  });
+			  
+			  jQuery( "#ct_frm\\:ct_en" ).datepicker({
+				  dateFormat: "dd/mm/yyyy",
+			      changeMonth: true,//this option for allowing user to select month
+			      changeYear: true, //this option for allowing user to select from year range
+			  });
+		  }
+
+		);
+	</script>
+
+   	
 	<h:form id="ct_frm">
 		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
 	  		<legend> 
@@ -41,20 +69,21 @@
     			
     			<h:outputText value="สัญญาเริ่มต้น วันที่ :"/>
     			<h:panelGrid columns="4">
-    				<h:inputText value="#{contrFormMng.contr.contBegin}" style="width:180px;"/>
+    				<h:inputText value="#{contrFormMng.ctDateBegin}" id="ct_bg" style="width:180px;"/>
     				<h:outputText value=" ถึง วันที่ :"/>
-    				<h:inputText value="#{contrFormMng.contr.contEnd}" style="width:180px;"/>
+    				<h:inputText value="#{contrFormMng.ctDateEnd}" id="ct_en" style="width:180px;"/>
     			</h:panelGrid>
     			
     			<h:outputText value="ระยะเวลาเช่า :"/>
-    			<h:inputText value="" readonly="true" style="width:150px; background-color:#D8D8D4;"/>
+    			<h:inputText value="#{contrFormMng.periodYear}" readonly="true" style="width:150px; background-color:#D8D8D4;"/>
 
     		</h:panelGrid>
 		</fieldset>
 		
 		<rich:spacer height="15"/>
 		
-		<a4j:commandButton value="+ New" style="margin:10px 0px 10px 0px;" rendered="#{contrFormMng.contr.ctId ne null}"/>
+		<a4j:commandButton value="+ เพิ่มแปลงเช่า" style="margin:10px 0px 10px 0px;" 
+				styleClass="button blue" rendered="#{contrFormMng.contr.ctId ne null}"/>
 		
 		<rich:dataTable rows="10" id="dataList" value="#{contrFormMng.ctPlotList}" var="contp"
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,16%,24%,10%,10%,10%,10%"
@@ -66,31 +95,31 @@
 				<f:facet name="header">
 					<h:outputText value="ลำดับที่" />
 				</f:facet>
-				<h:outputText value="#{rowId+1}" />
+				<h:outputText value="#{contp[0]}" />
 			</rich:column>
 			<rich:column style="text-align:center;">
 				<f:facet name="header">
 					<h:outputText value="เจ้าของกรรมสิทธิ์" />
 				</f:facet>
-				<h:outputText value="#{contp[0]}" />
+				<h:outputText value="#{contp[1]}" />
 			</rich:column>
 			<rich:column >
 				<f:facet name="header">
-					<h:outputText value="แปลงเลขที่" />
+					<h:outputText value="พื้นที่" />
 				</f:facet>
-				<h:outputText value="#{contp[1]}" />
+				<h:outputText value="#{contp[2]}" />
 			</rich:column>
 			<rich:column >
 				<f:facet name="header">
 					<h:outputText value="อัตราเช่าต่อปี" />
 				</f:facet>
-				<h:outputText value="#{contp[2]}" />
+				<h:outputText value="#{contp[3]}" />
 			</rich:column>
 			<rich:column >
 			<f:facet name="header">
 					<h:outputText value="อัตราภาษีต่อปี" />
 				</f:facet>
-				<h:outputText value="#{contp[3]}" />
+				<h:outputText value="#{contp[4]}" />
 			</rich:column>
 			<rich:column >
 				<f:facet name="header">
@@ -103,52 +132,55 @@
 			</f:facet>		
 		</rich:dataTable>
 			
-		<div align="center" style="width:100%">
+		<div align="center" style="width:100%; padding-top: 10px;">
 			<h:panelGrid columns="3">
-				<a4j:commandButton value="SAVE" action="#{contrFormMng.doSaveContract}" reRender="ct_frm"/>
+				<a4j:commandButton value="บันทึก" action="#{contrFormMng.doSaveContract}" reRender="ct_frm" styleClass="button green"/>
+			
+				<a4j:commandButton value="ยกเลิก" styleClass="button red" onclick="gotoList();"/>
 			</h:panelGrid>
 		</div>
 	</h:form>
         
-        <rich:modalPanel id="modal_save_alert" width="300" height="130">
-            <f:facet name="header">
-                <h:panelGroup>
-                    <h:outputText value="#{messages['label.general.savedata']}"></h:outputText>
-                </h:panelGroup>
-            </f:facet>
-            <f:facet name="controls">
-                <h:panelGroup>
-                    <h:graphicImage title="ปิด" value="/imgs/delete_12px.png" id="close_save"
-                                    style="border:0" styleClass="icon_cursor"
-                                    onclick="#{rich:component('modal_save_alert')}.hide();"/>
-                </h:panelGroup>
-            </f:facet>
-            <h:form id="frm_modal_save_alert">	
-				<table width="100%" >
-					<tr>
-					    <td align="center" width="290px">
-					        <h:outputLabel value="55555" styleClass="#{(true)?'msg_success':'msg_fail'}"/>
-					    </td>
-					</tr>
-					<tr>
-					    <td align="center">
-					        <h:outputLabel  value="&#160;"/>
-					    </td>
-					</tr>
-					<tr>
-						<td align="center">
-							<h:panelGrid columns="4">
-								<a4j:commandButton id="cls_btn_home"  styleClass="btn_cancel"
-							                   onclick="#{rich:component('modal_save_alert')}.hide();" 
-							                   value="กลับหน้าหลัก" />
-								<rich:spacer width="10"/>
-								<a4j:commandButton id="cls_btn_save"  styleClass="btn_cancel" 
-											onclick="#{rich:component('modal_save_alert')}.hide();" 
-											value="ปิดหน้าต่าง" />
-							</h:panelGrid>
-						</td>
-					</tr>	           			
-				</table>
-            </h:form>
-		</rich:modalPanel>
+    <rich:modalPanel id="modal_save_alert" width="300" height="130">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="#{messages['label.general.savedata']}"></h:outputText>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage title="ปิด" value="/imgs/delete_12px.png" id="close_save"
+                                style="border:0" styleClass="icon_cursor"
+                                onclick="#{rich:component('modal_save_alert')}.hide();"/>
+            </h:panelGroup>
+        </f:facet>
+        <h:form id="frm_modal_save_alert">	
+			<table width="100%" >
+				<tr>
+				    <td align="center" width="290px">
+				        <h:outputLabel value="55555" styleClass="#{(true)?'msg_success':'msg_fail'}"/>
+				    </td>
+				</tr>
+				<tr>
+				    <td align="center">
+				        <h:outputLabel  value="&#160;"/>
+				    </td>
+				</tr>
+				<tr>
+					<td align="center">
+						<h:panelGrid columns="4">
+							<a4j:commandButton id="cls_btn_home"  styleClass="btn_cancel"
+						                   onclick="#{rich:component('modal_save_alert')}.hide();" 
+						                   value="กลับหน้าหลัก" />
+							<rich:spacer width="10"/>
+							<a4j:commandButton id="cls_btn_save"  styleClass="btn_cancel" 
+										onclick="#{rich:component('modal_save_alert')}.hide();" 
+										value="ปิดหน้าต่าง" />
+						</h:panelGrid>
+					</td>
+				</tr>	           			
+			</table>
+		</h:form>
+	</rich:modalPanel>
+	
 </ui:composition>

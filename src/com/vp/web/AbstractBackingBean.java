@@ -2,6 +2,7 @@ package com.vp.web;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -77,6 +78,17 @@ public abstract class AbstractBackingBean<T> {
 		Redirect redirect = Redirect.instance();
 		redirect.setViewId(viewId);
 		redirect.execute();
+	}
+	
+	public List<Object[]> fillList(List<Object[]> list, int listSize){
+		if(list.size() < listSize){
+			
+			for (int i = list.size(); i < listSize; i++) {
+				list.add(new Object[7]);
+			}
+		}
+		
+		return list;
 	}
 	
 	protected  boolean saveHistoryUser(String detail,String number,String actionType,String referId,String modelRef){

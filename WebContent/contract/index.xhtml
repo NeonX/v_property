@@ -24,11 +24,12 @@
 			</h:panelGrid>
 			
 
-			<a4j:commandButton value="+ New" action="#{contrListMng.doAddEditData(null)}" style="margin:10px 0px 10px 0px;"/>
+			<a4j:commandButton value="+ เพิ่มสัญญาเช่า" action="#{contrListMng.doAddEditData(null)}" 
+				styleClass="button blue" style="margin:10px 0px 10px 0px;"/>
 			
 
 			
-			<rich:dataTable rows="10" id="dataList" value="#{contrListMng.contList}" var="cont"
+			<rich:dataTable rows="#{contrListMng.pageRow}" id="dataList" value="#{contrListMng.contList}" var="cont"
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,16%,24%,10%,10%,10%,10%"
 				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
@@ -37,7 +38,7 @@
 					<f:facet name="header">
 						<h:outputText value="ลำดับที่" />
 					</f:facet>
-					<h:outputText value="#{rowId+1}" />
+					<h:outputText value="#{cont[7]}" />
 				</rich:column>
 				<rich:column style="text-align:center;">
 					<f:facet name="header">
@@ -79,9 +80,11 @@
 					<f:facet name="header">
 						<h:outputText value="ดำเนินการ" />
 					</f:facet>
-					<a4j:commandLink action="#{contrListMng.doAddEditData(cont[6])}">
+					<a4j:commandLink action="#{contrListMng.doAddEditData(cont[6])}" rendered="#{cont[7] ne null}">
 		                <h:graphicImage url="/imgs/edit.png"/> 
 		            </a4j:commandLink>
+		            
+		            <h:outputText value="-" style="color: white;" rendered="#{cont[7] eq null}"/>
 				</rich:column>
 				
 				<f:facet name="footer">

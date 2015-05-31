@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core">
+	
+	<h:form>	        
+		<a4j:commandButton id="add_img_btn" value="+New" style="margin:10px 0px 10px 0px;"/>
+     
+		<rich:dataGrid value="#{attachMng.listImg}" var="item" columns="4" elements="8" width="800px">
+            <rich:panel bodyClass="pbody">
+                <f:facet name="header">
+                    <h:outputText value="- #{item[3]}" />
+                    
+                </f:facet>
+                <div style="text-align:center;">
+                	<h:graphicImage url="http://res.cloudinary.com/demo/image/upload/t_demo_combined/sample.jpg" rendered="#{item[0]!=null}"/> 
+                	<h:graphicImage url="http://i465.photobucket.com/albums/rr15/alesamples/links/blank.png" rendered="#{item[0]==null}"/> 
+                </div>
+            </rich:panel>
+            <f:facet name="footer">
+                <rich:datascroller></rich:datascroller>
+            </f:facet>
+        </rich:dataGrid>
+	</h:form>
+	
+</ui:composition>

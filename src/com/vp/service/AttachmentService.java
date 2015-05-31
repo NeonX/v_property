@@ -8,6 +8,9 @@ import com.vp.entity.Attachment;
 public class AttachmentService {
 	private AttachmentDao attachmentDao;
 	
+	public Attachment saveAttachment(Attachment attachment){
+		return attachmentDao.merge(attachment);
+	}
 	
 	public List<Attachment> getAttachList(String group, String type, Integer item_id){
 		return attachmentDao.getAttachList(group, type, item_id);

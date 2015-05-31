@@ -1,7 +1,6 @@
 package com.vp.entity;
 
-import java.sql.Timestamp;
-import java.util.Set;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,13 +22,13 @@ public class Contract {
 	private Integer ctId;
 
 	@Column(name="cont_begin")
-	private Timestamp contBegin;
+	private Date contBegin;
 
 	@Column(name="cont_code")
 	private String contCode;
 
 	@Column(name="cont_end")
-	private Timestamp contEnd;
+	private Date contEnd;
 
 	@Column(name="cont_with")
 	private String contWith;
@@ -60,11 +58,11 @@ public class Contract {
 		this.ctId = ctId;
 	}
 
-	public Timestamp getContBegin() {
+	public Date getContBegin() {
 		return this.contBegin;
 	}
 
-	public void setContBegin(Timestamp contBegin) {
+	public void setContBegin(Date contBegin) {
 		this.contBegin = contBegin;
 	}
 
@@ -76,11 +74,11 @@ public class Contract {
 		this.contCode = contCode;
 	}
 
-	public Timestamp getContEnd() {
+	public Date getContEnd() {
 		return this.contEnd;
 	}
 
-	public void setContEnd(Timestamp contEnd) {
+	public void setContEnd(Date contEnd) {
 		this.contEnd = contEnd;
 	}
 

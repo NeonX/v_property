@@ -1,6 +1,7 @@
 package com.vp.entity;
 
-import java.sql.Timestamp;
+import java.io.File;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="attachment")
-@SequenceGenerator(name="attachment_generator", sequenceName="attachment_seq", allocationSize=1)
+@SequenceGenerator(name="attachment_generator", sequenceName="attachment_atm_id_seq", allocationSize=1)
 
 public class Attachment {
 	@Id
@@ -40,7 +41,7 @@ public class Attachment {
 	private String createBy;
 
 	@Column(name="create_date")
-	private Timestamp createDate;
+	private Date createDate;
 
 	@Column(name="file_name_ref")
 	private String fileNameRef;
@@ -55,13 +56,16 @@ public class Attachment {
 	private String updateBy;
 
 	@Column(name="update_date")
-	private Timestamp updateDate;
+	private Date updateDate;
 	
 	@Transient
 	private String url;
 	
 	@Transient
 	private String urlThumb;
+	
+	@Transient
+	private File fileTmp;
 
     public Attachment() {
     }
@@ -114,11 +118,11 @@ public class Attachment {
 		this.createBy = createBy;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -154,11 +158,11 @@ public class Attachment {
 		this.updateBy = updateBy;
 	}
 
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return this.updateDate;
 	}
 
-	public void setUpdateDate(Timestamp updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -184,6 +188,14 @@ public class Attachment {
 
 	public void setUrlThumb(String urlThumb) {
 		this.urlThumb = urlThumb;
+	}
+
+	public void setFileTmp(File fileTmp) {
+		this.fileTmp = fileTmp;
+	}
+
+	public File getFileTmp() {
+		return fileTmp;
 	}
 	
 	

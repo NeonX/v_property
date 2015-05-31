@@ -15,7 +15,7 @@
 	        <rich:tab label="ข้อมูลสัญญาเช่า">
 	            <ui:include src="contract_info.xhtml"/>
 	        </rich:tab>
-	        <rich:tab label="เอกสารแนบ">
+	        <rich:tab label="เอกสารแนบ" disabled="#{contrFormMng.contr.ctId eq null}">
 	        	<c:set var="attachMng" value="#{contrFormMng}"/>
 	            <ui:include src="/common/attachment.xhtml"/>
 	        </rich:tab>

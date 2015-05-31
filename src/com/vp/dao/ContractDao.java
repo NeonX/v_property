@@ -55,7 +55,7 @@ public class ContractDao extends AbstractGenericDao<Contract, Integer>{
 			    	"date_part('year',cont_end)-date_part('year',cont_begin) as yrs, " +
 			    	"to_char(ct.cont_begin,'DD-MM-YYYY') as bg_d, " +
 			    	"to_char(ct.cont_end,'DD-MM-YYYY') as en_d, "+
-			    	"cp.ct_id "+
+			    	"cp.ct_id, row_number() OVER () as rnum "+
 			    	"FROM contract AS ct " +
 			    	"INNER JOIN contract_plot AS cp ON cp.ct_id = ct.ct_id " +
 			    	"INNER JOIN plot_rent AS pr ON cp.pr_id = pr.pr_id " +
