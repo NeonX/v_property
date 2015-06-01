@@ -17,7 +17,8 @@ public class ContractPlotDao extends AbstractGenericDao<ContractPlot, Integer>{
 	public List<Object[]> getContPlotListByCtID(String ct_id){
     	String sql ="SELECT row_number() OVER () as rnum, ow.owner_name," +
     				"		area_str(cast(COALESCE(Sum(pr.plot_size),0) as numeric)), " +
-			    	"		Sum(cp.rental_rate) as rental_rate,Sum(cp.tax_rate) as tax_rate " +
+			    	"		Sum(cp.rental_rate) as rental_rate,Sum(cp.tax_rate) as tax_rate," +
+			    	"		cp.cp_id " +
 			    	"FROM contract_plot AS cp " +
 			    	"INNER JOIN plot_rent AS pr ON cp.pr_id = pr.pr_id " +
 			    	"INNER JOIN property AS pp ON pr.ppt_id = pp.ppt_id " +

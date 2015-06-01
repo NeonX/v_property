@@ -104,7 +104,9 @@
 		
 		<rich:spacer height="15"/>
 		
-		<a4j:commandButton value="+ เพิ่มแปลงเช่า" style="margin:10px 0px 10px 0px;" 
+		<a4j:commandButton value="+ เพิ่มแปลงเช่า" 
+				action="#{contrFormMng.doMngContractPlot(0)}" reRender="frm_pr"
+				style="margin:10px 0px 10px 0px;" oncomplete="#{rich:component('modal_plot_rent')}.show();"
 				styleClass="button blue" rendered="#{contrFormMng.contr.ctId ne null}"/>
 		
 		<rich:dataTable rows="10" id="dataList" value="#{contrFormMng.ctPlotList}" var="contp"
@@ -143,11 +145,14 @@
 				</f:facet>
 				<h:outputText value="#{contp[4]}" />
 			</rich:column>
-			<rich:column >
+			<rich:column style="text-align:center;">
 				<f:facet name="header">
 					<h:outputText value="ดำเนินการ" />
 				</f:facet>
-				<h:outputText value="-" />
+				<a4j:commandLink action="#{contrFormMng.doMngContractPlot(contp[5])}" reRender="frm_pr"
+					oncomplete="#{rich:component('modal_plot_rent')}.show();">
+	                <h:graphicImage url="/imgs/edit.png"/> 
+	            </a4j:commandLink>
 			</rich:column>
 			<f:facet name="footer">
 				<rich:datascroller></rich:datascroller>
@@ -202,6 +207,59 @@
 					</td>
 				</tr>	           			
 			</table>
+		</h:form>
+	</rich:modalPanel>
+	
+	<rich:modalPanel id="modal_plot_rent" width="700" height="400">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="จัดการแปลงเช่า"/>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage title="ปิด" value="/imgs/delete_12px.png" id="close_pr"
+                                style="border:0" styleClass="icon_cursor"
+                                onclick="#{rich:component('modal_plot_rent')}.hide();"/>
+            </h:panelGroup>
+        </f:facet>
+        <h:form id="frm_pr">	
+        	<h:panelGrid columns="3" columnClasses="cols_top, cols_top, cols_top_center">
+				<h:panelGrid columns="2">
+					<h:outputText value="โฉนดเลขที่ :"/>
+	    			<h:inputText value="#{contrFormMng.contPlot.plotRent.property.propCode}" readonly="true" style="width:180px;background-color:#D8D8D4;"/>
+	    			
+	    			<h:outputText value="แปลงเลขที่ :"/>
+	    			<h:inputText value="#{contrFormMng.contPlot.plotRent.prId}" style="width:250px;"/>
+	    			
+	    			<h:outputText value="ขนาดพื้นที่ :"/>
+	    			<h:inputText value="#{contrFormMng.contPlot.plotRent.plotSize}" readonly="true" style="width:180px;background-color:#D8D8D4;"/>
+	    			
+	    			<h:outputText value="เช่าเพื่อประกอบกิจการ :"/>
+	    			<h:inputTextarea value="#{contrFormMng.contPlot.rentFor}" cols="30" rows="3"/>
+					
+					<h:outputText value="อัตราค่าเช่า (บาท/ปี) :"/>
+	    			<h:inputText value="#{contrFormMng.contPlot.rentalRate}" style="width:250px;"/>
+	    			
+	    			<h:outputText value="อัตราภาษี (บาท/ปี) :"/>
+	    			<h:inputText value="#{contrFormMng.contPlot.taxRate}" style="width:250px;"/>
+				
+				</h:panelGrid>	
+				<rich:spacer width="20"/>
+				<h:panelGrid columns="1">
+					<h:graphicImage url="http://www.teedinchiangmai.com/allimages/37248232.jpg" width="270" style="border: 1px solid black;"/>
+					<h:outputText value="ตำแหน่งแปลงเช่าบนแผนที่" style="text-decoration: underline; font-size: 14px;"/>
+				</h:panelGrid>
+			</h:panelGrid>
+			
+			<div style="text-align:center; width:100%; padding-top:10px;">
+
+					<a4j:commandButton id="btn_add_pr" value="บันทึก" styleClass="button green" />
+					<rich:spacer width="10"/>
+					<a4j:commandButton id="btn_cls" value="ยกเลิก" styleClass="button red" 
+								onclick="#{rich:component('modal_plot_rent')}.hide();" />
+
+			</div>
 		</h:form>
 	</rich:modalPanel>
 	

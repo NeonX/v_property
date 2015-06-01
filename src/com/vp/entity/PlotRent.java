@@ -46,10 +46,6 @@ public class PlotRent implements Serializable {
 	@Column(name="update_date")
 	private Date updateDate;
 
-	//bi-directional many-to-one association to ContractPlot
-	@OneToMany(mappedBy="plotRent")
-	private Set<ContractPlot> contractPlots;
-
 	//bi-directional many-to-one association to Property
     @ManyToOne
 	@JoinColumn(name="ppt_id")
@@ -104,14 +100,6 @@ public class PlotRent implements Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public Set<ContractPlot> getContractPlots() {
-		return this.contractPlots;
-	}
-
-	public void setContractPlots(Set<ContractPlot> contractPlots) {
-		this.contractPlots = contractPlots;
 	}
 	
 	public Property getProperty() {

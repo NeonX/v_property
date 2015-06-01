@@ -276,7 +276,8 @@ html.mm-blocking #mm-blocker {
 
 .mm-menu.mm-offcanvas {
   display: none;
-  position: fixed; }
+/*  position: fixed;*/
+}
 .mm-menu.mm-current {
   display: block; }
 

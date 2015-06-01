@@ -15,6 +15,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 
 import com.vp.entity.Contract;
+import com.vp.entity.ContractPlot;
 import com.vp.service.ContractService;
 import com.vp.utils.AppUtils;
 import com.vp.web.AbstractAttachmentBackingBean;
@@ -32,6 +33,8 @@ public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFo
 	private String ctDateBegin = "";
 	private String ctDateEnd = "";
 	private String periodCt = "";
+	
+	private ContractPlot contPlot;
 
     @In(scope = ScopeType.SESSION, required=false)
     Integer contractId;
@@ -90,6 +93,16 @@ public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFo
 		
 		periodCt = y+" ปี "+m+" เดือน "+d+" วัน";
 	}
+	
+	public void doMngContractPlot(Integer ctId){
+		if(ctId != null && ctId != 0){
+			contPlot = contractService.getContractPlotByID(ctId);
+		}else{
+			contPlot = new ContractPlot();
+		}
+		
+	}
+	
 	
 	public void doSaveContract(){
 		staus = 0;
@@ -157,6 +170,14 @@ public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFo
 
 	public Locale getThLocale() {
 		return thLocale;
+	}
+
+	public void setContPlot(ContractPlot contPlot) {
+		this.contPlot = contPlot;
+	}
+
+	public ContractPlot getContPlot() {
+		return contPlot;
 	}
 
 	

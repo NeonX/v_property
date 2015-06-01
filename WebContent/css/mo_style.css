@@ -283,7 +283,7 @@ body.no-toggles .mm-menu li .mm-toggle
 
 /* blue */
 .blue {
-	color: #000;
+	color: #F6F7F9;
 	border: solid 1px #333;
 	background: #007eff;
 	background: -webkit-gradient(linear, left top, left bottom, from(#7fbeff), to(#007eff));
@@ -297,8 +297,16 @@ body.no-toggles .mm-menu li .mm-toggle
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#54a7fc', endColorstr='#007eff');
 }
 .blue:active {
-	color: #666;
+	color: #F6F7F9;
 	background: -webkit-gradient(linear, left top, left bottom, from(#007eff), to(#7fbeff));
 	background: -moz-linear-gradient(top,  #007eff,  #7fbeff);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#007eff', endColorstr='#7fbeff');
 }
+.cols_top {
+	vertical-align: top;
+}
+.cols_top_center {
+	vertical-align: top;
+	text-align: center;
+}
+

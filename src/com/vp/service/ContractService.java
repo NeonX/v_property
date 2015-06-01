@@ -35,6 +35,10 @@ public class ContractService {
 		return contractPlotDao.getListContPlotByCtID(ct_id);
 	}
 	
+	public ContractPlot getContractPlotByID(Integer ctId){
+		return contractPlotDao.findById(ctId);
+	}
+	
 	public void saveContractPlotList(List<ContractPlot> listCP){
 		contractPlotDao.merge(listCP);
 	}

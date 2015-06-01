@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="contractPlot")
-@SequenceGenerator(name="contractPlot_generator", sequenceName="contractPlot_seq", allocationSize=1)
+@Table(name="contract_plot")
+@SequenceGenerator(name="contractPlot_generator", sequenceName="contract_plot_cp_id_seq", allocationSize=1)
 public class ContractPlot implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
