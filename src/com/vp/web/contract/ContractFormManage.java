@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
@@ -24,12 +25,13 @@ import com.vp.web.AbstractAttachmentBackingBean;
 public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFormManage> {
 	
 	private ContractService contractService = (ContractService) getContextBackingBean().getBean("contractService");
+	private Locale thLocale = new Locale("th", "TH");
 	private Contract contr;
 	private List<Object[]> ctPlotList; 
 	private Integer staus = 0;
 	private String ctDateBegin = "";
 	private String ctDateEnd = "";
-	private Integer periodYear = 0;
+	private String periodCt = "";
 
     @In(scope = ScopeType.SESSION, required=false)
     Integer contractId;
@@ -45,12 +47,9 @@ public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFo
 			ctPlotList = contractService.getContPlotListByCtID(contractId.toString());
 			super.initAttachment("CONTRACT", contractId, true, true);
 			
-			ctDateBegin = AppUtils.dateToString(contr.getContBegin(), "d/M/yyyy");
-			ctDateEnd = AppUtils.dateToString(contr.getContEnd(), "d/M/yyyy");
-			DateTime dateFrom = new DateTime(contr.getContBegin());  
-	        DateTime dateTo = new DateTime(contr.getContEnd());
-			Period period = new Period(dateFrom, dateTo);
-			periodYear = period.getYears();
+			ctDateBegin = AppUtils.dateToStringEng(contr.getContBegin());
+			ctDateEnd = AppUtils.dateToStringEng(contr.getContEnd());
+			setPeriodCt(contr.getContBegin(), contr.getContEnd());
 			
 		}else{
 			contr = new Contract();
@@ -62,10 +61,34 @@ public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFo
 			Date today = cal.getTime();
 			cal.add(Calendar.YEAR, 1); // to get previous year add -1
 			Date nextYear = cal.getTime();
-			ctDateBegin = AppUtils.dateToString(today, "d/M/yyyy");
-			ctDateEnd = AppUtils.dateToString(nextYear, "d/M/yyyy");
-			periodYear = 1;
+			ctDateBegin = AppUtils.dateToString(today, "dd/MM/yyyy");
+			ctDateEnd = AppUtils.dateToString(nextYear, "dd/MM/yyyy");
+			
+			setPeriodCt(today, nextYear);
 		}
+	}
+	
+	public void doDateDiff(){
+		Date from = contr.getContBegin();
+		Date to = contr.getContEnd();
+		setPeriodCt(from, to);
+	}
+	
+	public void setPeriodCt(Date bg_date, Date end_date){
+		Calendar cal = Calendar.getInstance();
+        cal.setTime(end_date);
+        cal.add(Calendar.DATE, 1);
+        Date newEnd = cal.getTime();
+        
+		DateTime dateFrom = new DateTime(bg_date);  
+        DateTime dateTo = new DateTime(newEnd);
+        
+        Period period = new Period(dateFrom, dateTo);
+		int y = period.getYears();
+		int m = period.getMonths();
+		int d = (period.getWeeks()*7)+period.getDays();
+		
+		periodCt = y+" ปี "+m+" เดือน "+d+" วัน";
 	}
 	
 	public void doSaveContract(){
@@ -120,12 +143,20 @@ public class ContractFormManage extends AbstractAttachmentBackingBean<ContractFo
 		return ctDateEnd;
 	}
 
-	public void setPeriodYear(Integer periodYear) {
-		this.periodYear = periodYear;
+	public void setPeriodCt(String periodCt) {
+		this.periodCt = periodCt;
 	}
 
-	public Integer getPeriodYear() {
-		return periodYear;
+	public String getPeriodCt() {
+		return periodCt;
+	}
+
+	public void setThLocale(Locale thLocale) {
+		this.thLocale = thLocale;
+	}
+
+	public Locale getThLocale() {
+		return thLocale;
 	}
 
 	

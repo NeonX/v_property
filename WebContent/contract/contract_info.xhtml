@@ -14,9 +14,23 @@
 			window.location.assign("#{webUtils.getContextApp()}/contract/index.html");
 		} 
 		
+		function validateDate(){
+			var v_bg = jQuery( "#ct_frm\\:ct_bgInputDate" ).val();
+			var v_en = jQuery( "#ct_frm\\:ct_enInputDate" ).val();
+			var pattern =/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+			
+			//alert(pattern.test(v_bg));
+			//alert(pattern.test(v_en));
+			if(pattern.test(v_bg) &amp;&amp; pattern.test(v_en)){
+				
+				calDateDiff();
+			}
+		}
+		
+		/*
 		jQuery(document).ready(
 				  
-		  /* This is the function that will get executed after the DOM is fully loaded */
+		  // This is the function that will get executed after the DOM is fully loaded 
 		  function () {
 			  jQuery( "#ct_frm\\:ct_bg" ).datepicker({
 				  dateFormat: "dd/mm/yyyy",
@@ -33,10 +47,13 @@
 		  }
 
 		);
+		//*/
 	</script>
 
    	
 	<h:form id="ct_frm">
+		<a4j:jsFunction name="calDateDiff" action="#{contrFormMng.doDateDiff}" reRender="period_txt"/>
+	
 		<fieldset class="fieldset_layout" style="width: 98%; text-align: left;">
 	  		<legend> 
 	  			<h:outputText value="ผู้ทำสัญญาเช่า" styleClass="fieldset_label" />
@@ -69,13 +86,18 @@
     			
     			<h:outputText value="สัญญาเริ่มต้น วันที่ :"/>
     			<h:panelGrid columns="4">
-    				<h:inputText value="#{contrFormMng.ctDateBegin}" id="ct_bg" style="width:180px;"/>
+    				<rich:calendar value="#{contrFormMng.contr.contBegin}" id="ct_bg" 
+    						locale="#{contrFormMng.thLocale}" datePattern="dd/MM/yyyy" 
+    						cellWidth="24px" cellHeight="22px" style="width:200px" onchanged="validateDate()" />
     				<h:outputText value=" ถึง วันที่ :"/>
-    				<h:inputText value="#{contrFormMng.ctDateEnd}" id="ct_en" style="width:180px;"/>
+    				<rich:calendar value="#{contrFormMng.contr.contEnd}" id="ct_en"  
+    						locale="#{contrFormMng.thLocale}" datePattern="dd/MM/yyyy" 
+    						cellWidth="24px" cellHeight="22px" style="width:200px" onchanged="validateDate()" />
+
     			</h:panelGrid>
     			
     			<h:outputText value="ระยะเวลาเช่า :"/>
-    			<h:inputText value="#{contrFormMng.periodYear}" readonly="true" style="width:150px; background-color:#D8D8D4;"/>
+    			<h:inputText value="#{contrFormMng.periodCt}" id="period_txt" readonly="true" style="width:150px; background-color:#D8D8D4;"/>
 
     		</h:panelGrid>
 		</fieldset>
