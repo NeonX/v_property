@@ -21,8 +21,8 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 	
     private List<Object[]> dataList;
     
-    private String owner = null;
-    private String searchPropCode = null;
+    private String strSearch = null;
+    private Integer searchType = 0;
     
     @Out(scope = ScopeType.SESSION, required = false)
     String pptId;
@@ -40,13 +40,12 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 		dataList = propertyService.getPropertyAll();
 	}
 	
-	public void searchByOwnerName(){
-		if(searchPropCode != null){
-			dataList = propertyService.getPropertyByPropCode(searchPropCode);
+	public void searchData(){
+		if(searchType == 1){
+			dataList = propertyService.getPropertyByPropCode(strSearch);
 			System.out.println(dataList);
-			
 		}else{
-			String cond = "AND ow.owner_name LIKE '%%"+owner+"%%'";
+			String cond = "AND ow.owner_name LIKE '%%"+strSearch+"%%'";
 			dataList = propertyService.getPropertyByCond(cond);
 			System.out.println(dataList);
 		}
@@ -92,19 +91,21 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 		this.dataList = datalist;
 	}
 
-	public String getOwner() {
-		return owner;
+	public Integer getSearchType() {
+		return searchType;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setSearchType(Integer searchType) {
+		this.searchType = searchType;
 	}
 
-	public String getSearchPropCode() {
-		return searchPropCode;
+	public String getStrSearch() {
+		return strSearch;
 	}
 
-	public void setSearchPropCode(String searchPropCode) {
-		this.searchPropCode = searchPropCode;
+	public void setStrSearch(String strSearch) {
+		this.strSearch = strSearch;
 	}
+	
+	
 }
