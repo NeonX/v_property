@@ -23,11 +23,11 @@ import com.vp.entity.Property;
 import com.vp.service.CostEstimateService;
 import com.vp.service.CostForSaleService;
 import com.vp.service.PropertyService;
-import com.vp.web.AbstractBackingBean;
+import com.vp.web.AbstractAttachmentBackingBean;
 
 @Name("prorertyFromMng")
 @Scope(ScopeType.PAGE)
-public class ProrertyFromManage extends AbstractBackingBean<ProrertyFromManage> {
+public class ProrertyFromManage extends AbstractAttachmentBackingBean<ProrertyFromManage> {
 	
 	private PropertyService propertyService = (PropertyService) getContextBackingBean().getBean("propertyService");
 	private CostEstimateService costEstimateService = (CostEstimateService) getContextBackingBean().getBean("costEstimateService");

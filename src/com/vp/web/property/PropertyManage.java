@@ -23,6 +23,7 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
     
     private String strSearch = null;
     private Integer searchType = 0;
+    private Integer pageRow = 9;
     
     @Out(scope = ScopeType.SESSION, required = false)
     String pptId;
@@ -105,6 +106,14 @@ public class PropertyManage extends AbstractBackingBean<PropertyManage>{
 
 	public void setStrSearch(String strSearch) {
 		this.strSearch = strSearch;
+	}
+
+	public Integer getPageRow() {
+		return pageRow;
+	}
+
+	public void setPageRow(Integer pageRow) {
+		this.pageRow = pageRow;
 	}
 	
 	
