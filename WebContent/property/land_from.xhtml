@@ -24,7 +24,9 @@
 			        	<rich:spacer height="10" />
 				</rich:tab>
 				<rich:tab label="เอกสารแนบ" disabled="#{prorertyFromMng.pptId == 0}">
-			        	ยังไม่มา 
+						<c:set var="attachMng" value="#{prorertyFromMng}"/>
+			        	<ui:include src="/common/attachment.xhtml"></ui:include>
+						<rich:spacer height="10" />
 				</rich:tab>
 				<rich:tab label="แผนที่" disabled="#{prorertyFromMng.pptId == 0}">
 						<ui:include src="land_map.xhtml"></ui:include>
