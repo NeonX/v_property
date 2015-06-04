@@ -32,14 +32,13 @@
 			</h:panelGrid>
 			
 
-			<a4j:commandButton value="+ New" action="#{propertyMng.doAddEditData(0,0,0)}" style="margin:10px 0px 10px 0px;"/>
+			<a4j:commandButton value=" + เพิ่มแปลงที่ดิน " action="#{propertyMng.doAddEditData(0,0,0)}" 
+			styleClass="button blue" style="margin:10px 0px 10px 0px;"/>
 			
-			<rich:dataTable rows="10" id="dataList" value="#{propertyMng.dataList}" var="cont"
-				
+			<rich:dataTable rows="#{propertyMng.pageRow}" id="dataList" value="#{propertyMng.dataList}" var="prop"
 				rowKeyVar="rowId" width="100%" columnsWidth="10%,10%,24%,16%,10%,10%,10%,10%"
 				onRowMouseOver="this.style.backgroundColor='#FFFFDD'"
-                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-                   
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
 				<rich:column style="text-align:center;">
 					<f:facet name="header">
 						<h:outputText value="ลำดับที่" />
@@ -52,38 +51,38 @@
 						<h:outputText value="เลขที่โฉนด" />
 					</f:facet>
 					<h:outputText style='color:#{propertyMng.searchType == 1 &amp;&amp; rowId>0 ? "red" : "black"};'
-					value="#{cont[1]}" />
+					value="#{prop[1]}" />
 				</rich:column>
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="ที่ตั้ง" />
 					</f:facet>
 					<h:outputText style='color:#{propertyMng.searchType == 1 &amp;&amp; rowId>0 ? "red" : "black"};'
-					value="#{cont[2]}" />
+					value="#{prop[2]}" />
 				</rich:column>
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="พื่นที่" />
 					</f:facet>
 					<h:outputText  style='color:#{propertyMng.searchType == 1 &amp;&amp; rowId>0 ? "red" : "black"};' 
-					value="#{cont[3]}" />
+					value="#{prop[3]}" />
 				</rich:column> 
 				<rich:column style="text-algn:center;">
 					<f:facet name="header">
 						<h:outputText value="เจ้าของกรรมสิทธิ์"/>
 					</f:facet>
 					<h:outputText style='color:#{propertyMng.searchType == 1 &amp;&amp; rowId>0 ? "red" : "black"};'
-					value="#{cont[4]}" />
+					value="#{prop[4]}" />
 				</rich:column>
 				<rich:column style="text-align:center; background-color:#DDFFFF;">
 					<f:facet name="header">
 						<h:outputText value="ดำเนินการ" />
 					</f:facet>
 					<h:panelGrid columns="3" style="algn:center;">
-						<a4j:commandLink action="#{propertyMng.doAddEditData(cont[0],cont[5],cont[6])}">
+						<a4j:commandLink action="#{propertyMng.doAddEditData(prop[0],prop[5],prop[6])}">
 			                <h:graphicImage url="/imgs/edit.png"/> 
 			            </a4j:commandLink>
-			            <a4j:commandLink reRender="frm_land_list:dataList" action="#{propertyMng.doDeleteData(cont[6],cont[0])}"
+			            <a4j:commandLink reRender="frm_land_list:dataList" action="#{propertyMng.doDeleteData(prop[6],prop[0])}"
 			            oncomplete="javascript:Richfaces.showModalPanel('delete_m_p');">
 			                <h:graphicImage url="/imgs/delete.png"/>
 			            </a4j:commandLink>
